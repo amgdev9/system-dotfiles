@@ -13,3 +13,6 @@ vim.opt.relativenumber = true
 
 -- Disable squiggle lines
 vim.o.fillchars = 'eob: '
+
+-- Disable swap files
+vim.opt.swapfile = false
