@@ -12,4 +12,4 @@ require("config")
 require("nvim_tree")
 require("color-scheme")
 require("status-bar")
-
+require("lsp-lines")
