@@ -17,7 +17,6 @@ require("lazy").setup({
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
     'L3MON4D3/LuaSnip',
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
     'nvim-lualine/lualine.nvim',
