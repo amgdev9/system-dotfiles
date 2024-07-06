@@ -1,6 +1,0 @@
-[shell]
-program = "tmux"
-args = ["new-session", "-A", "-s", "amg"]
-
-[window]
-startup_mode = "Fullscreen"
