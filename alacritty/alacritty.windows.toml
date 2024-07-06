@@ -1,0 +1,6 @@
+[shell]
+program = "wsl"
+args = ["/bin/bash", "-c", "tmux", "new-session", "-A", "-s", "amg"]
+
+[window]
+startup_mode = "Fullscreen"
