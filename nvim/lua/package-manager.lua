@@ -23,6 +23,16 @@ require("lazy").setup({
     'nvim-tree/nvim-web-devicons',
     'nvim-lualine/lualine.nvim',
     {
+        "antosha417/nvim-lsp-file-operations",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-tree.lua",
+        },
+        config = function()
+            require("lsp-file-operations").setup()
+        end,
+    },
+    {
         "rockyzhang24/arctic.nvim",
         branch = "v2",
         dependencies = { "rktjmp/lush.nvim" }
