@@ -4,6 +4,7 @@ vim.opt.termguicolors = true
 
 require("package-manager")
 require("remaps")
+require("git-gutter")
 require("telescope")
 require("tree-sitter")
 require("autocomplete")
