@@ -33,6 +33,11 @@ require("lazy").setup({
         end,
     },
     {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" }
+    },
+    {
         "rockyzhang24/arctic.nvim",
         branch = "v2",
         dependencies = { "rktjmp/lush.nvim" }
