@@ -1,3 +1,6 @@
+local safe_require = require("utils").safe_require
+local flags = safe_require("flags")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -43,5 +46,14 @@ require("lazy").setup({
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"
+    "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
+    {
+        'akinsho/flutter-tools.nvim',
+        lazy = false,
+        enabled = flags ~= nil and flags.flutter,
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+        },
+        config = true,
+    }
 })
