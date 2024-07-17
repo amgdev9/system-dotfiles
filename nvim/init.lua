@@ -7,6 +7,7 @@ vim.opt.termguicolors = true
 
 require("package-manager")
 require("remaps")
+require("git-gutter")
 require("telescope")
 require("tree-sitter")
 require("autocomplete")
@@ -16,6 +17,7 @@ require("nvim_tree")
 require("color-scheme")
 require("status-bar")
 require("diagnostics")
+require("harpoon_ui")
 
 if flags ~= nil and flags.flutter then
     require("flutter")
