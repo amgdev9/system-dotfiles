@@ -41,7 +41,7 @@ end
 
 function FormatCode()
     local filetype = vim.bo.filetype
-    if filetype == 'javascript' or filetype == 'typescript' or filetype == 'javascriptreact' or filetype == 'typescriptreact' then
+    if vim.fn.exists(':EslintFixAll') > 0 and (filetype == 'javascript' or filetype == 'typescript' or filetype == 'javascriptreact' or filetype == 'typescriptreact') then
         vim.cmd('EslintFixAll')
     else
         vim.lsp.buf.format()
