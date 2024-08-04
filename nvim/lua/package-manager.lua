@@ -60,5 +60,9 @@ require("lazy").setup({
             'nvim-lua/plenary.nvim',
         },
         config = true,
+    },
+    {
+        'Canop/nvim-bacon',
+        enabled = flags ~= nil and flags.rust,
     }
 })
