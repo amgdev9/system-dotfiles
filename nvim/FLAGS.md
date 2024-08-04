@@ -2,5 +2,4 @@
 
 Available flags:
 - flutter: To install flutter extensions
-- rust: Rust extensions
 
