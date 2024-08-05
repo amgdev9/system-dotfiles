@@ -3,7 +3,8 @@ program = "wsl"
 args = ["/bin/bash", "-c", "tmux", "new-session", "-A", "-s", "amg"]
 
 [window]
-startup_mode = "Fullscreen"
+startup_mode = "Maximized"
+decorations = "None"
 
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
