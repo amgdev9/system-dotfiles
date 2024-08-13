@@ -25,6 +25,7 @@ require('mason-lspconfig').setup({
                           buildScripts = {
                               enable = true,
                           },
+                          targetDir = true,
                       },
                       procMacro = {
                           enable = true
