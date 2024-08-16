@@ -17,7 +17,6 @@ require("nvim_tree")
 require("color-scheme")
 require("status-bar")
 require("diagnostics")
-require("harpoon_ui")
 
 if flags ~= nil and flags.flutter then
     require("flutter")

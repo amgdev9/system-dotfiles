@@ -1,3 +1,6 @@
+local safe_require = require("utils").safe_require
+local flags = safe_require("flags")
+
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
@@ -50,3 +53,6 @@ require('mason-lspconfig').setup({
   },
 })
 
+if flags ~= nil and flags.godot then
+    require('lspconfig').gdscript.setup({})
+end

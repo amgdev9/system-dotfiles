@@ -2,4 +2,5 @@
 
 Available flags:
 - flutter: To install flutter extensions
+- godot: To setup gdscript LSP
 
