@@ -53,6 +53,6 @@ require('mason-lspconfig').setup({
   },
 })
 
-if flags ~= nil and flags.godot then
+if flags ~= nil and flags.gdscript then
     require('lspconfig').gdscript.setup({})
 end
