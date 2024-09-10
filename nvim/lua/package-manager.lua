@@ -54,5 +54,18 @@ require("lazy").setup({
             'nvim-lua/plenary.nvim',
         },
         config = true,
+    },
+    {
+        "wojciech-kulik/xcodebuild.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "MunifTanjim/nui.nvim",
+            "nvim-tree/nvim-tree.lua",
+            "nvim-treesitter/nvim-treesitter", 
+        },
+        enabled = flags ~= nil and flags.xcode,
+        config = function()
+            require("xcodebuild").setup({})
+        end,
     }
 })

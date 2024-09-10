@@ -20,3 +20,7 @@ require("status-bar")
 if flags ~= nil and flags.flutter then
     require("flutter")
 end
+
+if flags ~= nil and flags.xcode then
+    require("xcode")
+end
