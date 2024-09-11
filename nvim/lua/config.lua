@@ -18,6 +18,7 @@ vim.opt.shiftwidth = 4
 -- Line numbers
 vim.opt.number = true
 vim.opt.relativenumber = false
+vim.o.signcolumn = "yes:1"
 
 -- Disable squiggle lines
 vim.o.fillchars = 'eob: '
