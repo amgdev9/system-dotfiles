@@ -84,3 +84,9 @@ if flags ~= nil and flags.gdscript then
         capabilities = lsp_capabilities,
     })
 end
+
+if flags ~= nil and (flags.swift or flags.xcode) then
+    require('lspconfig').sourcekit.setup({
+        capabilities = lsp_capabilities,
+    })
+end

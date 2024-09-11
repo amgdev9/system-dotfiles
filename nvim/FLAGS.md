@@ -3,9 +3,10 @@
 Available flags:
 - flutter: To install flutter extensions
 - gdscript: To setup gdscript LSP
-- xcode: To setup xcode development
+- swift: To setup swift LSP
+- xcode: To setup xcode development (includes swift flag)
     - brew install xcbeautify
     - brew install xcode-build-server
     - gem install xcodeproj
-    Then run :XcodebuildSetup to choose the Xcode project
+    Then press <leader>X to choose the Xcode project
 
