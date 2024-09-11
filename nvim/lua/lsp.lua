@@ -88,5 +88,6 @@ end
 if flags ~= nil and (flags.swift or flags.xcode) then
     require('lspconfig').sourcekit.setup({
         capabilities = lsp_capabilities,
+        filetypes = { "swift", "objc", "objcpp", "c", "cpp", "h", "hpp", "hh" },
     })
 end
