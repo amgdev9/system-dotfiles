@@ -6,13 +6,13 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 require("package-manager")
+require("config")
 require("remaps")
 require("git-gutter")
 require("telescope")
 require("tree-sitter")
 require("autocomplete")
 require("lsp")
-require("config")
 require("nvim_tree")
 require("color-scheme")
 require("status-bar")
