@@ -6,18 +6,21 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 require("package-manager")
+require("config")
 require("remaps")
 require("git-gutter")
-require("telescope")
 require("tree-sitter")
 require("autocomplete")
 require("lsp")
-require("config")
 require("nvim_tree")
 require("color-scheme")
 require("status-bar")
-require("diagnostics")
+require("finder")
 
 if flags ~= nil and flags.flutter then
     require("flutter")
+end
+
+if flags ~= nil and flags.xcode then
+    require("xcode")
 end

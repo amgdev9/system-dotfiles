@@ -15,10 +15,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+    'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',    
     'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/nvim-cmp',
     'L3MON4D3/LuaSnip',
     'airblade/vim-gitgutter',
     'github/copilot.vim',
@@ -40,8 +41,6 @@ require("lazy").setup({
         branch = "v2",
         dependencies = { "rktjmp/lush.nvim" }
     },
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/nvim-cmp'},
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
         dependencies = { 'nvim-lua/plenary.nvim' }
@@ -55,5 +54,18 @@ require("lazy").setup({
             'nvim-lua/plenary.nvim',
         },
         config = true,
+    },
+    {
+        "wojciech-kulik/xcodebuild.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "MunifTanjim/nui.nvim",
+            "nvim-tree/nvim-tree.lua",
+            "nvim-treesitter/nvim-treesitter", 
+        },
+        enabled = flags ~= nil and flags.xcode,
+        config = function()
+            require("xcodebuild").setup({})
+        end,
     }
 })
