@@ -88,6 +88,21 @@ end
 if flags ~= nil and (flags.swift or flags.xcode) then
     require('lspconfig').sourcekit.setup({
         capabilities = lsp_capabilities,
-        filetypes = { "swift", "objc", "objcpp", "c", "cpp", "h", "hpp", "hh" },
+        filetypes = { "swift", "objc", "objcpp", "c", "cpp" },
+        on_init = function(client, initialization_result)
+            -- HACK: to fix some issues with LSP
+            -- more details: https://github.com/neovim/neovim/issues/19237#issuecomment-2237037154
+            client.offset_encoding = "utf-8"
+
+        end,
+        get_language_id = function(_, ftype)
+            if ftype == "objc" then
+                return "objective-c"
+            end
+            if ftype == "objcpp" then
+                return "objective-cpp"
+            end
+            return ftype
+        end,
     })
 end
