@@ -1,5 +1,5 @@
 -- Clipboard
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard = "unnamedplus"
 
 -- Do not continue comments on new line
 vim.api.nvim_create_autocmd("FileType", {
