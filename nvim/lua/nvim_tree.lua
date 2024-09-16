@@ -50,5 +50,5 @@ end
 
 vim.api.nvim_set_keymap('n', '<leader>e', ':lua ToggleNvimTreeFocus()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>i', ':lua FormatCode()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>c', ':NvimTreeClose<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>q', ':NvimTreeClose<CR>', { noremap = true, silent = true })
 
