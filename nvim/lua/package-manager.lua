@@ -22,10 +22,23 @@ require("lazy").setup({
     'hrsh7th/nvim-cmp',
     'L3MON4D3/LuaSnip',
     'airblade/vim-gitgutter',
-    'github/copilot.vim',
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
     'nvim-lualine/lualine.nvim',
+    "github/copilot.vim",
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "hrsh7th/nvim-cmp", 
+            {
+                "stevearc/dressing.nvim", -- Improves the default Neovim UI
+                opts = {},
+            },
+            "nvim-telescope/telescope.nvim", 
+        }
+    },
     {
         "antosha417/nvim-lsp-file-operations",
         dependencies = {
