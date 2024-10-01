@@ -21,7 +21,7 @@ require("lazy").setup({
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/nvim-cmp',
     'L3MON4D3/LuaSnip',
-    'airblade/vim-gitgutter',
+    { 'echasnovski/mini.diff', version = false },
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
     'nvim-lualine/lualine.nvim',

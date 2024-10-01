@@ -1,1 +1,2 @@
-vim.g.gitgutter_enabled = 0
+local minidiff = require("mini.diff")
+minidiff.setup()
