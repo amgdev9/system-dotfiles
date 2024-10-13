@@ -128,8 +128,7 @@ if flags ~= nil and flags.kotlin then
             root_dir = util.root_pattern(unpack(root_files)),
             init_options = {
                 storagePath = util.root_pattern(unpack(root_files))(vim.fn.expand '%:p:h'),
-            },
-            root_dir = lspconfig.util.root_pattern(".git", "settings.gradle", "build.gradle"),
+            }
         },
     }
 
