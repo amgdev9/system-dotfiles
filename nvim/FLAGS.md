@@ -9,4 +9,4 @@ Available flags:
     - brew install xcode-build-server
     - gem install xcodeproj
     Then press <leader>X to choose the Xcode project
-- kotlin: To setup custom kotlin LSP
+- kotlin: Absolute path to custom kotlin LSP server

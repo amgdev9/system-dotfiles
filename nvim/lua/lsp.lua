@@ -107,7 +107,7 @@ if flags ~= nil and (flags.swift or flags.xcode) then
     })
 end
 
-if flags ~= nil and flags.kotlin then 
+if flags ~= nil and flags.kotlin ~= nil then 
     local lspconfig = require("lspconfig")
     local util = require 'lspconfig.util'
     local configs = require("lspconfig.configs")
@@ -122,8 +122,7 @@ if flags ~= nil and flags.kotlin then
 
     configs.kotlin_lsp = {
         default_config = {
-            -- Remember to build the project and unpack the distribution zip first
-            cmd = { "/home/amg/Projects/kotlin-language-server/build/distributions/kotlin-language-server-1.0.0/bin/kotlin-language-server" }, 
+            cmd = { flags.kotlin }, 
             filetypes = { "kotlin" }, 
             root_dir = util.root_pattern(unpack(root_files)),
             init_options = {
