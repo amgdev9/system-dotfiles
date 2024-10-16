@@ -1,5 +1,5 @@
 [shell]
-program = "tmux"
+program = "/opt/homebrew/bin/tmux"
 args = ["new-session", "-A", "-s", "amg"]
 
 [window]
@@ -8,4 +8,3 @@ startup_mode = "Fullscreen"
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 size = 18
-
