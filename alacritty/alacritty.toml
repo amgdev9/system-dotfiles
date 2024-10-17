@@ -8,3 +8,6 @@ startup_mode = "Fullscreen"
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 
+[keyboard]
+bindings = [{ key = "V", mods = "Control", action = "Paste" }]
+
