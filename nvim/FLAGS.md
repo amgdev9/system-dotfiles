@@ -10,3 +10,4 @@ Available flags:
     - gem install xcodeproj
     Then press <leader>X to choose the Xcode project
 - kotlin: Absolute path to custom kotlin LSP server
+- vue: To setup vue LSP

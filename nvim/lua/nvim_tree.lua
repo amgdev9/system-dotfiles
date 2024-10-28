@@ -18,6 +18,16 @@ require("nvim-tree").setup({
             }
         }
     },
+    filesystem_watchers = { -- This avoids hang on quit
+        enable = true,
+        debounce_delay = 50,
+        ignore_dirs = {
+            "/.ccls-cache",
+            "/build",
+            "/node_modules",
+            "/target",
+        },
+    },
     update_focused_file = {
         enable = true,
     }
