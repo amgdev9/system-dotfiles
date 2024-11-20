@@ -27,19 +27,6 @@ require("lazy").setup({
     'nvim-lualine/lualine.nvim',
     "github/copilot.vim",
     {
-        "olimorris/codecompanion.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "hrsh7th/nvim-cmp", 
-            {
-                "stevearc/dressing.nvim", -- Improves the default Neovim UI
-                opts = {},
-            },
-            "nvim-telescope/telescope.nvim", 
-        }
-    },
-    {
         "antosha417/nvim-lsp-file-operations",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -59,16 +46,15 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
-    {
+    flutter_tools = flags ~= nil and flags.flutter and {
         'akinsho/flutter-tools.nvim',
         lazy = false,
-        enabled = flags ~= nil and flags.flutter,
         dependencies = {
             'nvim-lua/plenary.nvim',
         },
         config = true,
-    },
-    {
+    } or nil,
+    xcodebuild = flags ~= nil and flags.xcode and {
         "wojciech-kulik/xcodebuild.nvim",
         dependencies = {
             "nvim-telescope/telescope.nvim",
@@ -76,9 +62,8 @@ require("lazy").setup({
             "nvim-tree/nvim-tree.lua",
             "nvim-treesitter/nvim-treesitter", 
         },
-        enabled = flags ~= nil and flags.xcode,
         config = function()
             require("xcodebuild").setup({})
         end,
-    }
+    } or nil
 })
