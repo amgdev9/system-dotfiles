@@ -129,3 +129,31 @@ if flags ~= nil and (flags.swift or flags.xcode) then
     })
 end
 
+if flags ~= nil and flags.kotlin ~= nil then 
+    local lspconfig = require("lspconfig")
+    local util = require 'lspconfig.util'
+    local configs = require("lspconfig.configs")
+    local root_files = {
+        'settings.gradle', -- Gradle (multi-project)
+        'settings.gradle.kts', -- Gradle (multi-project)
+        'build.xml', -- Ant
+        'pom.xml', -- Maven
+        'build.gradle', -- Gradle
+        'build.gradle.kts', -- Gradle
+    }
+
+    configs.kotlin_lsp = {
+        default_config = {
+            cmd = { flags.kotlin }, 
+            filetypes = { "kotlin" }, 
+            root_dir = util.root_pattern(unpack(root_files)),
+            init_options = {
+                storagePath = util.root_pattern(unpack(root_files))(vim.fn.expand '%:p:h'),
+            }
+        },
+    }
+
+    lspconfig.kotlin_lsp.setup({
+        capabilities = lsp_capabilities,
+    })
+end
