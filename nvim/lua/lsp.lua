@@ -134,10 +134,6 @@ if flags ~= nil and flags.kotlin ~= nil then
     local util = require 'lspconfig.util'
     local configs = require("lspconfig.configs")
     local root_files = {
-        'settings.gradle', -- Gradle (multi-project)
-        'settings.gradle.kts', -- Gradle (multi-project)
-        'build.xml', -- Ant
-        'pom.xml', -- Maven
         'build.gradle', -- Gradle
         'build.gradle.kts', -- Gradle
     }
