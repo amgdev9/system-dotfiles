@@ -1,0 +1,13 @@
+<application>
+  <component name="Trusted.Paths">
+    <option name="TRUSTED_PROJECT_PATHS">
+      <map>
+        <entry key="$USER_HOME$/Projects/ComposeApp" value="true" />
+        <entry key="$USER_HOME$/Projects/ComposeTest" value="true" />
+        <entry key="$USER_HOME$/Projects/JavaApp" value="true" />
+        <entry key="$USER_HOME$/Projects/MyApplication" value="true" />
+        <entry key="$USER_HOME$/Projects/dnd-sheet/android" value="true" />
+      </map>
+    </option>
+  </component>
+</application>

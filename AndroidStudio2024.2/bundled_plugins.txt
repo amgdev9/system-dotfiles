@@ -1,0 +1,52 @@
+JUnit|Test Tools
+
+com.android.tools.design|Android
+
+com.android.tools.idea.smali|Android
+
+com.intellij.cidr.base|null
+
+com.intellij.cidr.debugger|null
+
+com.intellij.cidr.lang|Languages
+
+com.intellij.configurationScript|null
+
+com.intellij.dev|null
+
+com.intellij.gradle|Build Tools
+
+com.intellij.java.ide|null
+
+com.intellij.java|Languages
+
+com.intellij.platform.images|null
+
+com.intellij.properties|Languages
+
+com.intellij|null
+
+intellij.webp|null
+
+org.intellij.groovy|Languages
+
+org.intellij.intelliLang|Other Tools
+
+org.jetbrains.android|Android
+
+org.jetbrains.idea.maven.model|null
+
+org.jetbrains.idea.maven.server.api|null
+
+org.jetbrains.idea.reposearch|null
+
+org.jetbrains.java.decompiler|Other Tools
+
+org.jetbrains.kotlin|Languages
+
+org.jetbrains.plugins.emojipicker|Other Tools
+
+org.jetbrains.plugins.gradle|null
+
+org.toml.lang|Languages
+

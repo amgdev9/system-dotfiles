@@ -1,0 +1,12 @@
+<application>
+  <component name="UISettings">
+    <option name="DIFFERENTIATE_PROJECTS" value="false" />
+    <option name="EDITOR_TAB_LIMIT" value="1" />
+    <option name="EDITOR_TAB_PLACEMENT" value="0" />
+    <option name="HIDE_TOOL_STRIPES" value="true" />
+    <option name="RECENT_FILES_LIMIT" value="0" />
+    <option name="SHOW_NAVIGATION_BAR_MEMBERS" value="false" />
+    <option name="smoothScrolling" value="false" />
+    <option name="UI_DENSITY" value="COMPACT" />
+  </component>
+</application>

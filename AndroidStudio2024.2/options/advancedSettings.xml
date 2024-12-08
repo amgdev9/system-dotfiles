@@ -1,0 +1,16 @@
+<application>
+  <component name="AdvancedSettings">
+    <option name="settings">
+      <map>
+        <entry key="enable.combined.diff.for.codereview" value="false" />
+        <entry key="ide.max.recent.projects" value="0" />
+        <entry key="ide.open.readme.md.on.startup" value="false" />
+        <entry key="localHistory.daysToKeep" value="0" />
+        <entry key="process.console.output.to.find.class.names" value="false" />
+        <entry key="search.everywhere.recent.at.top" value="false" />
+        <entry key="vcs.commit.tool.window" value="false" />
+        <entry key="vcs.process.ignored" value="false" />
+      </map>
+    </option>
+  </component>
+</application>

@@ -1,0 +1,26 @@
+<application>
+  <component name="RecentProjectsManager">
+    <option name="additionalInfo">
+      <map>
+        <entry key="$USER_HOME$/Projects/ComposeTest">
+          <value>
+            <RecentProjectMetaInfo frameTitle="My Application – MainActivity.kt [My_Application.app.main]" opened="true" projectWorkspaceId="2pq4kC6bCCTwgCb7d9a7J5sQocA">
+              <option name="activationTimestamp" value="1733574620798" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="build" value="AI-242.23339.11.2421.12550806" />
+              <option name="buildTimestamp" value="1729790820000" />
+              <option name="colorInfo">
+                <RecentProjectColorInfo associatedIndex="2" />
+              </option>
+              <frame x="0" y="0" width="1366" height="768" extendedState="6" fullScreen="true" />
+              <option name="productionCode" value="AI" />
+              <option name="projectOpenTimestamp" value="1733574895100" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastOpenedProject" value="$USER_HOME$/Projects/ComposeTest" />
+    <option name="lastProjectLocation" value="$USER_HOME$/Projects" />
+  </component>
+</application>
