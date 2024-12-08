@@ -81,7 +81,7 @@
     "FileTemplates.SelectedTemplate": "HTML File",
     "IdeErrorsDialog.LAST_OK_ACTION": "REPORT_AND_CLEAR_ALL",
     "InstalledPluginsSearchHistory": "compose\nsynchro\ndist\nv\nvim",
-    "LAST_CALCULATED_COLOR_INDEX_KEY": "3",
+    "LAST_CALCULATED_COLOR_INDEX_KEY": "4",
     "MarketplacePluginsSearchHistory": "ideavim\ncompose\nvim\nv",
     "NextRunPlatformUpdateBuild": "AI-242.23339.11.2421.12700392",
     "NextRunPlatformUpdateVersion": "Ladybug | 2024.2.1 Patch 3",
@@ -112,7 +112,7 @@
     "input.method.disabler.muted": "true",
     "installed.kotlin.plugin.version": "242.23339.11.2421.12550806-AS",
     "kotlin.lastUpdateCheck": "1733686193182",
-    "last_opened_file_path": "/home/amg/Projects/dnd-sheet",
+    "last_opened_file_path": "/home/amg/Projects/MyApplication",
     "migrated.non.roamable.values.from.general.settings": "true",
     "previousColorScheme": "_@user_Dark",
     "registry.to.advanced.settings.migration.build": "AI-242.23339.11.2421.12550806",
@@ -121,6 +121,7 @@
   },
   "keyToStringList": {
     "file.chooser.recent.files": [
+      "/home/amg/Projects/MyApplication",
       "/home/amg/Projects/dnd-sheet",
       "/home/amg/SDK/android"
     ],
