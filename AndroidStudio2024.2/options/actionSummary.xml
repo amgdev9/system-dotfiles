@@ -34,7 +34,7 @@
       <i c="2" l="1733572300682" />
     </e>
     <e n="EditorBackSpace">
-      <i c="317" l="1733574935289" />
+      <i c="323" l="1733686048621" />
     </e>
     <e n="EditorBreadcrumbsHideBoth">
       <i c="1" l="1733565895196" />
@@ -43,13 +43,13 @@
       <i c="8" l="1733574936721" />
     </e>
     <e n="EditorDown">
-      <i c="86" l="1733574943556" />
+      <i c="91" l="1733686025557" />
     </e>
     <e n="EditorEnter">
-      <i c="34" l="1733574927294" />
+      <i c="36" l="1733686268172" />
     </e>
     <e n="EditorEscape">
-      <i c="52" l="1733574943677" />
+      <i c="53" l="1733686191965" />
     </e>
     <e n="EditorGutterToggleGlobalIndentLines">
       <i c="1" l="1733565935476" />
@@ -67,7 +67,7 @@
       <i c="1" l="1733563574361" />
     </e>
     <e n="EditorUp">
-      <i c="54" l="1733574940824" />
+      <i c="55" l="1733686024858" />
     </e>
     <e n="FileChooser.NewFolder">
       <i c="1" l="1721141967654" />
@@ -103,13 +103,16 @@
       <i c="1" l="1733565663755" />
     </e>
     <e n="ShowSettings">
-      <i c="32" l="1733574016797" />
+      <i c="36" l="1733686203738" />
+    </e>
+    <e n="ToggleBookmark">
+      <i c="3" l="1733685986231" />
     </e>
     <e n="ToggleCompactMode">
       <i c="1" l="1733565480461" />
     </e>
     <e n="ToggleFullScreen">
-      <i c="1" l="1733565610176" />
+      <i c="2" l="1733686078195" />
     </e>
     <e n="TogglePresentationAssistantAction">
       <i c="2" l="1733565601262" />
@@ -127,7 +130,7 @@
       <i c="1" l="1733565323646" />
     </e>
     <e n="WelcomeScreen.CreateNewProject">
-      <i c="9" l="1733480393838" />
+      <i c="10" l="1733685863781" />
     </e>
     <e n="WelcomeScreen.RunAndroidSdkManager">
       <i c="4" l="1730234461802" />
@@ -163,7 +166,7 @@
       <i c="7" l="1733573728631" />
     </e>
     <e n="com.intellij.openapi.actionSystem.AnActionWrapper">
-      <i c="3075" l="1733574947058" />
+      <i c="3119" l="1733686297249" />
     </e>
     <e n="com.intellij.openapi.editor.impl.EditorMarkupModelImpl$TrafficLightAction">
       <i c="1" l="1733566801296" />
@@ -184,7 +187,7 @@
       <i c="31" l="1733563884116" />
     </e>
     <e n="com.intellij.openapi.wm.impl.customFrameDecorations.header.toolbar.MainMenuButton$ShowMenuAction">
-      <i c="24" l="1733565603426" />
+      <i c="27" l="1733686069179" />
     </e>
     <e n="com.intellij.openapi.wm.impl.status.widget.StatusBarWidgetsActionGroup$ToggleWidgetAction">
       <i c="11" l="1733565372424" />
@@ -196,7 +199,7 @@
       <i c="2" l="1733563638544" />
     </e>
     <e n="com.intellij.toolWindow.ToolWindowHeader$HideAction">
-      <i c="19" l="1733573708513" />
+      <i c="20" l="1733685891781" />
     </e>
     <e n="com.intellij.toolWindow.ToolWindowHeader$ShowOptionsAction">
       <i c="4" l="1733566805493" />

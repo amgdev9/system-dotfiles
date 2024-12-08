@@ -101,6 +101,11 @@
       <file name="$USER_HOME$/Projects/ComposeTest/app/src/main/AndroidManifest.xml" timestamp="1733571069766">
         <mark key="&quot;" line="15" column="26" />
       </file>
+      <file name="$USER_HOME$/Projects/MyApplication/app/src/main/java/com/amg/myapplication/MainActivity.kt" timestamp="1733686192552">
+        <mark key="[" line="46" column="0" />
+        <mark key="]" line="46" column="0" />
+        <mark key="." line="46" column="0" />
+      </file>
       <file name="$USER_HOME$/.ideavimrc" timestamp="1733571069828">
         <mark key="&quot;" line="11" column="9" />
         <mark key="[" line="9" column="15" />
@@ -116,7 +121,7 @@
   <component name="VimRegisterSettings">
     <registers>
       <register name="&quot;" type="LINE_WISE">
-        <text encoding="base64">ICAgU2NhZmZvbGQoKSAK</text>
+        <text encoding="base64">ICAgIAo=</text>
       </register>
       <register name="+" type="LINE_WISE">
         <text encoding="base64">ICAgU2NhZmZvbGQoKSAK</text>
@@ -128,31 +133,31 @@
         <text encoding="base64">ICAgIFRleHQo</text>
       </register>
       <register name="1" type="LINE_WISE">
-        <text encoding="base64">ICAgU2NhZmZvbGQoKSAK</text>
+        <text encoding="base64">ICAgIAo=</text>
       </register>
       <register name="2" type="LINE_WISE">
-        <text encoding="base64">ICAgIFJvdwo=</text>
+        <text encoding="base64">ICAgU2NhZmZvbGQoKSAK</text>
       </register>
       <register name="3" type="LINE_WISE">
-        <text encoding="base64">ICAgIExhenlDb2x1bW4oKQo=</text>
+        <text encoding="base64">ICAgIFJvdwo=</text>
       </register>
       <register name="4" type="LINE_WISE">
         <text encoding="base64">ICAgIExhenlDb2x1bW4oKQo=</text>
       </register>
       <register name="5" type="LINE_WISE">
+        <text encoding="base64">ICAgIExhenlDb2x1bW4oKQo=</text>
+      </register>
+      <register name="6" type="LINE_WISE">
         <text encoding="base64">ICAgCg==</text>
       </register>
-      <register name="6" type="CHARACTER_WISE">
+      <register name="7" type="CHARACTER_WISE">
         <text encoding="base64">ICAgIAog</text>
       </register>
-      <register name="7" type="LINE_WISE">
+      <register name="8" type="LINE_WISE">
         <text encoding="base64">ICAgIAo=</text>
       </register>
-      <register name="8" type="LINE_WISE">
-        <text encoding="base64">ICAgIFRleHQK</text>
-      </register>
       <register name="9" type="LINE_WISE">
-        <text encoding="base64">ICAgIExhenlDb2x1bW4oKQo=</text>
+        <text encoding="base64">ICAgIFRleHQK</text>
       </register>
       <register name=":" type="CHARACTER_WISE">
         <text encoding="base64">d2E=</text>

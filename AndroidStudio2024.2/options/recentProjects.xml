@@ -2,25 +2,25 @@
   <component name="RecentProjectsManager">
     <option name="additionalInfo">
       <map>
-        <entry key="$USER_HOME$/Projects/ComposeTest">
+        <entry key="$USER_HOME$/Projects/MyApplication">
           <value>
-            <RecentProjectMetaInfo frameTitle="My Application – MainActivity.kt [My_Application.app.main]" opened="true" projectWorkspaceId="2pq4kC6bCCTwgCb7d9a7J5sQocA">
-              <option name="activationTimestamp" value="1733574620798" />
+            <RecentProjectMetaInfo frameTitle="My Application – ~/Projects/MyApplication/app/src/main/java/com/amg/myapplication/MainActivity.kt" opened="true" projectWorkspaceId="2pwnBrtnRdfjm9SW1kQuLN5rzAM">
+              <option name="activationTimestamp" value="1733686289714" />
               <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
               <option name="build" value="AI-242.23339.11.2421.12550806" />
               <option name="buildTimestamp" value="1729790820000" />
               <option name="colorInfo">
-                <RecentProjectColorInfo associatedIndex="2" />
+                <RecentProjectColorInfo associatedIndex="3" />
               </option>
-              <frame x="0" y="0" width="1366" height="768" extendedState="6" fullScreen="true" />
+              <frame x="260" y="20" width="1400" height="996" extendedState="6" fullScreen="true" />
               <option name="productionCode" value="AI" />
-              <option name="projectOpenTimestamp" value="1733574895100" />
+              <option name="projectOpenTimestamp" value="1733685872722" />
             </RecentProjectMetaInfo>
           </value>
         </entry>
       </map>
     </option>
-    <option name="lastOpenedProject" value="$USER_HOME$/Projects/ComposeTest" />
+    <option name="lastOpenedProject" value="$USER_HOME$/Projects/MyApplication" />
     <option name="lastProjectLocation" value="$USER_HOME$/Projects" />
   </component>
 </application>
