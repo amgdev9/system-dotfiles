@@ -49,6 +49,9 @@
       <jump line="0" column="0" filename="$USER_HOME$/Projects/ComposeTest/app/src/main/java/com/amg/myapplication/MainActivity.kt" protocol="file" />
       <jump line="0" column="0" filename="$APPLICATION_CONFIG_DIR$/idea.properties" protocol="file" />
     </project>
+    <project id="My Application-11fce324">
+      <jump line="33" column="4" filename="$USER_HOME$/Projects/MyApplication/app/src/main/java/com/amg/myapplication/MainActivity.kt" protocol="file" />
+    </project>
   </component>
   <component name="VimMarksSettings">
     <globalmarks />

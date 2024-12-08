@@ -103,7 +103,7 @@
       <i c="1" l="1733565663755" />
     </e>
     <e n="ShowSettings">
-      <i c="36" l="1733686203738" />
+      <i c="38" l="1733686676127" />
     </e>
     <e n="ToggleBookmark">
       <i c="3" l="1733685986231" />
@@ -166,7 +166,7 @@
       <i c="7" l="1733573728631" />
     </e>
     <e n="com.intellij.openapi.actionSystem.AnActionWrapper">
-      <i c="3119" l="1733686297249" />
+      <i c="3166" l="1733686626097" />
     </e>
     <e n="com.intellij.openapi.editor.impl.EditorMarkupModelImpl$TrafficLightAction">
       <i c="1" l="1733566801296" />
@@ -186,6 +186,9 @@
     <e n="com.intellij.openapi.wm.impl.SquareAnActionButton">
       <i c="31" l="1733563884116" />
     </e>
+    <e n="com.intellij.openapi.wm.impl.ToolWindowImpl$RemoveStripeButtonAction">
+      <i c="1" l="1733686556051" />
+    </e>
     <e n="com.intellij.openapi.wm.impl.customFrameDecorations.header.toolbar.MainMenuButton$ShowMenuAction">
       <i c="27" l="1733686069179" />
     </e>
@@ -195,6 +198,9 @@
     <e n="com.intellij.openapi.wm.impl.welcomeScreen.WelcomeScreenComponentFactory$4">
       <i c="1" l="1730233632250" />
     </e>
+    <e n="com.intellij.profile.codeInspection.ui.SingleInspectionProfilePanel$3">
+      <i c="1" l="1733686684984" />
+    </e>
     <e n="com.intellij.toolWindow.ShowMoreToolWindowsAction">
       <i c="2" l="1733563638544" />
     </e>
@@ -202,7 +208,7 @@
       <i c="20" l="1733685891781" />
     </e>
     <e n="com.intellij.toolWindow.ToolWindowHeader$ShowOptionsAction">
-      <i c="4" l="1733566805493" />
+      <i c="5" l="1733686552429" />
     </e>
     <e n="com.intellij.ui.NotificationBalloonActionProvider$3">
       <i c="1" l="1733564985029" />

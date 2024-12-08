@@ -3,9 +3,7 @@
     <entry key="Default">
       <profile-state>
         <selected-state>
-          <State>
-            <id>XML</id>
-          </State>
+          <State />
         </selected-state>
       </profile-state>
     </entry>
@@ -109,7 +107,7 @@
     "fontSizeToResetConsole": "13.0",
     "fontSizeToResetEditor": "13.0",
     "ide.memory.adjusted": "true",
-    "ideavim.statistics.timestamp": "1733566157780",
+    "ideavim.statistics.timestamp": "1733686598570",
     "ignore.essential-highlighting.mode": "true",
     "input.method.disabler.muted": "true",
     "installed.kotlin.plugin.version": "242.23339.11.2421.12550806-AS",
