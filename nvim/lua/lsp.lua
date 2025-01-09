@@ -76,29 +76,90 @@ require('mason-lspconfig').setup({
             }
         })
       end,
-      vtsls = function()
-          require("lspconfig").vtsls.setup {
-              filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-              settings = {
-                  vtsls = { tsserver = { globalPlugins = {} } },
+      ["volar"] = function()
+          require("lspconfig").volar.setup({
+              filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+              root_dir = require("lspconfig").util.root_pattern(
+              "vite.config.js",
+              "vite.config.ts",
+              "vue.config.js",
+              "vue.config.ts",
+              "nuxt.config.js",
+              "nuxt.config.ts"
+              ),
+              init_options = {
+                  vue = {
+                      hybridMode = false,
+                  },
               },
-              before_init = function(params, config)
-                  if flags == nil or not flags.vue then
-                      return
-                  end
-                  local vuePluginConfig = {
-                      name = "@vue/typescript-plugin",
-                      location = require("mason-registry").get_package("vue-language-server"):get_install_path()
-                      .. "/node_modules/@vue/language-server",
-                      languages = { "vue" },
-                      configNamespace = "typescript",
-                      enableForWorkspaceTypeScriptVersions = true,
-                  }
-                  table.insert(config.settings.vtsls.tsserver.globalPlugins, vuePluginConfig)
-              end,
-          }
+              capabilities = lsp_capabilities,
+              settings = {
+                  typescript = {
+                      inlayHints = {
+                          enumMemberValues = {
+                              enabled = true,
+                          },
+                          functionLikeReturnTypes = {
+                              enabled = true,
+                          },
+                          propertyDeclarationTypes = {
+                              enabled = true,
+                          },
+                          parameterTypes = {
+                              enabled = true,
+                              suppressWhenArgumentMatchesName = true,
+                          },
+                          variableTypes = {
+                              enabled = true,
+                          },
+                      },
+                  },
+              },
+          })
       end,
-  },
+      ["ts_ls"] = function()
+          if flags ~= nil and not flags.vue then
+              require("lspconfig").ts_ls.setup({
+                  capabilities = lsp_capabilities,
+              })
+              return
+          end
+
+          -- Volar (vue ls) integration with ts_ls
+          local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+          local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+
+          require("lspconfig").ts_ls.setup({
+             init_options = {
+                  plugins = {
+                      {
+                          name = "@vue/typescript-plugin",
+                          location = volar_path,
+                          languages = { "vue" },
+                      },
+                  },
+              },
+              capabilities = lsp_capabilities,
+              settings = {
+                  typescript = {
+                      tsserver = {
+                          useSyntaxServer = false,
+                      },
+                      inlayHints = {
+                          includeInlayParameterNameHints = "all",
+                          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                          includeInlayFunctionParameterTypeHints = true,
+                          includeInlayVariableTypeHints = true,
+                          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                          includeInlayPropertyDeclarationTypeHints = true,
+                          includeInlayFunctionLikeReturnTypeHints = true,
+                          includeInlayEnumMemberValueHints = true,
+                      },
+                  },
+              },
+          })
+      end
+    },
 })
 
 if flags ~= nil and flags.gdscript then
