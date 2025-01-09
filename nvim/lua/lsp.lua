@@ -119,9 +119,10 @@ require('mason-lspconfig').setup({
       end,
       ["ts_ls"] = function()
           if flags ~= nil and not flags.vue then
-              return {
+              require("lspconfig").ts_ls.setup({
                   capabilities = lsp_capabilities,
-              }
+              })
+              return
           end
 
           -- Volar (vue ls) integration with ts_ls
