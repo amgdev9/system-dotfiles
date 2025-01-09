@@ -192,21 +192,13 @@ end
 
 if flags ~= nil and flags.kotlin ~= nil then 
     local lspconfig = require("lspconfig")
-    local util = require 'lspconfig.util'
     local configs = require("lspconfig.configs")
-    local root_files = {
-        'build.gradle', -- Gradle
-        'build.gradle.kts', -- Gradle
-    }
 
     configs.kotlin_lsp = {
         default_config = {
             cmd = { flags.kotlin }, 
             filetypes = { "kotlin" }, 
-            root_dir = util.root_pattern(unpack(root_files)),
-            init_options = {
-                storagePath = util.root_pattern(unpack(root_files))(vim.fn.expand '%:p:h'),
-            }
+            root_dir = vim.loop.cwd,
         },
     }
 
