@@ -78,13 +78,7 @@ require('mason-lspconfig').setup({
       end,
       ["volar"] = function()
           require("lspconfig").volar.setup({
-              -- NOTE: Uncomment to enable volar in file types other than vue.
-              -- (Similar to Takeover Mode)
-
               filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
-
-              -- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
-
               root_dir = require("lspconfig").util.root_pattern(
               "vite.config.js",
               "vite.config.ts",
@@ -124,14 +118,18 @@ require('mason-lspconfig').setup({
           })
       end,
       ["ts_ls"] = function()
+          if flags ~= nil and not flags.vue then
+              return {
+                  capabilities = lsp_capabilities,
+              }
+          end
+
+          -- Volar (vue ls) integration with ts_ls
           local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
           local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
 
           require("lspconfig").ts_ls.setup({
-              -- NOTE: To enable hybridMode, change HybrideMode to true above and uncomment the following filetypes block.
-
-              -- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-              init_options = {
+             init_options = {
                   plugins = {
                       {
                           name = "@vue/typescript-plugin",
