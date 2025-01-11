@@ -53,6 +53,17 @@ function FormatCode()
     local filetype = vim.bo.filetype
     if vim.fn.exists(':EslintFixAll') > 0 and (filetype == 'javascript' or filetype == 'typescript' or filetype == 'javascriptreact' or filetype == 'typescriptreact') then
         vim.cmd('EslintFixAll')
+    elseif (filetype == 'kotlin') then
+        local current_buffer = vim.api.nvim_get_current_buf()
+        local buf_content = vim.api.nvim_buf_get_lines(current_buffer, 0, -1, false)
+
+        local content = table.concat(buf_content, "\n")
+
+        local handle = io.popen("echo '" .. content .. "' | ktfmt --kotlinlang-style -")
+        local formatted_content = handle:read("*all")
+        handle:close()
+
+        vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, vim.fn.split(formatted_content, "\n"))
     else
         vim.lsp.buf.format({ async = true })
     end
