@@ -6,6 +6,7 @@ cmp.setup({
     completeopt = 'menu,menuone,noinsert'
   },
   sources = {
+    {name = 'ctags'},
     {name = 'nvim_lsp'},
   },
   mapping = {

@@ -26,3 +26,5 @@ vim.o.fillchars = 'eob: '
 -- Disable swap files
 vim.opt.swapfile = false
 
+-- Ctags
+vim.opt.tags = vim.opt.tags + { './.git/tags;'}

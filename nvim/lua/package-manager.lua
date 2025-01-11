@@ -20,6 +20,7 @@ require("lazy").setup({
     'williamboman/mason-lspconfig.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/nvim-cmp',
+    'delphinus/cmp-ctags',
     'L3MON4D3/LuaSnip',
     { 'echasnovski/mini.diff', version = false },
     'nvim-tree/nvim-tree.lua',
