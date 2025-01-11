@@ -10,13 +10,23 @@ vim.keymap.set('', '<leader>l', ":lua vim.diagnostic.open_float()<CR>")
 vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>') 
 
+local ctags_exists = vim.fn.filereadable('.git/tags') == 1
+
+if ctags_exists then
+    vim.keymap.set('n', 'gd', function()
+        local word = vim.fn.expand('<cword>')
+        vim.cmd('tag ' .. word)
+    end)
+else
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
     local opts = {buffer = event.buf, silent = true, noremap = true}
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
     vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
     vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
     vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
@@ -176,7 +186,6 @@ if flags ~= nil and (flags.swift or flags.xcode) then
             -- HACK: to fix some issues with LSP
             -- more details: https://github.com/neovim/neovim/issues/19237#issuecomment-2237037154
             client.offset_encoding = "utf-8"
-
         end,
         get_language_id = function(_, ftype)
             if ftype == "objc" then
