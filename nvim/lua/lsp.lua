@@ -190,19 +190,3 @@ if flags ~= nil and (flags.swift or flags.xcode) then
     })
 end
 
-if flags ~= nil and flags.kotlin ~= nil then 
-    local lspconfig = require("lspconfig")
-    local configs = require("lspconfig.configs")
-
-    configs.kotlin_lsp = {
-        default_config = {
-            cmd = { flags.kotlin }, 
-            filetypes = { "kotlin" }, 
-            root_dir = vim.loop.cwd,
-        },
-    }
-
-    lspconfig.kotlin_lsp.setup({
-        capabilities = lsp_capabilities,
-    })
-end
