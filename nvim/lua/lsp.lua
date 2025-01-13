@@ -1,5 +1,6 @@
 local safe_require = require("utils").safe_require
 local flags = safe_require("flags")
+local telescope_builtin = require("telescope.builtin")
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -18,7 +19,7 @@ if ctags_exists then
         vim.cmd('tag ' .. word)
     end)
 else
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions)
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -30,7 +31,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
     vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
     vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, opts)
     vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
     vim.keymap.set('n', '<leader>.', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
