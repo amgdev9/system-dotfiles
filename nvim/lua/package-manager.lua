@@ -1,6 +1,3 @@
-local safe_require = require("utils").safe_require
-local flags = safe_require("flags")
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -47,24 +44,4 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
-    flutter_tools = flags ~= nil and flags.flutter and {
-        'akinsho/flutter-tools.nvim',
-        lazy = false,
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-        },
-        config = true,
-    } or nil,
-    xcodebuild = flags ~= nil and flags.xcode and {
-        "wojciech-kulik/xcodebuild.nvim",
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            "MunifTanjim/nui.nvim",
-            "nvim-tree/nvim-tree.lua",
-            "nvim-treesitter/nvim-treesitter", 
-        },
-        config = function()
-            require("xcodebuild").setup({})
-        end,
-    } or nil
 })
