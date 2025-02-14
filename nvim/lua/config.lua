@@ -9,6 +9,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- NO shada file
+vim.opt.shada = ""
+
 -- Tabs
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
