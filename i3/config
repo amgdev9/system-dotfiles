@@ -45,6 +45,9 @@ set $refresh_i3status killall -SIGUSR1 i3status
 bindsym $mod+plus exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
 bindsym $mod+minus exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 
+# Screenshot using imagemagick import tool
+bindsym $mod+Print exec --no-startup-id import ~/capture.png
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
