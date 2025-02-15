@@ -125,3 +125,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec --no-startup-id polybar main
+
+# Keyring (50MB RAM, 4MB VRAM)
+exec --no-startup-id keepassxc
