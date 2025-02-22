@@ -3,96 +3,45 @@
 {
 	"layer": "top",
 	"position": "bottom",
+    "margin": "0",
+    "spacing": 0,
 
 	"modules-left": [
 		"sway/workspaces",
 		"custom/right-arrow-dark"
 	],
-	"modules-center": [
-		"custom/left-arrow-dark",
-		"clock#1",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
-		"clock#2",
-		"custom/right-arrow-dark",
-		"custom/right-arrow-light",
-		"clock#3",
-		"custom/right-arrow-dark"
-	],
 	"modules-right": [
-		"custom/left-arrow-dark",
 		"pulseaudio",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
 		"battery",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
-		"tray"
+		"network#wifi",
+		"network#ethernet",
+		"clock"
 	],
-
-	"custom/left-arrow-dark": {
-		"format": "",
-		"tooltip": false
-	},
-	"custom/left-arrow-light": {
-		"format": "",
-		"tooltip": false
-	},
-	"custom/right-arrow-dark": {
-		"format": "",
-		"tooltip": false
-	},
-	"custom/right-arrow-light": {
-		"format": "",
-		"tooltip": false
-	},
 	"sway/workspaces": {
 		"disable-scroll": true,
 		"format": "{name}"
 	},
-	"clock#1": {
-		"format": "{:%a}",
+	"clock": {
+		"format": "{:%H:%M} ",
 		"tooltip": false
 	},
-	"clock#2": {
-		"format": "{:%H:%M}",
-		"tooltip": false
-	},
-	"clock#3": {
-		"format": "{:%m-%d}",
-		"tooltip": false
-	},
+    "network#wifi": {
+        "interface": "wlp*",
+        "format-wifi": "{essid}",
+        "format-disconnected": "-"
+    },
+    "network#ethernet": {
+        "interface": "enp*",
+        "format-ethernet": "{ifname}",
+        "format-disconnected": "-"
+    },
 	"pulseaudio": {
-		"format": "{icon} {volume:2}%",
-		"format-bluetooth": "{icon}  {volume}%",
-		"format-muted": "MUTE",
-		"format-icons": {
-			"headphones": "",
-			"default": [
-				"",
-				""
-			]
-		},
-		"scroll-step": 5,
-		"on-click": "pamixer -t",
-		"on-click-right": "pavucontrol"
+		"format": "VOL {volume:2}%",
+		"format-muted": "MUTE"
 	},
 	"battery": {
-		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{icon} {capacity}%",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		]
-	},
-	"tray": {
-		"icon-size": 20
+		"format-discharging": "BAT {capacity}%",
+        "format-charging": "CHR {capacity}%",
+        "interval": 5
 	}
 }
