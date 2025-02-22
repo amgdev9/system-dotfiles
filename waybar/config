@@ -11,7 +11,7 @@
 		"custom/right-arrow-dark"
 	],
 	"modules-right": [
-		"pulseaudio",
+		"wireplumber",
 		"battery",
 		"network#wifi",
 		"network#ethernet",
@@ -35,7 +35,7 @@
         "format-ethernet": "{ifname}",
         "format-disconnected": "-"
     },
-	"pulseaudio": {
+	"wireplumber": {
 		"format": "VOL {volume:2}%",
 		"format-muted": "MUTE"
 	},

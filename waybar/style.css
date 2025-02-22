@@ -12,7 +12,7 @@ window#waybar {
 #clock,
 #network.wifi,
 #network.ethernet,
-#pulseaudio,
+#wireplumber,
 #battery {
 	background: #1a1a1a;
 }
@@ -24,7 +24,7 @@ window#waybar {
 	color: #268bd2;
 }
 
-#pulseaudio {
+#wireplumber {
 	color: #268bd2;
 }
 #battery {
