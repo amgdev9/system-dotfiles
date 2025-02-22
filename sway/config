@@ -24,12 +24,11 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 output "*" bg /home/amg/wallpaper.jpg fill
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym $mod+plus exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym $mod+minus exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym $mod+plus exec wpctl set-volume @DEFAULT_AUDIO_SYNC@ 0.05+
+bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SYNC@ 0.05-
 
 # Screenshot using imagemagick import tool
-bindsym $mod+Print exec --no-startup-id import ~/capture.png
+bindsym $mod+Print exec grim ~/capture.png
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -40,7 +39,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+f exec --no-startup-id rofi -show drun -theme android_notification 
+bindsym $mod+f exec wofi --show drun
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -125,5 +124,5 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec --no-startup-id polybar main
+exec --no-startup-id waybar
 
