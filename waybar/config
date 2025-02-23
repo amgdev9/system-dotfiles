@@ -3,8 +3,6 @@
 {
 	"layer": "top",
 	"position": "bottom",
-    "margin": "0",
-    "spacing": 0,
 
 	"modules-left": [
 		"sway/workspaces",
@@ -22,26 +20,26 @@
 		"format": "{name}"
 	},
 	"clock": {
-		"format": "{:%H:%M} ",
+		"format": " {:%H:%M} ",
 		"tooltip": false
 	},
     "network#wifi": {
         "interface": "wlp*",
-        "format-wifi": "{essid}",
-        "format-disconnected": "-"
+        "format-wifi": " {essid} ",
+        "format-disconnected": " - "
     },
     "network#ethernet": {
         "interface": "enp*",
-        "format-ethernet": "{ifname}",
-        "format-disconnected": "-"
+        "format-ethernet": " {ifname} ",
+        "format-disconnected": " - "
     },
 	"wireplumber": {
-		"format": "VOL {volume:2}%",
+		"format": " VOL {volume:2}% ",
 		"format-muted": "MUTE"
 	},
 	"battery": {
-		"format-discharging": "BAT {capacity}%",
-        "format-charging": "CHR {capacity}%",
+		"format-discharging": " BAT {capacity}% ",
+        "format-charging": " CHR {capacity}% ",
         "interval": 5
 	}
 }

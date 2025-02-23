@@ -1,6 +1,6 @@
 * {
     font-family: Hack Nerd Font Mono;
-	font-size: 14px;
+	font-size: 10pt;
 }
 
 window#waybar {
@@ -19,6 +19,9 @@ window#waybar {
 
 #workspaces button {
 	color: #fdf6e3;
+    padding: 0;
+    padding-right: 2pt;
+    padding-left: 2pt;
 }
 #workspaces button.focused {
 	color: #268bd2;
