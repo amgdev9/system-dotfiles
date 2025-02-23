@@ -49,6 +49,12 @@ require('mason-lspconfig').setup({
               capabilities = lsp_capabilities,
           })
       end,
+      zls = function()
+          vim.g.zig_fmt_autosave = 0
+          require('lspconfig').zls.setup({
+              capabilities = lsp_capabilities,
+          })
+      end,
       rust_analyzer = function()
           require('lspconfig').rust_analyzer.setup({
               capabilities = lsp_capabilities,
