@@ -125,3 +125,4 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec --no-startup-id polybar main
+exec /usr/lib/pam_kwallet_init
