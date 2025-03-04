@@ -1,4 +1,4 @@
-[shell]
+[terminal.shell]
 program = "/opt/homebrew/bin/tmux"
 args = ["new-session", "-A", "-s", "amg"]
 
