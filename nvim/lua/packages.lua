@@ -28,9 +28,6 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-tree.lua",
         },
-        config = function()
-            require("lsp-file-operations").setup()
-        end,
     },
     {
         "rockyzhang24/arctic.nvim",

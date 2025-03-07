@@ -110,3 +110,4 @@ for i = 1, #enabled_lsp do
     end
 end
 
+require("lsp-file-operations").setup()
