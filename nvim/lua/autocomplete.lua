@@ -10,6 +10,8 @@ if ctags_file_exists then
     table.insert(sources, {name = 'ctags'})
 end
 
+require("cmp_nvim_lsp").setup()
+
 cmp.setup({
   preselect = 'item',
   completion = {
