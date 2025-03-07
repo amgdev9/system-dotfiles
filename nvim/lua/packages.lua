@@ -13,8 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',    
-    'williamboman/mason-lspconfig.nvim',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/nvim-cmp',
     'delphinus/cmp-ctags',

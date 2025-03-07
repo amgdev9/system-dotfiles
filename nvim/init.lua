@@ -2,7 +2,7 @@ vim.g.loaded_netrw = 1	-- Using nvim-tree as a file explorer
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
-require("package-manager")
+require("packages")
 require("config")
 require("remaps")
 require("git-gutter")
