@@ -1,5 +1,3 @@
-local safe_require = require("utils").safe_require
-local flags = safe_require("flags")
 local telescope_builtin = require("telescope.builtin")
 
 vim.diagnostic.config({
