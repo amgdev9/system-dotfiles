@@ -1,6 +1,5 @@
 Plugins to audit:
 - LuaSnip
-- nvim-cmp
 - nvim-lualine
 - nvim-tree.lua
 - nvim-treesitter
