@@ -3,46 +3,46 @@
 	url = https://github.com/neovim/nvim-lspconfig
 [submodule "nvim/plugins/cmp-nvim-lsp"]
 	path = nvim/plugins/cmp-nvim-lsp
-	url = https://github.com/hrsh7th/cmp-nvim-lsp
+	url = https://github.com/amgdev9/cmp-nvim-lsp
 [submodule "nvim/plugins/cmp-ctags"]
 	path = nvim/plugins/cmp-ctags
-	url = https://github.com/delphinus/cmp-ctags
+	url = https://github.com/amgdev9/cmp-ctags
 [submodule "nvim/plugins/LuaSnip"]
 	path = nvim/plugins/LuaSnip
-	url = https://github.com/L3MON4D3/LuaSnip
+	url = https://github.com/amgdev9/LuaSnip
 [submodule "nvim/plugins/mini.diff"]
 	path = nvim/plugins/mini.diff
-	url = https://github.com/echasnovski/mini.diff
+	url = https://github.com/amgdev9/mini.diff
 [submodule "nvim/plugins/nvim-tree.lua"]
 	path = nvim/plugins/nvim-tree.lua
-	url = https://github.com/nvim-tree/nvim-tree.lua
+	url = https://github.com/amgdev9/nvim-tree.lua
 [submodule "nvim/plugins/nvim-web-devicons"]
 	path = nvim/plugins/nvim-web-devicons
-	url = https://github.com/nvim-tree/nvim-web-devicons
+	url = https://github.com/amgdev9/nvim-web-devicons
 [submodule "nvim/plugins/nvim-lualine"]
 	path = nvim/plugins/nvim-lualine
-	url = https://github.com/nvim-lualine/lualine.nvim
+	url = https://github.com/amgdev9/lualine.nvim
 [submodule "nvim/plugins/copilot.vim"]
 	path = nvim/plugins/copilot.vim
 	url = https://github.com/github/copilot.vim
 [submodule "nvim/plugins/nvim-lsp-file-operations"]
 	path = nvim/plugins/nvim-lsp-file-operations
-	url = https://github.com/antosha417/nvim-lsp-file-operations
+	url = https://github.com/amgdev9/nvim-lsp-file-operations
 [submodule "nvim/plugins/plenary.nvim"]
 	path = nvim/plugins/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim
+	url = https://github.com/amgdev9/plenary.nvim
 [submodule "nvim/plugins/arctic.nvim"]
 	path = nvim/plugins/arctic.nvim
-	url = https://github.com/rockyzhang24/arctic.nvim
+	url = https://github.com/amgdev9/arctic.nvim
 [submodule "nvim/plugins/lush.nvim"]
 	path = nvim/plugins/lush.nvim
-	url = https://github.com/rktjmp/lush.nvim
+	url = https://github.com/amgdev9/lush.nvim
 [submodule "nvim/plugins/telescope.nvim"]
 	path = nvim/plugins/telescope.nvim
-	url = https://github.com/nvim-telescope/telescope.nvim
+	url = https://github.com/amgdev9/telescope.nvim
 [submodule "nvim/plugins/nvim-treesitter"]
 	path = nvim/plugins/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter
+	url = https://github.com/amgdev9/nvim-treesitter
 [submodule "nvim/plugins/nvim-cmp"]
 	path = nvim/plugins/nvim-cmp
 	url = https://github.com/amgdev9/nvim-cmp
