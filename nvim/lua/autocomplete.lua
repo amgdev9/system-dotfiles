@@ -1,6 +1,6 @@
 local cmp = require('cmp')
 
-local ctags_file_exists = vim.fn.filereadable('.git/tags') == 1
+local ctags_file_exists = vim.fn.filereadable('./tags') == 1
 
 local sources = {
     {name = 'nvim_lsp'},
