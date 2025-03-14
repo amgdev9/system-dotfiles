@@ -3,5 +3,4 @@ Plugins to audit:
   nvim-tree.lua
   nvim-treesitter
   plenary.nvim
-  telescope.nvim
  
