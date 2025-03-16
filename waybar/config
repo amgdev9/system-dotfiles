@@ -5,7 +5,7 @@
 	"position": "bottom",
 
 	"modules-left": [
-		"sway/workspaces",
+		"hyprland/workspaces",
 		"custom/right-arrow-dark"
 	],
 	"modules-right": [
@@ -15,8 +15,7 @@
 		"network#ethernet",
 		"clock"
 	],
-	"sway/workspaces": {
-		"disable-scroll": true,
+	"hyprland/workspaces": {
 		"format": "{name}"
 	},
 	"clock": {

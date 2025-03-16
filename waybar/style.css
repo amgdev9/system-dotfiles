@@ -23,7 +23,7 @@ window#waybar {
     padding-right: 2pt;
     padding-left: 2pt;
 }
-#workspaces button.focused {
+#workspaces button.active {
 	color: #268bd2;
 }
 
