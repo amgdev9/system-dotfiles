@@ -43,3 +43,6 @@
 [submodule "nvim/plugins/nvim-cmp"]
 	path = nvim/plugins/nvim-cmp
 	url = https://github.com/amgdev9/nvim-cmp
+[submodule "tmux/dracula"]
+	path = tmux/dracula
+	url = https://github.com/amgdev9/tmux-dracula
