@@ -40,7 +40,7 @@ bwrap \
     --bind /home/amg/.cache/bwrap-steam /home/amg/.cache \
     --ro-bind /home/amg/.Xauthority /home/amg/.Xauthority \
     --bind /home/amg/.local/share/bwrap-steam /home/amg/.local/share \
-    --bind /home/amg/.steam /home/amg/.steam \
+    --bind /home/amg/.steam-bwrap /home/amg/.steam \
     --symlink /home/amg/.steam/sdk32/steam /home/amg/.steampath \
     --symlink /home/amg/.steam/steam.pid /home/amg/.steampid \
     --bind /home/amg/.config/r2modman /home/amg/.config/r2modman \
