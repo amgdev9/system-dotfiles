@@ -1,14 +1,8 @@
 local cmp = require('cmp')
 
-local ctags_file_exists = vim.fn.filereadable('./tags') == 1
-
 local sources = {
     {name = 'nvim_lsp'},
 }
-
-if ctags_file_exists then
-    table.insert(sources, {name = 'ctags'})
-end
 
 require("cmp_nvim_lsp").setup()
 
