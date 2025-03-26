@@ -4,9 +4,6 @@
 [submodule "nvim/plugins/cmp-nvim-lsp"]
 	path = nvim/plugins/cmp-nvim-lsp
 	url = https://github.com/amgdev9/cmp-nvim-lsp
-[submodule "nvim/plugins/cmp-ctags"]
-	path = nvim/plugins/cmp-ctags
-	url = https://github.com/amgdev9/cmp-ctags
 [submodule "nvim/plugins/mini.diff"]
 	path = nvim/plugins/mini.diff
 	url = https://github.com/amgdev9/mini.diff
