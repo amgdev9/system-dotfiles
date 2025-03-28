@@ -1,4 +1,5 @@
 local telescope_builtin = require("telescope.builtin")
+local autocomplete = require("autocomplete-new")
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -21,8 +22,8 @@ else
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
   callback = function(event)
+    autocomplete.setup(event)
     local opts = {buffer = event.buf, silent = true, noremap = true}
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
