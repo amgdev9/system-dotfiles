@@ -1,12 +1,17 @@
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"
 
--- Do not continue comments on new line
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    vim.opt_local.formatoptions:remove({ 'r', 'o' })
-  end,
+    pattern = "*",
+    callback = function(args)
+        -- Highlight using treesitter
+        if vim.treesitter.language.add(args.match) then
+            vim.treesitter.start(args.buf)
+        end
+
+        -- Do not continue comments on new line
+        vim.opt_local.formatoptions:remove({ 'r', 'o' })
+    end,
 })
 
 -- NO shada file
