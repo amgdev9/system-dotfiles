@@ -40,3 +40,6 @@
 [submodule "nvim-debugger/plugins/nvim-dap"]
 	path = nvim-debugger/plugins/nvim-dap
 	url = https://github.com/amgdev9/nvim-dap
+[submodule "nvim-debugger/plugins/nvim-nio"]
+	path = nvim-debugger/plugins/nvim-nio
+	url = https://github.com/amgdev9/nvim-nio
