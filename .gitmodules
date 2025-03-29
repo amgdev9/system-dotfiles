@@ -1,9 +1,6 @@
 [submodule "nvim/plugins/nvim-lspconfig"]
 	path = nvim/plugins/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
-[submodule "nvim/plugins/cmp-nvim-lsp"]
-	path = nvim/plugins/cmp-nvim-lsp
-	url = https://github.com/amgdev9/cmp-nvim-lsp
 [submodule "nvim/plugins/mini.diff"]
 	path = nvim/plugins/mini.diff
 	url = https://github.com/amgdev9/mini.diff
@@ -37,9 +34,6 @@
 [submodule "nvim/plugins/nvim-treesitter"]
 	path = nvim/plugins/nvim-treesitter
 	url = https://github.com/amgdev9/nvim-treesitter
-[submodule "nvim/plugins/nvim-cmp"]
-	path = nvim/plugins/nvim-cmp
-	url = https://github.com/amgdev9/nvim-cmp
 [submodule "tmux/dracula"]
 	path = tmux/dracula
 	url = https://github.com/amgdev9/tmux-dracula

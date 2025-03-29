@@ -1,5 +1,5 @@
 local telescope_builtin = require("telescope.builtin")
-local autocomplete = require("autocomplete-new")
+local autocomplete = require("autocomplete")
 
 vim.diagnostic.config({
     virtual_text = false,
