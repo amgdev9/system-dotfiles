@@ -34,3 +34,9 @@
 [submodule "tmux/dracula"]
 	path = tmux/dracula
 	url = https://github.com/amgdev9/tmux-dracula
+[submodule "nvim-debugger/plugins/nvim-dap-ui"]
+	path = nvim-debugger/plugins/nvim-dap-ui
+	url = https://github.com/amgdev9/nvim-dap-ui
+[submodule "nvim-debugger/plugins/nvim-dap"]
+	path = nvim-debugger/plugins/nvim-dap
+	url = https://github.com/amgdev9/nvim-dap
