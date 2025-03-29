@@ -31,9 +31,6 @@
 [submodule "nvim/plugins/telescope.nvim"]
 	path = nvim/plugins/telescope.nvim
 	url = https://github.com/amgdev9/telescope.nvim
-[submodule "nvim/plugins/nvim-treesitter"]
-	path = nvim/plugins/nvim-treesitter
-	url = https://github.com/amgdev9/nvim-treesitter
 [submodule "tmux/dracula"]
 	path = tmux/dracula
 	url = https://github.com/amgdev9/tmux-dracula
