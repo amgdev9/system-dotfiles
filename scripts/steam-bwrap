@@ -47,5 +47,5 @@ bwrap \
 	--share-net \
 	--die-with-parent \
 	--new-session \
-    /usr/bin/steam
+    /usr/bin/prime-run /usr/bin/steam
 

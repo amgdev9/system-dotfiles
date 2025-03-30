@@ -38,5 +38,5 @@ bwrap \
 	--share-net \
 	--die-with-parent \
 	--new-session \
-    /usr/bin/minecraft-launcher
+    /usr/bin/prime-run /usr/bin/minecraft-launcher
 

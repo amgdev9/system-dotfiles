@@ -50,4 +50,4 @@ bwrap \
 	--share-net \
 	--die-with-parent \
 	--new-session \
-    /opt/r2modman/r2modman
+    /usr/bin/prime-run /opt/r2modman/r2modman
