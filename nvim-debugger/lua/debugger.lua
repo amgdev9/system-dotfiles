@@ -77,6 +77,7 @@ end, {})
 
 -- UI
 vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'error', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '▶', texthl = '', linehl = '', numhl = '' })
 
 -- Make regular file buffers read only
 local function set_all_buffers_readonly()
