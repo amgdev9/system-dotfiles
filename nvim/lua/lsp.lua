@@ -7,19 +7,7 @@ vim.diagnostic.config({
 })
 
 vim.keymap.set('', '<leader>l', ":lua vim.diagnostic.open_float()<CR>")
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>') 
-
-local ctags_exists = vim.fn.filereadable('.git/tags') == 1
-
-if ctags_exists then
-    vim.keymap.set('n', 'gd', function()
-        local word = vim.fn.expand('<cword>')
-        vim.cmd('tag ' .. word)
-    end)
-else
-    vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions)
-end
+vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
@@ -44,7 +32,18 @@ local enabled_lsp = require("lsp-enable")
 local lspconfig = require("lspconfig")
 for i = 1, #enabled_lsp do
     local name = enabled_lsp[i]
-    if name == "zls" then
+    if name == "kotlin" then
+        local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"}) 
+        if not root_dir then
+            root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
+        end
+        vim.lsp.config['kotlinlsp'] = {
+            cmd = { '/home/amg/Projects/kotlin-lsp/lsp-dist/app/bin/app' },
+            filetypes = { 'kotlin' },
+            root_dir = root_dir
+        }
+        --vim.lsp.enable('kotlinlsp')
+    elseif name == "zls" then
         vim.g.zig_fmt_autosave = 0
         lspconfig.zls.setup({
             capabilities = lsp_capabilities,
