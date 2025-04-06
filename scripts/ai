@@ -1,0 +1,20 @@
+bwrap \
+    --ro-bind /usr/bin /usr/bin \
+    --ro-bind /usr/share /usr/share \
+    --ro-bind /usr/lib /usr/lib \
+    --ro-bind /usr/lib64 /usr/lib64 \
+    --symlink /usr/lib64 /lib64 \
+    --symlink /usr/bin /bin \
+	--proc /proc \
+	--dev /dev \
+    --ro-bind /etc /etc \
+    --ro-bind /sys /sys \
+	--bind /home/amg/.config/aichat /home/amg/.config/aichat \
+    --bind "$(pwd)" /home/amg/workdir \
+	--unshare-all \
+	--share-net \
+	--die-with-parent \
+	--new-session \
+    --chdir /home/amg/workdir \
+    /usr/bin/aichat "$@"
+
