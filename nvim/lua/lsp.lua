@@ -42,7 +42,7 @@ for i = 1, #enabled_lsp do
             filetypes = { 'kotlin' },
             root_dir = root_dir
         }
-        --vim.lsp.enable('kotlinlsp')
+        vim.lsp.enable('kotlinlsp')
     elseif name == "zls" then
         vim.g.zig_fmt_autosave = 0
         lspconfig.zls.setup({
