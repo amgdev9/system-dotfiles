@@ -1,4 +1,5 @@
 local telescope_builtin = require("telescope.builtin")
+local autocomplete = require("autocomplete")
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -10,6 +11,7 @@ vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
+    autocomplete.setup(event)
     local opts = {buffer = event.buf, silent = true, noremap = true}
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
@@ -23,7 +25,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lsp_capabilities = {} 
 
 -- Setup enabled LSP servers
 local enabled_lsp = require("lsp-enable")
