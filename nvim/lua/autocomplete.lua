@@ -1,7 +1,7 @@
 local cmp = require('cmp')
 
 local sources = {
-    {name = 'nvim_lsp'},
+    {name = 'nvim_lsp'}
 }
 
 require("cmp_nvim_lsp").setup()

@@ -10,5 +10,5 @@ require("nvim_tree")
 require("color-scheme")
 require("status-bar")
 require("finder")
-require("codeium").setup({})
+require("ai")
 
