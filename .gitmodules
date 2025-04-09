@@ -13,9 +13,6 @@
 [submodule "nvim/plugins/nvim-lualine"]
 	path = nvim/plugins/nvim-lualine
 	url = https://github.com/amgdev9/lualine.nvim
-[submodule "nvim/plugins/copilot.vim"]
-	path = nvim/plugins/copilot.vim
-	url = https://github.com/github/copilot.vim
 [submodule "nvim/plugins/nvim-lsp-file-operations"]
 	path = nvim/plugins/nvim-lsp-file-operations
 	url = https://github.com/amgdev9/nvim-lsp-file-operations
@@ -43,3 +40,12 @@
 [submodule "nvim-debugger/plugins/nvim-nio"]
 	path = nvim-debugger/plugins/nvim-nio
 	url = https://github.com/amgdev9/nvim-nio
+[submodule "nvim/plugins/cmp-nvim-lsp"]
+	path = nvim/plugins/cmp-nvim-lsp
+	url = https://github.com/amgdev9/cmp-nvim-lsp.git
+[submodule "nvim/plugins/nvim-cmp"]
+	path = nvim/plugins/nvim-cmp
+	url = https://github.com/amgdev9/nvim-cmp
+[submodule "nvim/plugins/windsurf.nvim"]
+	path = nvim/plugins/windsurf.nvim
+	url = https://github.com/Exafunction/windsurf.nvim

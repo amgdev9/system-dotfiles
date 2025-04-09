@@ -1,5 +1,4 @@
 local telescope_builtin = require("telescope.builtin")
-local autocomplete = require("autocomplete")
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -11,7 +10,6 @@ vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
-    autocomplete.setup(event)
     local opts = {buffer = event.buf, silent = true, noremap = true}
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
@@ -32,18 +30,7 @@ local enabled_lsp = require("lsp-enable")
 local lspconfig = require("lspconfig")
 for i = 1, #enabled_lsp do
     local name = enabled_lsp[i]
-    if name == "kotlin" then
-        local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"}) 
-        if not root_dir then
-            root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
-        end
-        vim.lsp.config['kotlinlsp'] = {
-            cmd = { '/home/amg/Projects/kotlin-lsp/lsp-dist/app/bin/app' },
-            filetypes = { 'kotlin' },
-            root_dir = root_dir
-        }
-        vim.lsp.enable('kotlinlsp')
-    elseif name == "zls" then
+    if name == "zls" then
         vim.g.zig_fmt_autosave = 0
         lspconfig.zls.setup({
             capabilities = lsp_capabilities,
