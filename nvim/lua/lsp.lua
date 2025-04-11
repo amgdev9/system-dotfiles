@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local lsp_capabilities = {} 
 
 -- Setup enabled LSP servers
-local enabled_lsp = require("lsp-enable")
+local enabled_lsp = require("custom").lsp
 local lspconfig = require("lspconfig")
 for i = 1, #enabled_lsp do
     local name = enabled_lsp[i]

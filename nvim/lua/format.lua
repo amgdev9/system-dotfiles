@@ -1,10 +1,7 @@
 local conform = require("conform")
 
 conform.setup({
-    formatters_by_ft = {
-        kotlin = { "ktfmt" },
-        swift = { "swiftformat" }
-    },
+    formatters_by_ft = require("custom").formatters_by_ft 
 })
 
 function FormatCode()
