@@ -43,3 +43,6 @@
 [submodule "nvim/plugins/windsurf.nvim"]
 	path = nvim/plugins/windsurf.nvim
 	url = https://github.com/Exafunction/windsurf.nvim
+[submodule "nvim/plugins/conform.nvim"]
+	path = nvim/plugins/conform.nvim
+	url = https://github.com/amgdev9/conform.nvim
