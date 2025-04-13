@@ -32,7 +32,18 @@ local enabled_lsp = require("custom").lsp
 local lspconfig = require("lspconfig")
 for i = 1, #enabled_lsp do
     local name = enabled_lsp[i]
-    if name == "zls" then
+    if name == "kotlin" then
+        local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"})
+        if not root_dir then
+            root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
+        end
+        vim.lsp.config['kotlinlsp'] = {
+            cmd = { '/home/amg/Projects/kotlin-lsp/lsp-dist/app/bin/app' },
+            filetypes = { 'kotlin' },
+            root_dir = root_dir
+        }
+        vim.lsp.enable('kotlinlsp')
+    elseif name == "zls" then
         vim.g.zig_fmt_autosave = 0
         lspconfig.zls.setup({
             capabilities = lsp_capabilities,
