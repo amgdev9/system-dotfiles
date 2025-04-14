@@ -2,6 +2,7 @@ vim.opt.rtp:append("~/.config/nvim/plugins/*")
 
 require("config")
 require("remaps")
+require("treesitter")
 require("git-gutter")
 require("lsp")
 require("format")
