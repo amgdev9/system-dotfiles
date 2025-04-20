@@ -25,15 +25,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-local lsp_capabilities = {}
+local lsp_capabilities = {} 
 
 -- Setup enabled LSP servers
-local enabled_lsp = require("lsp-enable")
+local enabled_lsp = require("custom").lsp
 local lspconfig = require("lspconfig")
-for i = 1, #enabled_lsp do
-    local name = enabled_lsp[i]
+for k, v in pairs(enabled_lsp) do
+    local name = type(v) == "table" and k or v
     if name == "kotlin" then
-        local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"}) 
+        local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"})
         if not root_dir then
             root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
         end
@@ -104,9 +104,16 @@ for i = 1, #enabled_lsp do
             end,
         })
     else
-        lspconfig[name].setup({
-            capabilities = lsp_capabilities
-        })
+        if type(v) == "table" then
+            lspconfig[name].setup({
+                capabilities = lsp_capabilities,
+                cmd = v
+            })
+        else
+            lspconfig[name].setup({
+                capabilities = lsp_capabilities
+            })
+        end
     end
 end
 
