@@ -1,0 +1,2 @@
+export RCLONE_CONFIG_PASS=$(kwallet-query -r rcloneconfig -f "Secret Service" kdewallet)
+rclone "$@"
