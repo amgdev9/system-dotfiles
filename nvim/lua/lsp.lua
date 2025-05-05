@@ -118,3 +118,23 @@ for k, v in pairs(enabled_lsp) do
 end
 
 require("lsp-file-operations").setup()
+
+
+vim.lsp.handlers["$/progress"] = function(_, result, ctx)
+  local value = result.value
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  local parts = {}
+
+  if value.title and value.title ~= "" then
+    table.insert(parts, value.title)
+  end
+
+  if value.message and value.message ~= "" then
+    table.insert(parts, value.message)
+  end
+
+  local content = table.concat(parts, " - ")
+  local msg = string.format("[%s] %s", client.name, content)
+  vim.api.nvim_echo({{msg, "None"}}, false, {})
+end
+
