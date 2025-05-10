@@ -119,7 +119,7 @@ end
 
 require("lsp-file-operations").setup()
 
-
+-- Progress indicator
 vim.lsp.handlers["$/progress"] = function(_, result, ctx)
   local value = result.value
   local client = vim.lsp.get_client_by_id(ctx.client_id)
@@ -137,4 +137,9 @@ vim.lsp.handlers["$/progress"] = function(_, result, ctx)
   local msg = string.format("[%s] %s", client.name, content)
   vim.api.nvim_echo({{msg, "None"}}, false, {})
 end
+
+-- LSP log format
+vim.fn.writefile({}, vim.fn.stdpath("state") .. "/lsp.log") -- Clear the log on every startup
+vim.lsp.set_log_level(vim.log.levels.INFO)
+vim.lsp.log.set_format_func(vim.inspect)
 
