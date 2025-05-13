@@ -33,6 +33,7 @@ local lspconfig = require("lspconfig")
 for k, v in pairs(enabled_lsp) do
     local name = type(v) == "table" and k or v
     if name == "kotlin" then
+        vim.lsp.set_log_level(vim.log.levels.INFO) -- To better troubleshoot
         local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"})
         if not root_dir then
             root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
@@ -140,6 +141,5 @@ end
 
 -- LSP log format
 vim.fn.writefile({}, vim.fn.stdpath("state") .. "/lsp.log") -- Clear the log on every startup
-vim.lsp.set_log_level(vim.log.levels.INFO)
 vim.lsp.log.set_format_func(vim.inspect)
 
