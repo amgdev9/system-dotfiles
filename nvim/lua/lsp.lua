@@ -39,7 +39,7 @@ for k, v in pairs(enabled_lsp) do
             root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
         end
         vim.lsp.config['kotlinlsp'] = {
-            cmd = { '/home/amg/Projects/kotlin-lsp/lsp-dist/app-0.1/bin/app' },
+            cmd = { '/home/amg/Projects/kotlin-lsp/lsp-dist/kotlin-lsp-0.1a/bin/kotlin-lsp' },
             filetypes = { 'kotlin' },
             root_dir = root_dir
         }
