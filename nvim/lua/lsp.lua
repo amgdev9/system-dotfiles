@@ -141,5 +141,13 @@ end
 
 -- LSP log format
 vim.fn.writefile({}, vim.fn.stdpath("state") .. "/lsp.log") -- Clear the log on every startup
-vim.lsp.log.set_format_func(vim.inspect)
 
+vim.lsp.log.set_format_func(function(entry)
+    if type(entry) == "table" then
+        return vim.inspect(entry)
+    elseif type(entry) == "string" then
+        return entry:gsub("\\n", "\n")
+    else
+        return entry
+    end
+end)
