@@ -144,10 +144,10 @@ vim.fn.writefile({}, vim.fn.stdpath("state") .. "/lsp.log") -- Clear the log on 
 
 vim.lsp.log.set_format_func(function(entry)
     if type(entry) == "table" then
-        return vim.inspect(entry)
+        return "\n" .. vim.inspect(entry)
     elseif type(entry) == "string" then
-        return entry:gsub("\\n", "\n")
+        return "\n" .. entry:gsub("\\n", "\n")
     else
-        return entry
+        return "\n" .. entry
     end
 end)
