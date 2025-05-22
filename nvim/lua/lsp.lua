@@ -31,26 +31,30 @@ local lsp_capabilities = {}
 local enabled_lsp = require("custom").lsp
 local lspconfig = require("lspconfig")
 for k, v in pairs(enabled_lsp) do
-    local name = type(v) == "table" and k or v
+    local name = type(k) == "number" and v or k
+    local cmd = type(k) == "number" and nil or v
+
     if name == "kotlin" then
-        vim.lsp.set_log_level(vim.log.levels.INFO) -- To better troubleshoot
-        local root_dir = vim.fs.root(0, {"settings.gradle.kts", "settings.gradle"})
-        if not root_dir then
-            root_dir = vim.fs.root(0, {"build.gradle.kts", "build.gradle"})
-        end
-        vim.lsp.config['kotlinlsp'] = {
-            cmd = { '/home/amg/Projects/kotlin-lsp/lsp-dist/kotlin-lsp-0.1a/bin/kotlin-lsp' },
-            filetypes = { 'kotlin' },
-            root_dir = root_dir
+        local root_files = {
+            'settings.gradle', 
+            'settings.gradle.kts', 
+            'pom.xml', 
+            'build.gradle', 
+            'build.gradle.kts', 
         }
-        vim.lsp.enable('kotlinlsp')
+        vim.lsp.config['kotlin-lsp'] = {
+            filetypes = { 'kotlin' },
+            cmd = { cmd, "--stdio" }, 
+            root_markers = root_files,
+        }
+        vim.lsp.enable('kotlin-lsp')
     elseif name == "zls" then
         vim.g.zig_fmt_autosave = 0
         lspconfig.zls.setup({
             capabilities = lsp_capabilities,
         })
     elseif name == "rust_analyzer" then
-        require('lspconfig').rust_analyzer.setup({
+        lspconfig.rust_analyzer.setup({
             capabilities = lsp_capabilities,
             settings = {
                 ["rust-analyzer"] = {
@@ -73,7 +77,7 @@ for k, v in pairs(enabled_lsp) do
             }
         })
     elseif name == "pylsp" then
-        require("lspconfig").pylsp.setup({
+        lspconfig.pylsp.setup({
             capabilities = lsp_capabilities,
             settings = {
                 pylsp = {
@@ -105,10 +109,10 @@ for k, v in pairs(enabled_lsp) do
             end,
         })
     else
-        if type(v) == "table" then
+        if cmd ~= nil then
             lspconfig[name].setup({
                 capabilities = lsp_capabilities,
-                cmd = v
+                cmd = cmd
             })
         else
             lspconfig[name].setup({

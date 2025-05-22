@@ -2,7 +2,7 @@
 
 ```lua
 return {
-   lsp = { "pyright" },
+   lsp = { "pyright", kotlin = { "lsp-exec-file-path" } },
    formatters_by_ft = { kotlin = "ktfmt" }
 }
 ```
