@@ -139,8 +139,17 @@ vim.lsp.handlers["$/progress"] = function(_, result, ctx)
   end
 
   local content = table.concat(parts, " - ")
+  content = content:gsub("[%s\r\n]+", " ")
   local msg = string.format("[%s] %s", client.name, content)
-  vim.api.nvim_echo({{msg, "None"}}, false, {})
+
+  local max_width = vim.api.nvim_get_option("columns")
+  local max_msg_width = max_width - 25
+
+  if #msg > max_msg_width then
+    msg = msg:sub(1, max_msg_width - 3) .. "..."
+  end
+
+  vim.notify(msg, vim.log.levels.INFO)
 end
 
 -- LSP log format
@@ -148,10 +157,10 @@ vim.fn.writefile({}, vim.fn.stdpath("state") .. "/lsp.log") -- Clear the log on 
 
 vim.lsp.log.set_format_func(function(entry)
     if type(entry) == "table" then
-        return vim.inspect(entry)
+        return "\n" .. vim.inspect(entry)
     elseif type(entry) == "string" then
-        return entry:gsub("\\n", "\n")
+        return "\n" .. entry:gsub("\\n", "\n")
     else
-        return entry
+        return "\n" .. entry
     end
 end)
