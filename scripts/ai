@@ -1,22 +1,5 @@
-bwrap \
-    --ro-bind /usr/bin /usr/bin \
-    --ro-bind /usr/share /usr/share \
-    --ro-bind /usr/lib /usr/lib \
-    --ro-bind /usr/lib64 /usr/lib64 \
-    --tmpfs /tmp \
-    --symlink /usr/lib64 /lib64 \
-    --symlink /usr/bin /bin \
-	--proc /proc \
-	--dev /dev \
-    --ro-bind /etc /etc \
-    --ro-bind /sys /sys \
-	--bind /home/amg/.config/aichat /home/amg/.config/aichat \
-    --bind "$(pwd)" /home/amg/workdir \
-    --setenv PATH "$PATH:/home/amg/.config/aichat/functions" \
-	--unshare-all \
-	--share-net \
-	--die-with-parent \
-	--new-session \
-    --chdir /home/amg/workdir \
-    /usr/bin/aichat "$@"
+#!/bin/bash
+
+export OPENROUTER_API_KEY=$(secret-tool lookup name "openrouter-api-key")
+python3 ai-cli/main.py
 
