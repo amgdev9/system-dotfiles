@@ -1,5 +1,7 @@
 #!/bin/bash
 
 export OPENROUTER_API_KEY=$(secret-tool lookup name "openrouter-api-key")
-python3 ai-cli/main.py
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+python "$SCRIPT_DIR/ai-cli/main.py"  
 
