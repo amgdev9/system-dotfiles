@@ -21,6 +21,6 @@ def main() -> None:
             if kind == "content":
                 print(value, end='', flush=True)
             elif kind == "tool_call":
-                print(f"{GRAY}[Tool call] {name}({args}){RESET}")
+                print(f"{GRAY}[Tool call] {value}{RESET}")
 
         print()

@@ -29,7 +29,7 @@ class ChatSession:
         self.tool_handlers[name] = handler
 
     def ask(self, prompt: str) -> Generator[Tuple[str, Union[str, dict]], None, None]:
-        self.messages.append({"role": "user", "content": prompt})
+        if prompt: self.messages.append({"role": "user", "content": prompt})
 
         stream = client.chat.completions.create(
             model=self.model,
@@ -41,6 +41,7 @@ class ChatSession:
 
         reply = ""
         tool_call_delta: dict[str, dict] = {}
+        last_call_id = None
 
         for chunk in stream:
             delta = chunk.choices[0].delta
@@ -51,7 +52,7 @@ class ChatSession:
 
             if delta.tool_calls:
                 for call in delta.tool_calls:
-                    call_id = call.id
+                    call_id = call.id if call.id else last_call_id
                     tool_call = tool_call_delta.setdefault(call_id, {
                         "id": call_id,
                         "type": "function",
@@ -61,6 +62,8 @@ class ChatSession:
                         tool_call["function"]["name"] = call.function.name
                     if call.function.arguments:
                         tool_call["function"]["arguments"] += call.function.arguments
+
+                    last_call_id = call_id
 
         if tool_call_delta:
             tool_calls_list = list(tool_call_delta.values())
