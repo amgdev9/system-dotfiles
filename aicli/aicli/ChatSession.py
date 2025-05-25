@@ -12,6 +12,19 @@ class ChatSession:
         self.messages: list[dict[str, str]] = [
             {"role": "system", "content": "You are a helpful assistant."}
         ]
+        self.tools: list[dict] = []
+        self.tool_handlers: dict[str, Callable[[dict], str]] = {}
+
+    def register_tool(self, name: str, description: str, parameters: dict, handler: Callable[[dict], str]) -> None:
+        self.tools.append({
+            "type": "function",
+            "function": {
+                "name": name,
+                "description": description,
+                "parameters": parameters,
+            }
+        })
+        self.tool_handlers[name] = handler
 
     def ask(self, prompt: str) -> Generator[str, None, None]:
         self.messages.append({"role": "user", "content": prompt})
@@ -20,6 +33,8 @@ class ChatSession:
             model="qwen/qwen3-30b-a3b:free",
             messages=self.messages,
             stream=True,
+            tools=self.tools,
+            tool_choice="auto",
         )
 
         reply = ""

@@ -1,4 +1,4 @@
-from aicli.model import ChatSession
+from aicli.ChatSession import ChatSession
 
 def main() -> None:
     chat = ChatSession()
