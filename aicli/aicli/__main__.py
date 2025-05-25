@@ -1,11 +1,13 @@
-from aicli.model import request_model
+from aicli.model import ChatSession
 
-def main():
-    prompt = input("Enter your prompt: ")
-    print("\nResponse:\n")
-    for chunk in request_model(prompt):
-        print(chunk, end='', flush=True)
-    print()
+def main() -> None:
+    chat = ChatSession()
 
-if __name__ == "__main__":
-    main()
+    while True:
+        prompt = input("\n> ")
+        if prompt.lower() in {"exit", "quit"}:
+            break
+
+        for chunk in chat.ask(prompt):
+            print(chunk, end='', flush=True)
+        print()

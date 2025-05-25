@@ -7,14 +7,26 @@ client = OpenAI(
     api_key=os.environ["OPENROUTER_API_KEY"],
 )
 
-def request_model(prompt: str) -> Generator[str, None, None]:
-    stream = client.chat.completions.create(
-        model="qwen/qwen3-30b-a3b:free",
-        messages=[{"role": "user", "content": prompt}],
-        stream=True,
-    )
+class ChatSession:
+    def __init__(self) -> None:
+        self.messages: list[dict[str, str]] = [
+            {"role": "system", "content": "You are a helpful assistant."}
+        ]
 
-    for chunk in stream:
-        content = chunk.choices[0].delta.content
-        if content:
-            yield content
+    def ask(self, prompt: str) -> Generator[str, None, None]:
+        self.messages.append({"role": "user", "content": prompt})
+
+        stream = client.chat.completions.create(
+            model="qwen/qwen3-30b-a3b:free",
+            messages=self.messages,
+            stream=True,
+        )
+
+        reply = ""
+        for chunk in stream:
+            content = chunk.choices[0].delta.content
+            if content:
+                reply += content
+                yield content
+
+        self.messages.append({"role": "assistant", "content": reply})
