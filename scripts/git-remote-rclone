@@ -1,0 +1,388 @@
+#!/usr/bin/python3
+
+"""
+EXAMPLE:
+
+mkdir testrepo; cd testrepo
+git init
+echo "Hello world." > xyz
+git add xyz
+git commit -m "Initial commit."
+rclone mkdir mydropbox:test  # Assuming 'mydropbox' has been configured
+git remote add rclone://mydropbox/test
+git remote add origin rclone://mydropbox/test
+git push origin -u main
+"""
+
+import json
+import os
+from pathlib import Path
+from shutil import rmtree
+import subprocess
+import sys
+import hashlib
+from urllib.parse import urlparse
+import tarfile
+import inspect
+
+
+# .tar.gz based compression
+def uncompress(repo_archive, cwd):
+    with tarfile.open(str(repo_archive), 'r:gz') as tar:
+        tar.extractall(cwd)
+
+def compress(repo_file, dir_to_compress, cwd):
+    """compress dir_to_compress into repo_file.tar.gz"""
+    with tarfile.open(str(repo_file), 'w:gz') as tar:
+        tar.add(str(cwd / dir_to_compress), arcname=dir_to_compress)
+
+class RCloneRemote(object):
+    """git-remote-helper implementation to interface rclone remotes."""
+    def __init__(self,
+                 gitdir: str,
+                 remote: str,
+                 url: str,
+                 instream=sys.stdin,
+                 outstream=sys.stdout,
+                 errstream=sys.stderr):
+        """
+        gitdir:    Path to the GITDIR of the repository to operate on (provided by Git).
+        remote:    Remote label to use (provided by Git).
+        url:       rclone: //-type URL of the remote (provided by Git).
+        instream:  Stream to read communication from Git from.
+        outstream: Stream to communicate outcomes to Git.
+        errstream: Stream for logging.
+        """
+        self.parsed_url = urlparse(url)
+        self.remote = remote
+        # internal logic relies on workdir to be an absolute path
+        self.gitdir = gitdir
+        self.workdir = Path(gitdir, 'rclone', remote).resolve()
+        self.repodir = self.workdir / 'repo'
+        self.marks_git = self.workdir / "git.marks"
+        self.marks_rclone = self.workdir / "rclone.marks"
+        self.refspec = "refs/heads/*:refs/rclone/{}/*".format(remote)
+        self.instream = instream
+        self.outstream = outstream
+        self.errstream = errstream
+
+        # TODO delay
+        self.workdir.mkdir(parents=True, exist_ok=True)
+        self.marks_git.touch()
+        self.marks_rclone.touch()
+
+    def PrintFrame(self):
+        """Helps debug"""
+        callerframerecord = inspect.stack()[1]    # 0 represents this line
+                                                  # 1 represents line at caller
+        frame = callerframerecord[0]
+        info = inspect.getframeinfo(frame)
+
+        self.log(f"{info.function} :{info.lineno}")
+        # print(info.filename)
+
+    def log(self, *args):
+        print("[GCR]", *args, file=self.errstream)
+
+    def send(self, msg=''):
+        print(msg, end='\n', file=self.outstream, flush=True)
+
+    def get_remote_refs(self):
+        """Report remote refs
+        There are kept in a dedicated "refs" file at the remote.
+        Returns str
+        """
+        self.PrintFrame()
+        url = self.parsed_url
+        cat = subprocess.run([
+            'rclone', 'cat', '{}:{}/refs'.format(url.netloc, url.path)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, # capture errors, not having refs is a normal thing
+            text=True)
+        return cat.stdout if (not cat.returncode) and cat.stdout else ''
+
+    def get_remote_state(self):
+        """Return a hash for the remote repo archive or ''
+
+        Raises
+        ------
+        RuntimeError
+          If no connection to the rclone remote could be made, or an unkown
+          error occurred.
+        """
+        url = self.parsed_url
+        # request listing of the remote dir with the repo archive
+        lsjson = subprocess.run(['rclone', 'lsjson', '{}:{}'.format(url.netloc, url.path),
+                                '--files-only', '--no-modtime'],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        if lsjson.returncode == 3: # no repo on remote (but remote is accessible)
+            self.log('Remote is accessible but no repo found')
+            return ''
+        elif lsjson.returncode:
+            raise RuntimeError('Accesing rclone remote failed: {}'.format(lsjson.stderr))
+
+        files = {i['Path']: i for i in json.loads(lsjson.stdout)}
+        # get filename of the file that looks like repo-SHA.tar.gz
+        repo_file = [i for i in files.keys() if i.startswith('repo') and i.endswith('.tar.gz')]
+
+        # We should never have more than one repo file
+        if len(repo_file) > 1:
+            raise RuntimeError('Multiple repo files found: {}'.format(repo_file))
+
+        # extract SHA from repo-SHA.tar.gz
+        if not repo_file:
+            self.log('No repo file found')
+        return repo_file[0][5:-len('.tar.gz')] if repo_file else ''
+
+    def mirror_repo_if_needed(self):
+        """Ensure a local Git repo mirror of the one archived at the remote.
+        """
+        # TODO acquire and release lock
+        url = self.parsed_url
+        # stamp file with last syncronization IDs
+        synced = self.workdir / 'synced'
+        repo_hash = self.get_remote_state()
+
+        if synced.exists() and not repo_hash:
+            # we had it sync'ed before, but now it is gone from the remote
+            # remove sync stamp, but leave any local mirror untouched as it's the only copy
+            synced.unlink()
+            return
+
+        if synced.exists():
+            # compare states, try to be robust and take any hash match
+            # unclear when which hash is available, but any should be good
+
+            # read single line string from synced file
+            with open(synced, 'r') as f:
+                last_hash = f.readline().strip()
+            if last_hash == repo_hash: # local sync matches remote
+                self.log(f'Local hash matches remote hash ({last_hash}). No need to re-mirror.')
+                return
+
+        if not repo_hash: # there is nothing at the remote end, nothing to sync
+            return
+
+        # mirror the repo
+        self.log('Downloading repository archive')
+        sync_dir = self.workdir / 'sync'
+        subprocess.run(['rclone', 'copy', '--verbose', '--include', 'repo-*.tar.gz', '{}:{}/'.format(
+                            url.netloc, url.path),
+                       str(sync_dir)],
+                       check=True)
+        repo_archive = list(sync_dir.glob('repo-*.tar.gz'))[0]
+
+        self.log('Extracting repository archive')
+        rmtree(str(self.repodir), ignore_errors=True) # clean left-overs
+        uncompress(repo_archive, self.workdir)
+        self.log(f"Uncompress done of {repo_archive} into {self.workdir}.")
+        rmtree(str(sync_dir), ignore_errors=True)
+        synced.write_text(repo_hash) # update sync stamp only after everything else was successful
+
+    def import_refs_from_mirror(self, refs):
+        """Uses fast-export to pull refs from the local repository mirror
+        The mirror must exist, when this functional is called.
+        """
+        if not self.repodir.exists():
+            # this should not happen.If we get here, it means that Git
+            # was promised some refs to be available, but there the mirror
+            # to pull them from did not materialize. Crash at this point,
+            # any recovery form such a situation should have happened
+            # before
+            raise RuntimeError('rclone repository mirror not found')
+        env = os.environ.copy()
+        env['GIT_DIR'] = str(self.repodir)
+        subprocess.run([
+            'git', 'fast-export',
+            '--import-marks={}'.format(str(self.marks_rclone)),
+            '--export-marks={}'.format(str(self.marks_rclone)),
+            '--refspec', self.refspec] + refs,
+            env=env, check=True)
+
+    def run_cmd(self, cmd, env=None, check=True):
+        """Run command and return stdout"""
+        if not env:
+            env = os.environ.copy()
+            env['GIT_DIR'] = str(self.repodir)
+        return subprocess.run(cmd, env=env, check=check, stdout=subprocess.PIPE, text=True).stdout
+
+    def format_refs_in_mirror(self):
+        """Format a report on refs in the mirror like LIST wants it
+
+        If the mirror is empty, the report will be empty.
+        """
+        refs = ''
+        if not self.repodir.exists():
+            return refs
+        refs += self.run_cmd(['git', 'for-each-ref', "--format=%(objectname) %(refname)"])
+        HEAD_ref = self.run_cmd(['git', 'symbolic-ref', 'HEAD'])
+        refs += '@{} HEAD\n'.format(HEAD_ref.strip())
+        return refs
+
+    def gitgc(self):
+        """Prune the remote repo aggressively if configured via:
+             git config --add git-remote-rclone.pruneaggressively "true"
+        """
+        env_orig = os.environ.copy()
+        env_orig['GIT_DIR'] = str(self.gitdir)
+
+        gc_cmd = ['git', 'gc']
+        prune = self.run_cmd(['git', 'config', 'git-remote-rclone.pruneaggressively'],
+                             env=env_orig, check=False).strip().lower()
+        if prune == "true":
+            self.log("Running git-gc with aggressive pruning")
+            gc_cmd += ['--prune=now', '--aggressive']
+        self.run_cmd(gc_cmd, check=False)
+
+    def export_to_rclone(self):
+        """Export a fast-export stream to rclone.
+
+        The stream is fast-import'ed into a local repository mirror first.
+        If not mirror repository exists, an empty one is created. The mirror
+        is then compressed and uploaded.
+        """
+        # TODO acquire and release lock
+        url = self.parsed_url
+        env = os.environ.copy()
+        env['GIT_DIR'] = str(self.repodir)
+        if not self.repodir.exists():
+            # ensure we have a repo
+            self.repodir.mkdir()
+            subprocess.run(['git', 'init', '--bare', '--quiet'], env=env, check=True)
+
+        # which refs did we have in the mirror before the import?
+        before = self.run_cmd(['git', 'for-each-ref', "--format= %(refname) %(objectname) "])
+
+        # perform actual import
+        subprocess.run([
+            'git', 'fast-import', '--quiet',
+            '--import-marks={}'.format(str(self.marks_rclone)),
+            '--export-marks={}'.format(str(self.marks_rclone))],
+            env=env, check=True)
+
+        # which refs do we have now?
+        after = self.run_cmd(['git', 'for-each-ref', "--format= %(refname) %(objectname) "])
+
+        # figure out if anything happened
+        upload_failed_marker = (self.workdir / 'upload_failed')
+        updated_refs = []
+        need_sync = False
+        if upload_failed_marker.exists(): # we have some unsync'ed data from a previous attempt
+            updated_refs = json.load(upload_failed_marker.open())
+            need_sync = True
+            upload_failed_marker.unlink()
+
+        for line in after.splitlines():
+            if line not in before: # change in ref
+                updated_refs.append(line.strip().split()[0])
+                need_sync = True
+
+        # TODO acknowledge a failed upload
+        if not need_sync:
+            return
+
+        self.gitgc()
+
+        # prepare upload pack
+        sync_dir = self.workdir / 'sync'
+        if not sync_dir.exists():
+            sync_dir.mkdir()
+        repo_file = sync_dir / 'repotmp.tar.gz'
+        compress(repo_file, 'repo', self.workdir)
+
+        # repo_file to include the file's sha1 (so we don't depend the rclone backend being able to
+        # provide the files's hash to us. Backends like crypt don't support this)
+        repo_hash = hashlib.sha1(repo_file.read_bytes()).hexdigest()
+        repo_file.rename(sync_dir / f'repo-{repo_hash}.tar.gz')
+        
+        # dump refs for a later LIST of the remote
+        (sync_dir / 'refs').write_text(self.format_refs_in_mirror())
+
+        self.log('Upload repository archive')
+        sync_repo = subprocess.run(['rclone', 'sync', str(sync_dir),
+                                    '{}:{}'.format(url.netloc, url.path)])
+        if sync_repo.returncode:
+            # make a record which refs failed to update/upload
+            # to not report refs as successfully updated
+            upload_failed_marker.write_text(json.dumps(updated_refs))
+            return
+
+        rmtree(str(sync_dir), ignore_errors=True) # don't need the archive (still have the mirror)
+        self.log(f"Upload was successful. updated_refs: {updated_refs}")
+        for ref in updated_refs:
+            self.log('ok {}'.format(ref))
+
+        # lastly update the sync stamp to avoid redownload of what was just uploaded
+        synced = self.workdir / 'synced'
+        repo_hash = self.get_remote_state()
+        if not repo_hash:
+            self.log('Failed to update sync stamp after successful upload')
+            return
+
+        self.log(f'Updating sync stamp to repo_hash: {repo_hash}')
+        synced.write_text(repo_hash)
+
+
+    def send_capabilities(self):
+        self.PrintFrame()
+        caps = ['import',
+                'export',
+                f'refspec {self.refspec}',
+                f'*import-marks {self.marks_git}',
+                f'*export-marks {self.marks_git}',
+                'signed-tags']
+        for i in caps:
+            self.send(i)
+        self.send()
+
+    def import_from_rclone(self, line):
+        self.mirror_repo_if_needed()
+        refs = [line[7:].strip()]
+        while True:
+            line = self.instream.readline()
+            if not line.startswith('import '):
+                break
+            refs.append(line[7:].strip())
+        self.send(f'feature import-marks={self.marks_git}')
+        self.send(f'feature export-marks={self.marks_git}')
+        self.send('feature done')
+        self.import_refs_from_mirror(refs)
+        self.send('done')
+
+    def communicate(self):
+        """Implement the necessary pieces of the git-remote-helper protocol
+        Uses the input, output and error streams from the object
+        """
+        for rawline in self.instream:
+            line = rawline.rstrip()
+            if not line: # exit command
+                return
+            elif line == 'capabilities':
+                self.send_capabilities()
+            elif line == 'list':
+                self.send(f'{self.get_remote_refs()}')
+            elif line.startswith('import '): # data is being imported from rclone
+                self.import_from_rclone(line)
+            elif line == 'export': # data is being exported to rclone
+                self.mirror_repo_if_needed()
+                self.export_to_rclone()
+                self.send('')
+            else:
+                self.log('UNKNOWN COMMAND', line) # unrecoverable error
+                return
+
+
+def main():
+    if len(sys.argv) < 3:
+        raise ValueError("Usage: git-remote-rclone REMOTE-NAME URL")
+
+    remote, url = sys.argv[1:3]
+    gitdir = os.environ['GIT_DIR'] # no fallback, must be present
+
+    rclone = RCloneRemote(gitdir, remote, url)
+    rclone.communicate()
+
+
+if __name__ == '__main__':
+    main()
