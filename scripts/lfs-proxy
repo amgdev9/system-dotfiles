@@ -104,7 +104,11 @@ class GitLFSHandler(BaseHTTPRequestHandler):
 def run(server_class=HTTPServer, handler_class=GitLFSHandler, port=3000):
     server = server_class(('', port), handler_class)
     print(f'Serving Git LFS at http://localhost:{port}')
-    server.serve_forever()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print('\nShutting down Git LFS server.')
+        server.server_close()
 
 if __name__ == '__main__':
     run()
