@@ -1,0 +1,114 @@
+#!/usr/bin/python3
+
+import json
+import os
+import subprocess
+import tempfile
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+"""
+.lfsconfig
+
+[lfs]
+    url = http://localhost:3000/myremote/myrepository/objects/batch
+"""
+
+class GitLFSHandler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        if self.headers.get('Content-Type') != 'application/vnd.git-lfs+json':
+            self.send_response(415)
+            self.end_headers()
+            return
+
+        parts = self.path.strip('/').split('/')
+        if len(parts) != 4 or parts[2] != 'objects' or parts[3] != 'batch':
+            self.send_response(404)
+            self.end_headers()
+            return
+
+        remote, repo = parts[0], parts[1]
+        length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(length)
+        req = json.loads(body)
+
+        res = {'transfer': 'basic', 'objects': []}
+        op = req.get('operation')
+
+        for obj in req.get('objects', []):
+            oid = obj['oid']
+            size = obj['size']
+            base = f"{remote}/{repo}/objects/{oid}"
+            entry = {'oid': oid, 'size': size, 'actions': {}}
+
+            if op == 'download':
+                entry['actions']['download'] = {'href': f"/rclone/{base}"}
+            elif op == 'upload':
+                entry['actions']['upload'] = {'href': f"/upload/{base}"}
+            else:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            res['objects'].append(entry)
+
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/vnd.git-lfs+json')
+        self.end_headers()
+        self.wfile.write(json.dumps(res).encode())
+
+    def do_GET(self):
+        parts = self.path.strip('/').split('/')
+        if len(parts) != 5 or parts[0] != 'rclone':
+            self.send_response(404)
+            self.end_headers()
+            return
+
+        remote, repo, _, oid = parts[1], parts[2], parts[3], parts[4]
+        remote_path = f"{remote}:{repo}/objects/{oid}"
+
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            temp_path = tmp.name
+
+        subprocess.run(['cloud', 'copyto', remote_path, temp_path], check=True)
+
+        try:
+            with open(temp_path, 'rb') as f:
+                data = f.read()
+            self.send_response(200)
+            self.send_header('Content-Length', str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+        finally:
+            os.unlink(temp_path)
+
+    def do_PUT(self):
+        parts = self.path.strip('/').split('/')
+        if len(parts) != 5 or parts[0] != 'upload':
+            self.send_response(404)
+            self.end_headers()
+            return
+
+        remote, repo, _, oid = parts[1], parts[2], parts[3], parts[4]
+        remote_path = f"{remote}:{repo}/objects/{oid}"
+
+        length = int(self.headers.get('Content-Length', 0))
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            temp_path = tmp.name
+            tmp.write(self.rfile.read(length))
+
+        subprocess.run(['cloud', 'copyto', temp_path, remote_path], check=True)
+        os.unlink(temp_path)
+        self.send_response(200)
+        self.end_headers()
+
+def run(server_class=HTTPServer, handler_class=GitLFSHandler, port=3000):
+    server = server_class(('', port), handler_class)
+    print(f'Serving Git LFS at http://localhost:{port}')
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print('\nShutting down Git LFS server.')
+        server.server_close()
+
+if __name__ == '__main__':
+    run()
