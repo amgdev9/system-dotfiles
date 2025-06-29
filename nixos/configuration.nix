@@ -63,7 +63,6 @@
      neovim
      tmux
      htop
-     git
      gh
      rclone
      brave
@@ -80,6 +79,17 @@
      adwaita-icon-theme
      libsecret
   ];
+
+  # Git
+  programs.git = {
+    enable = true;
+    prompt = {
+      enable = true;
+    };
+    lfs = {
+      enable = true;
+    };
+  };
 
   # Display manager
   services.greetd = {
@@ -112,7 +122,7 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
-  
+    
   # Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.hack
