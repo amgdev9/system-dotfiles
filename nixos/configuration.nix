@@ -43,6 +43,9 @@
   # Power management
   services.upower.enable = true;
 
+  # Linker for non nixos programs
+  programs.nix-ld.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.amg = {
      isNormalUser = true;
