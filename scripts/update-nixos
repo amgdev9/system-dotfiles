@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+rm /etc/nixos/configuration.nix
+rm -rf /etc/nixos/nix
+cp /home/amg/.config/terminal-config/nixos/configuration.nix /etc/nixos/configuration.nix
+cp -r /home/amg/.config/terminal-config/nixos/nix /etc/nixos/nix
+nixos-rebuild switch
+nix-collect-garbage
+
+echo "Updated NixOS, reboot if needed!"
