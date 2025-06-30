@@ -1,8 +1,5 @@
 { config, lib, pkgs, ... }:
 
-# TODO
-# - PAM funciona pero brave no lo usa (github cli si) 
-
 {
   imports =
     [ 
@@ -11,8 +8,8 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 1;
-  boot.loader.timeout = 0;
+  boot.loader.systemd-boot.configurationLimit = 2;
+  #boot.loader.timeout = 0;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
@@ -91,26 +88,10 @@
     };
   };
 
-  # Display manager
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-session --sessions ${pkgs.hyprland}/share/wayland-sessions";
-	    user = "greeter";
-      };
-    };
-  };
-
-  # This prevents boot logs to be printed in greetd
-  systemd.services.greetd.serviceConfig = {
-    Type = "idle";
-    StandardInput = "tty";
-    StardardOutput = "tty";
-    StandardError = "journal";
-    TTYReset = true;
-    TTYHangup = true;
-    TTYVTDisallocate = true;
+  # Autologin
+  services.getty = {
+    autologinUser = "amg";
+    autologinOnce = true;
   };
 
   # Hyprland
@@ -118,19 +99,15 @@
   programs.hyprland.withUWSM = true;
   programs.uwsm.enable = true;
 
-  # PAM
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
-  programs.seahorse.enable = true;
-    
   # Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.hack
   ];
 
   # Mask /dev/tpmrm0 because it timeouts on amg-laptop
-  systemd.tpm2.enable = false;
+  systemd.tpm2.enable = config.networking.hostName != "amg-laptop";
   
+  # Disable firewall
   networking.firewall.enable = false;
 
   # Increase it only when there is a new version and you want to migrate config (for new features)

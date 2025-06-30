@@ -8,7 +8,7 @@
 [ ! -e $HOME/.config/waybar ] && ln -s $HOME/.config/terminal-config/waybar $HOME/.config/waybar
 [ ! -e $HOME/.config/wofi ] && ln -s $HOME/.config/terminal-config/wofi $HOME/.config/wofi
 [ ! -e $HOME/.bashrc ] && ln -s $HOME/.config/terminal-config/.bashrc $HOME/.bashrc
-[ ! -e $HOME/.bash_profile ] && ln -s $HOME/.config/terminal-config/.bashrc $HOME/.bash_profile
+[ ! -e $HOME/.bash_profile ] && ln -s $HOME/.config/terminal-config/.bash_profile $HOME/.bash_profile
 [ ! -e $HOME/.inputrc ] && ln -s $HOME/.config/terminal-config/.inputrc $HOME/.inputrc
 
 git config --global user.email "andresmargar98@proton.me"
