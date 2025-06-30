@@ -74,7 +74,7 @@
      file
      brightnessctl
      adwaita-icon-theme
-     libsecret
+     sbctl
   ];
 
   # Git

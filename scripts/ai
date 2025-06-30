@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export OPENROUTER_API_KEY=$(secret-tool lookup name "openrouter-api-key")
-
-# Use a tool

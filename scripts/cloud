@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export RCLONE_CONFIG_PASS=$(secret-tool lookup name "rclone-config")
-rclone "$@"

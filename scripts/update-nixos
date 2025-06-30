@@ -4,6 +4,6 @@ rm -rf /etc/nixos/nix
 cp /home/amg/.config/terminal-config/nixos/configuration.nix /etc/nixos/configuration.nix
 cp -r /home/amg/.config/terminal-config/nixos/nix /etc/nixos/nix
 nixos-rebuild switch
-nix-collect-garbage
 
+echo
 echo "Updated NixOS, reboot if needed!"
