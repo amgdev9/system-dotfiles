@@ -7,10 +7,10 @@
     ];
 
   # Use the systemd-boot EFI boot loader.
+  # Will be overwritten by the UKI generation script but we need one bootloader setup
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 1;
   boot.loader.timeout = 0;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -18,6 +18,12 @@
   # NetworkManager
   networking.networkmanager.enable = true;
   networking.hostName = "amg-laptop";
+
+  # Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
  
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -77,6 +83,7 @@
      sbctl
      jq
      buildPackages.systemdUkify
+     efibootmgr
   ];
 
   # Git

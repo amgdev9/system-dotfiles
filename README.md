@@ -6,4 +6,6 @@
 # Credentials setup
 - sudo passwd -l root
 - sudo sbctl create-keys
-- Once updated, enroll the secure boot keys
+- ... rebuild nixos to sign UKI with created secure boot keys, and put secure boot in setup mode ...
+- Use efibootmgr to remove nixos entries and create one pointing to the UKI
+- sudo sbctl enroll-keys --microsoft
