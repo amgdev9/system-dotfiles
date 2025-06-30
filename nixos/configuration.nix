@@ -75,6 +75,8 @@
      brightnessctl
      adwaita-icon-theme
      sbctl
+     jq
+     buildPackages.systemdUkify
   ];
 
   # Git

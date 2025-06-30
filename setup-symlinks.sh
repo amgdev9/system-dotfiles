@@ -13,3 +13,5 @@
 
 git config --global user.email "andresmargar98@proton.me"
 git config --global user.name "AMG"
+
+mkdir -p $HOME/Projects

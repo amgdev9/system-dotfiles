@@ -5,3 +5,5 @@
 
 # Credentials setup
 - sudo passwd -l root
+- sudo sbctl create-keys
+- Once updated, enroll the secure boot keys
