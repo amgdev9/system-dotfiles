@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
     ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Use the systemd-boot EFI boot loader.
   # Will be overwritten by the UKI generation script but we need one bootloader setup
   boot.loader.systemd-boot.enable = true;
@@ -17,8 +19,9 @@
   
   # NetworkManager
   networking.networkmanager.enable = true;
-  networking.hostName = "amg-laptop";
-
+  networking.nameservers = [ "1.1.1.1" ]; # Cloudflare DNS
+  networking.networkmanager.dns = "none";
+  
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
@@ -113,10 +116,7 @@
   fonts.packages = with pkgs; [
     nerd-fonts.hack
   ];
-
-  # Mask /dev/tpmrm0 because it timeouts on amg-laptop
-  systemd.tpm2.enable = config.networking.hostName != "amg-laptop";
-  
+    
   # Disable firewall
   networking.firewall.enable = false;
 
