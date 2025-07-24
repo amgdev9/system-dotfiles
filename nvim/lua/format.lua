@@ -1,7 +1,9 @@
 local conform = require("conform")
 
+local custom_ok, custom = pcall(require, "custom")
+
 conform.setup({
-    formatters_by_ft = require("custom").formatters_by_ft 
+    formatters_by_ft = custom_ok and custom.formatters_by_ft or {}
 })
 
 function FormatCode()

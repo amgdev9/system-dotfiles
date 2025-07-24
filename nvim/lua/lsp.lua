@@ -28,7 +28,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local lsp_capabilities = {} 
 
 -- Setup enabled LSP servers
-local enabled_lsp = require("custom").lsp
+local custom_ok, custom = pcall(require, "custom")
+local enabled_lsp = custom_ok and custom.lsp or {}
 local lspconfig = require("lspconfig")
 for k, v in pairs(enabled_lsp) do
     local name = type(k) == "number" and v or k

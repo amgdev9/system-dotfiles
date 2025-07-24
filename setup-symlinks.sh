@@ -21,12 +21,5 @@ git config --global user.email "andresmargar98@proton.me"
 git config --global user.name "AMG"
 git -C $HOME/.config/terminal-config submodule update --init --recursive
 
-[ ! -e $HOME/.config/terminal-config/nvim/lua/custom.lua ] && cat > $HOME/.config/terminal-config/nvim/lua/custom.lua <<EOF
-return {
-  lsp = {},
-  formatters_by_ft = {}
-}
-EOF
-
 mkdir -p $HOME/Projects
 
