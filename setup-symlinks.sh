@@ -7,11 +7,26 @@
 [ ! -e $HOME/.config/tmux ] && ln -s $HOME/.config/terminal-config/tmux $HOME/.config/tmux
 [ ! -e $HOME/.config/waybar ] && ln -s $HOME/.config/terminal-config/waybar $HOME/.config/waybar
 [ ! -e $HOME/.config/wofi ] && ln -s $HOME/.config/terminal-config/wofi $HOME/.config/wofi
-[ ! -e $HOME/.bashrc ] && ln -s $HOME/.config/terminal-config/.bashrc $HOME/.bashrc
-[ ! -e $HOME/.bash_profile ] && ln -s $HOME/.config/terminal-config/.bash_profile $HOME/.bash_profile
-[ ! -e $HOME/.inputrc ] && ln -s $HOME/.config/terminal-config/.inputrc $HOME/.inputrc
+
+rm -f $HOME/.bashrc
+ln -s $HOME/.config/terminal-config/.bashrc $HOME/.bashrc
+
+rm -f $HOME/.bash_profile
+ln -s $HOME/.config/terminal-config/.bash_profile $HOME/.bash_profile
+
+rm -f $HOME/.inputrc
+ln -s $HOME/.config/terminal-config/.inputrc $HOME/.inputrc
 
 git config --global user.email "andresmargar98@proton.me"
 git config --global user.name "AMG"
+git -C $HOME/.config/terminal-config submodule update --init --recursive
+
+[ ! -e $HOME/.config/terminal-config/nvim/lua/custom.lua ] && cat > $HOME/.config/terminal-config/nvim/lua/custom.lua <<EOF
+return {
+  lsp = {},
+  formatters_by_ft = {}
+}
+EOF
 
 mkdir -p $HOME/Projects
+
