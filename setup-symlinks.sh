@@ -19,6 +19,7 @@ ln -s $HOME/.config/terminal-config/.inputrc $HOME/.inputrc
 
 git config --global user.email "andresmargar98@proton.me"
 git config --global user.name "AMG"
+git config --global init.defaultBranch main
 git -C $HOME/.config/terminal-config submodule update --init --recursive
 
 mkdir -p $HOME/Projects
