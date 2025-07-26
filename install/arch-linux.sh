@@ -79,7 +79,7 @@ systemd-resolved=false
 EOF
 rm /mnt/etc/resolv.conf
 cat > /mnt/etc/resolv.conf <<EOF
-nameserver 1.1.1.1
+nameserver 1.1.1.2
 EOF
 
 arch-chroot /mnt /bin/bash <<EOF
