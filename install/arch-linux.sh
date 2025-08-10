@@ -31,7 +31,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # Locale
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /mnt/etc/locale.gen
-rm /mnt/etc/vconsole.conf
+rm -f /mnt/etc/vconsole.conf
 echo "KEYMAP=es" >> /mnt/etc/vconsole.conf
 
 # Add LUKS hook to initramfs
