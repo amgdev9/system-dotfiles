@@ -1,5 +1,3 @@
-vim.o.completeopt = 'menu,menuone,noinsert,popup,fuzzy'
-
 local cmp = require'cmp'
 
 cmp.setup({
