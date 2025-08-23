@@ -1,4 +1,9 @@
-source /usr/share/git/completion/git-prompt.sh
+if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+    source /usr/share/git/completion/git-prompt.sh
+elif [ -f /usr/lib/git-core/git-sh-prompt ]; then
+    source /usr/lib/git-core/git-sh-prompt 
+fi
+
 export PATH=$PATH:$HOME/Scripts
 
 alias ls="ls --color"

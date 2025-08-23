@@ -1,0 +1,48 @@
+#!/bin/bash
+CONTAINER_USER=ubuntu
+FOLDER_NAME=workspace
+NAME=$(basename "$PWD")
+
+podman container exists "$NAME"
+EXISTS=$?
+RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
+
+if [ "$EXISTS" != "0" ]; then
+    echo Building container image... 
+    podman build -t "$NAME" -f Containerfile .
+
+    # Mount workspace folder as read only
+    VOLUMES="-v $PWD:/home/$CONTAINER_USER/$FOLDER_NAME:ro"
+    
+    # Mount as read write the rest of files/folders expect .git and Containerfile
+    # This prevents the container from changing these critical places to prevent harm to the host
+    for d in "$PWD"/*; do
+        base=$(basename "$d")
+        if [ "$base" != ".git" ] && [ "$base" != "Containerfile" ]; then
+            VOLUMES="$VOLUMES -v $d:/home/$CONTAINER_USER/$FOLDER_NAME/$base:rw"
+        fi
+    done
+
+    # Mount X11 socket
+    VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix:rw"
+
+    podman run -it \
+        $VOLUMES \
+        -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native \
+        -e DISPLAY=$DISPLAY \
+        -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
+        --device /dev/dri \
+        --device /dev/snd \
+        --device /dev/kvm \
+        --name "$NAME" "$NAME" bash
+    exit
+fi
+
+if [ -z "$RUNNING" ]; then
+    echo Starting existing container...
+    podman start -ai "$NAME"
+    exit
+fi
+
+echo Attaching to running container...
+podman exec -it "$NAME" bash
