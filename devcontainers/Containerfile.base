@@ -8,5 +8,6 @@ RUN apt-get update \
 # Personal dev setup for all projects
 RUN apt-get install -y neovim git curl gcc \
     && git clone https://github.com/amgdev9/terminal-config /home/ubuntu/.config/terminal-config \
+    && chown ubuntu:ubuntu /home/ubuntu/.config/terminal-config \
     && HOME=/home/ubuntu /home/ubuntu/.config/terminal-config/setup-symlinks.sh
 
