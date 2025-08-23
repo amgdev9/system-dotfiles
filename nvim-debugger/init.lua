@@ -7,6 +7,9 @@ require("color-scheme")
 require("finder")
 require("status-bar")
 
+-- Coding config
+require("treesitter")
+
 -- Debugger config
 require("debugger")
 require("adapters")

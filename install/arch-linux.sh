@@ -26,7 +26,7 @@ if [[ "$amg_passwd" != "$amg_passwd2" ]]; then
 fi
 
 timedatectl
-pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode neovim tmux alacritty networkmanager man-db man-pages texinfo sudo sbctl bubblewrap podman hyprland uwsm libnewt hyprlock swaybg wofi brightnessctl waybar pipewire pipewire-audio pipewire-pulse pipewire-alsa pipewire-jack bluez bluez-utils bluetui git github-cli git-lfs htop rclone ripgrep wl-clipboard grim bind ttf-hack-nerd ttf-liberation noto-fonts-emoji xdg-desktop-portal-hyprland bash-completion
+pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode neovim tmux alacritty networkmanager man-db man-pages texinfo sudo sbctl bubblewrap podman hyprland uwsm libnewt hyprlock swaybg wofi brightnessctl waybar pipewire pipewire-audio pipewire-pulse pipewire-alsa pipewire-jack bluez bluez-utils bluetui git github-cli git-lfs htop rclone ripgrep wl-clipboard grim bind ttf-hack-nerd ttf-liberation noto-fonts-emoji xdg-desktop-portal-hyprland bash-completion tree
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Locale
@@ -104,9 +104,7 @@ echo 'Defaults timestamp_timeout=0' | tee -a /etc/sudoers
 mkdir -p /home/amg/.config
 git clone https://github.com/amgdev9/terminal-config /home/amg/.config/terminal-config
 env HOME=/home/amg /home/amg/.config/terminal-config/setup-symlinks.sh
-
-mkdir -p /home/amg/AUR
-git clone https://aur.archlinux.org/brave-bin.git /home/amg/AUR/brave-bin
+env HOME=/home/amg /home/amg/.config/terminal-config/scripts/update-aur
 
 chown -R amg:amg /home/amg
 sudo -u amg git lfs install

@@ -1,0 +1,2 @@
+cd $HOME/.config/terminal-config/aur/brave-bin
+makepkg -si

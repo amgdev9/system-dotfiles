@@ -1,8 +1,8 @@
-[submodule "nvim/plugins/nvim-lspconfig"]
-	path = nvim/plugins/nvim-lspconfig
+[submodule "nvim-code/plugins/nvim-lspconfig"]
+	path = nvim-code/plugins/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
-[submodule "nvim/plugins/mini.diff"]
-	path = nvim/plugins/mini.diff
+[submodule "nvim-code/plugins/mini.diff"]
+	path = nvim-code/plugins/mini.diff
 	url = https://github.com/amgdev9/mini.diff
 [submodule "nvim/plugins/nvim-tree.lua"]
 	path = nvim/plugins/nvim-tree.lua
@@ -13,8 +13,8 @@
 [submodule "nvim/plugins/nvim-lualine"]
 	path = nvim/plugins/nvim-lualine
 	url = https://github.com/amgdev9/lualine.nvim
-[submodule "nvim/plugins/nvim-lsp-file-operations"]
-	path = nvim/plugins/nvim-lsp-file-operations
+[submodule "nvim-code/plugins/nvim-lsp-file-operations"]
+	path = nvim-code/plugins/nvim-lsp-file-operations
 	url = https://github.com/amgdev9/nvim-lsp-file-operations
 [submodule "nvim/plugins/plenary.nvim"]
 	path = nvim/plugins/plenary.nvim
@@ -40,9 +40,9 @@
 [submodule "nvim-debugger/plugins/nvim-nio"]
 	path = nvim-debugger/plugins/nvim-nio
 	url = https://github.com/amgdev9/nvim-nio
-[submodule "nvim/plugins/windsurf.nvim"]
-	path = nvim/plugins/windsurf.nvim
+[submodule "nvim-code/plugins/windsurf.nvim"]
+	path = nvim-code/plugins/windsurf.nvim
 	url = https://github.com/Exafunction/windsurf.nvim
-[submodule "nvim/plugins/conform.nvim"]
-	path = nvim/plugins/conform.nvim
+[submodule "nvim-code/plugins/conform.nvim"]
+	path = nvim-code/plugins/conform.nvim
 	url = https://github.com/amgdev9/conform.nvim
