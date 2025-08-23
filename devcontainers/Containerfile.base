@@ -1,0 +1,12 @@
+# Base system
+FROM ubuntu:25.10
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && mkdir -p /home/ubuntu/.config \
+    && chown ubuntu:ubuntu /home/ubuntu/.config
+
+# Personal dev setup for all projects
+RUN apt-get install -y neovim git curl gcc \
+    && git clone https://github.com/amgdev9/terminal-config /home/ubuntu/.config/terminal-config \
+    && HOME=/home/ubuntu /home/ubuntu/.config/terminal-config/setup-symlinks.sh
+

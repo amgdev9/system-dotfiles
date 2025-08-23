@@ -46,3 +46,12 @@
 [submodule "nvim-code/plugins/conform.nvim"]
 	path = nvim-code/plugins/conform.nvim
 	url = https://github.com/stevearc/conform.nvim
+[submodule "nvim-code/plugins/nvim-treesitter"]
+	path = nvim-code/plugins/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "nvim-code/plugins/nvim-cmp"]
+	path = nvim-code/plugins/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp
+[submodule "nvim-code/plugins/cmp-nvim-lsp"]
+	path = nvim-code/plugins/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp
