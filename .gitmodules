@@ -3,7 +3,7 @@
 	url = https://github.com/neovim/nvim-lspconfig
 [submodule "nvim-code/plugins/mini.diff"]
 	path = nvim-code/plugins/mini.diff
-	url = https://github.com/amgdev9/mini.diff
+	url = https://github.com/echasnovski/mini.diff
 [submodule "nvim/plugins/nvim-tree.lua"]
 	path = nvim/plugins/nvim-tree.lua
 	url = https://github.com/amgdev9/nvim-tree.lua
@@ -15,7 +15,7 @@
 	url = https://github.com/amgdev9/lualine.nvim
 [submodule "nvim-code/plugins/nvim-lsp-file-operations"]
 	path = nvim-code/plugins/nvim-lsp-file-operations
-	url = https://github.com/amgdev9/nvim-lsp-file-operations
+	url = https://github.com/antosha417/nvim-lsp-file-operations
 [submodule "nvim/plugins/plenary.nvim"]
 	path = nvim/plugins/plenary.nvim
 	url = https://github.com/amgdev9/plenary.nvim
@@ -33,16 +33,16 @@
 	url = https://github.com/amgdev9/tmux-dracula
 [submodule "nvim-debugger/plugins/nvim-dap-ui"]
 	path = nvim-debugger/plugins/nvim-dap-ui
-	url = https://github.com/amgdev9/nvim-dap-ui
+	url = https://github.com/rcarriga/nvim-dap-ui
 [submodule "nvim-debugger/plugins/nvim-dap"]
 	path = nvim-debugger/plugins/nvim-dap
-	url = https://github.com/amgdev9/nvim-dap
+	url = https://github.com/mfussenegger/nvim-dap
 [submodule "nvim-debugger/plugins/nvim-nio"]
 	path = nvim-debugger/plugins/nvim-nio
-	url = https://github.com/amgdev9/nvim-nio
+	url = https://github.com/nvim-neotest/nvim-nio
 [submodule "nvim-code/plugins/windsurf.nvim"]
 	path = nvim-code/plugins/windsurf.nvim
 	url = https://github.com/Exafunction/windsurf.nvim
 [submodule "nvim-code/plugins/conform.nvim"]
 	path = nvim-code/plugins/conform.nvim
-	url = https://github.com/amgdev9/conform.nvim
+	url = https://github.com/stevearc/conform.nvim
