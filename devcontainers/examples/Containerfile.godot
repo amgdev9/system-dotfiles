@@ -20,7 +20,12 @@ RUN apt-get install -y \
     && mv /usr/local/bin/Godot_v4.4.1-stable_linux.x86_64 /usr/local/bin/godot \
     && chmod +x /usr/local/bin/godot
 
-# ... custom setup ...
+RUN cat << 'EOF' > /home/ubuntu/.config/terminal-config/nvim-code/lua/custom.lua
+return {
+   lsp = { "gdscript" },
+   formatters_by_ft = {}
+}
+EOF
 
 USER ubuntu 
 WORKDIR /home/ubuntu/workspace

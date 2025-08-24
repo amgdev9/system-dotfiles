@@ -1,5 +1,4 @@
 local telescope_builtin = require("telescope.builtin")
-local autocomplete = require("autocomplete")
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -11,7 +10,6 @@ vim.keymap.set('n', 'gd', telescope_builtin.lsp_definitions)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
-    autocomplete.setup(event)
     local opts = {buffer = event.buf, silent = true, noremap = true}
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
@@ -31,9 +29,13 @@ local lsp_capabilities = {}
 local custom_ok, custom = pcall(require, "custom")
 local enabled_lsp = custom_ok and custom.lsp or {}
 local lspconfig = require("lspconfig")
+
 for k, v in pairs(enabled_lsp) do
     local name = type(k) == "number" and v or k
-    local cmd = type(k) == "number" and nil or v
+    local cmd = type(k) == "number" and "NIL" or v
+    if cmd == "NIL" then
+        cmd = nil
+    end
 
     if name == "kotlin" then
         local root_files = {
