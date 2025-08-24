@@ -1,1 +1,6 @@
+#!/bin/bash
+[[ "$(grep '^ID=' /etc/os-release | cut -d= -f2)" != "ubuntu" ]] \
+    && echo Running outside of dev container is not allowed! \
+    && exit 0
+
 NVIM_APPNAME=nvim-debugger nvim $1 
