@@ -22,4 +22,4 @@ done
 
 export CHROME_VERSION_EXTRA='stable'
 
-exec /opt/brave-bin/brave "${FLAG_LIST[@]}" "${@}"
+exec /opt/brave-bin/brave "${FLAG_LIST[@]}" --password-store=basic "${@}"
