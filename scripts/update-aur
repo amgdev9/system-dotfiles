@@ -1,2 +1,3 @@
 cd $HOME/.config/terminal-config/aur/brave-bin
 makepkg -si
+rm -rf pkg src brave-bin*.zip brave-bin*.zst
