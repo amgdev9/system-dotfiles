@@ -26,7 +26,7 @@ if [[ "$amg_passwd" != "$amg_passwd2" ]]; then
 fi
 
 timedatectl
-pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode neovim tmux alacritty networkmanager man-db man-pages texinfo sudo sbctl bubblewrap podman xorg-xhost hyprland uwsm libnewt hyprlock hypridle swaybg wofi brightnessctl waybar pipewire pipewire-audio pipewire-pulse pipewire-alsa pipewire-jack bluez bluez-utils bluetui git github-cli git-lfs htop rclone ripgrep wl-clipboard grim bind ttf-hack-nerd ttf-liberation noto-fonts-emoji xdg-desktop-portal-hyprland bash-completion unzip powertop nvtop wget
+pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode neovim tmux alacritty networkmanager man-db man-pages texinfo sudo sbctl bubblewrap podman xorg-xhost hyprland uwsm libnewt hyprlock hypridle swaybg wofi brightnessctl waybar pipewire pipewire-audio pipewire-pulse pipewire-alsa pipewire-jack bluez bluez-utils bluetui git github-cli git-lfs htop rclone ripgrep wl-clipboard grim bind ttf-hack-nerd ttf-liberation noto-fonts-emoji xdg-desktop-portal-hyprland bash-completion unzip powertop nvtop wget apparmor
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Locale
@@ -37,11 +37,12 @@ echo "KEYMAP=es" >> /mnt/etc/vconsole.conf
 # Add LUKS hook to initramfs
 sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck)/' /mnt/etc/mkinitcpio.conf
 
-# Setup UKI (default and fallback)
+# Setup UKI
 mkdir -p /mnt/etc/cmdline.d
 luks_uuid=$(blkid "$luks_device" | sed -n 's/.* UUID="\([^"]*\)".*/\1/p')
 echo "cryptdevice=UUID=$luks_uuid:root" >> /mnt/etc/cmdline.d/root.conf
 echo "root=/dev/mapper/root rw" >> /mnt/etc/cmdline.d/root.conf
+echo "lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1 audit_backlog_limit=256" >> /mnt/etc/cmdline.d/security.conf
 sed -i 's|^#default_uki=.*|default_uki="/efi/EFI/Linux/arch-linux.efi"|' /mnt/etc/mkinitcpio.d/linux.preset
 sed -i 's|^PRESETS=.*|PRESETS=("default")|' /mnt/etc/mkinitcpio.d/linux.preset
 sed -i '/^default_image=/d' /mnt/etc/mkinitcpio.d/linux.preset
@@ -51,9 +52,11 @@ rm -rf /mnt/efi/EFI/Linux
 mkdir -p /mnt/efi/EFI/Linux
 rm /mnt/boot/*.img
 
+# Apparmor
+echo "write-cache" >> /mnt/etc/apparmor/parser.conf
+
 # Register UKI in BIOS
 efibootmgr --create --disk $uefi_disk --part $uefi_part_number --label "Arch Linux" --loader '\EFI\Linux\arch-linux.efi' --unicode
-efibootmgr --create --disk $uefi_disk --part $uefi_part_number --label "Arch Linux (fallback)" --loader '\EFI\Linux\arch-linux-fallback.efi' --unicode
 newboot=$(efibootmgr | grep "Arch Linux" | sed -n 's/Boot\([0-9A-Fa-f]*\).*/\1/p')
 efibootmgr -o ${newboot}
 
@@ -90,6 +93,9 @@ locale-gen
 
 systemctl enable NetworkManager
 systemctl enable bluetooth
+systemctl enable apparmor
+
+rm /etc/apparmor.d/*
 
 sbctl create-keys
 sbctl enroll-keys -m
