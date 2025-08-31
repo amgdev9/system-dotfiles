@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+LOCATION=$HOME/.config/terminal-config
+
 [ ! -e $HOME/Scripts ] && ln -s $HOME/.config/terminal-config/scripts/ $HOME/Scripts
 [ ! -e $HOME/.config/alacritty ] && ln -s $HOME/.config/terminal-config/alacritty $HOME/.config/alacritty
 [ ! -e $HOME/.config/hypr ] && ln -s $HOME/.config/terminal-config/hypr $HOME/.config/hypr
@@ -22,6 +24,8 @@ git config --global user.email "andresmargar98@proton.me"
 git config --global user.name "AMG"
 git config --global init.defaultBranch main
 git -C $HOME/.config/terminal-config submodule update --init --recursive
+
+sudo cp $HOME/.config/terminal-config/home/.bashrc_root /root/.bashrc
 
 mkdir -p $HOME/Projects
 
