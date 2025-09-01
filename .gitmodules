@@ -7,9 +7,6 @@
 [submodule "nvim/plugins/nvim-tree.lua"]
 	path = nvim/plugins/nvim-tree.lua
 	url = https://github.com/amgdev9/nvim-tree.lua
-[submodule "nvim/plugins/nvim-web-devicons"]
-	path = nvim/plugins/nvim-web-devicons
-	url = https://github.com/amgdev9/nvim-web-devicons
 [submodule "nvim/plugins/nvim-lualine"]
 	path = nvim/plugins/nvim-lualine
 	url = https://github.com/amgdev9/lualine.nvim
@@ -55,3 +52,6 @@
 [submodule "nvim/plugins/arctic.nvim"]
 	path = nvim/plugins/arctic.nvim
 	url = https://github.com/rockyzhang24/arctic.nvim
+[submodule "nvim/plugins/mini.icons"]
+	path = nvim/plugins/mini.icons
+	url = https://github.com/nvim-mini/mini.icons
