@@ -19,9 +19,6 @@
 [submodule "nvim/plugins/plenary.nvim"]
 	path = nvim/plugins/plenary.nvim
 	url = https://github.com/amgdev9/plenary.nvim
-[submodule "nvim/plugins/arctic.nvim"]
-	path = nvim/plugins/arctic.nvim
-	url = https://github.com/amgdev9/arctic.nvim
 [submodule "nvim/plugins/lush.nvim"]
 	path = nvim/plugins/lush.nvim
 	url = https://github.com/amgdev9/lush.nvim
@@ -55,3 +52,6 @@
 [submodule "nvim-code/plugins/cmp-nvim-lsp"]
 	path = nvim-code/plugins/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
+[submodule "nvim/plugins/arctic.nvim"]
+	path = nvim/plugins/arctic.nvim
+	url = https://github.com/rockyzhang24/arctic.nvim
