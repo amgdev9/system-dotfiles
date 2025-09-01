@@ -13,9 +13,6 @@
 [submodule "nvim/plugins/plenary.nvim"]
 	path = nvim/plugins/plenary.nvim
 	url = https://github.com/amgdev9/plenary.nvim
-[submodule "nvim/plugins/lush.nvim"]
-	path = nvim/plugins/lush.nvim
-	url = https://github.com/amgdev9/lush.nvim
 [submodule "nvim/plugins/telescope.nvim"]
 	path = nvim/plugins/telescope.nvim
 	url = https://github.com/amgdev9/telescope.nvim
@@ -55,3 +52,6 @@
 [submodule "nvim/plugins/mini.diff"]
 	path = nvim/plugins/mini.diff
 	url = https://github.com/nvim-mini/mini.diff
+[submodule "nvim/plugins/lush.nvim"]
+	path = nvim/plugins/lush.nvim
+	url = https://github.com/rktjmp/lush.nvim
