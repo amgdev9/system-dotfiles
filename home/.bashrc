@@ -1,7 +1,3 @@
-if [ -f /usr/share/git/completion/git-prompt.sh ]; then
-    source /usr/share/git/completion/git-prompt.sh
-fi
-
 export PATH=$PATH:$HOME/Scripts
 
 # Avoids terminal bugs when using containers
