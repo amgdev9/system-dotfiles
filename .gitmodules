@@ -1,9 +1,6 @@
 [submodule "nvim-code/plugins/nvim-lspconfig"]
 	path = nvim-code/plugins/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
-[submodule "nvim-code/plugins/mini.diff"]
-	path = nvim-code/plugins/mini.diff
-	url = https://github.com/echasnovski/mini.diff
 [submodule "nvim/plugins/nvim-tree.lua"]
 	path = nvim/plugins/nvim-tree.lua
 	url = https://github.com/amgdev9/nvim-tree.lua
@@ -55,3 +52,6 @@
 [submodule "nvim/plugins/mini.icons"]
 	path = nvim/plugins/mini.icons
 	url = https://github.com/nvim-mini/mini.icons
+[submodule "nvim/plugins/mini.diff"]
+	path = nvim/plugins/mini.diff
+	url = https://github.com/nvim-mini/mini.diff
