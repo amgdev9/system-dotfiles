@@ -1,1 +1,1 @@
-../../nvim/lua/color-scheme.lua
+../../nvim-code/lua/color-scheme.lua

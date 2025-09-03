@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 CONTAINER_USER=ubuntu
 FOLDER_NAME=workspace
 NAME=$(basename "$PWD")

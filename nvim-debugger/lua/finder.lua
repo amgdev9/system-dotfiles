@@ -1,1 +1,1 @@
-../../nvim/lua/finder.lua
+../../nvim-code/lua/finder.lua
