@@ -125,8 +125,6 @@ for k, v in pairs(enabled_lsp) do
     end
 end
 
-require("lsp-file-operations").setup()
-
 -- Progress indicator
 vim.lsp.handlers["$/progress"] = function(_, result, ctx)
   local value = result.value
