@@ -1,1 +1,1 @@
-../../nvim/lua/status-bar.lua
+../../nvim-code/lua/status-bar.lua

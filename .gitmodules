@@ -1,21 +1,9 @@
 [submodule "nvim-code/plugins/nvim-lspconfig"]
 	path = nvim-code/plugins/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
-[submodule "nvim/plugins/nvim-tree.lua"]
-	path = nvim/plugins/nvim-tree.lua
-	url = https://github.com/amgdev9/nvim-tree.lua
-[submodule "nvim/plugins/nvim-lualine"]
-	path = nvim/plugins/nvim-lualine
-	url = https://github.com/amgdev9/lualine.nvim
 [submodule "nvim-code/plugins/nvim-lsp-file-operations"]
 	path = nvim-code/plugins/nvim-lsp-file-operations
 	url = https://github.com/antosha417/nvim-lsp-file-operations
-[submodule "nvim/plugins/plenary.nvim"]
-	path = nvim/plugins/plenary.nvim
-	url = https://github.com/amgdev9/plenary.nvim
-[submodule "nvim/plugins/telescope.nvim"]
-	path = nvim/plugins/telescope.nvim
-	url = https://github.com/amgdev9/telescope.nvim
 [submodule "tmux/dracula"]
 	path = tmux/dracula
 	url = https://github.com/amgdev9/tmux-dracula
@@ -43,15 +31,27 @@
 [submodule "nvim-code/plugins/cmp-nvim-lsp"]
 	path = nvim-code/plugins/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
-[submodule "nvim/plugins/arctic.nvim"]
-	path = nvim/plugins/arctic.nvim
+[submodule "nvim-code/plugins/nvim-lualine"]
+	path = nvim-code/plugins/nvim-lualine
+	url = https://github.com/nvim-lualine/lualine.nvim
+[submodule "nvim-code/plugins/arctic.nvim"]
+	path = nvim-code/plugins/arctic.nvim
 	url = https://github.com/rockyzhang24/arctic.nvim
-[submodule "nvim/plugins/mini.icons"]
-	path = nvim/plugins/mini.icons
-	url = https://github.com/nvim-mini/mini.icons
-[submodule "nvim/plugins/mini.diff"]
-	path = nvim/plugins/mini.diff
-	url = https://github.com/nvim-mini/mini.diff
-[submodule "nvim/plugins/lush.nvim"]
-	path = nvim/plugins/lush.nvim
+[submodule "nvim-code/plugins/lush.nvim"]
+	path = nvim-code/plugins/lush.nvim
 	url = https://github.com/rktjmp/lush.nvim
+[submodule "nvim-code/plugins/mini.icons"]
+	path = nvim-code/plugins/mini.icons
+	url = https://github.com/nvim-mini/mini.icons
+[submodule "nvim-code/plugins/mini.diff"]
+	path = nvim-code/plugins/mini.diff
+	url = https://github.com/nvim-mini/mini.diff
+[submodule "nvim-code/plugins/nvim-tree.lua"]
+	path = nvim-code/plugins/nvim-tree.lua
+	url = https://github.com/nvim-tree/nvim-tree.lua
+[submodule "nvim-code/plugins/plenary.nvim"]
+	path = nvim-code/plugins/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "nvim-code/plugins/telescope.nvim"]
+	path = nvim-code/plugins/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
