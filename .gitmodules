@@ -52,3 +52,6 @@
 [submodule "nvim-code/plugins/oil.nvim"]
 	path = nvim-code/plugins/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
+[submodule "nvim-code/plugins/harpoon"]
+	path = nvim-code/plugins/harpoon
+	url = https://github.com/ThePrimeagen/harpoon
