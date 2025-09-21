@@ -92,3 +92,4 @@ cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remo
 mkdir -p root/etc/pipewire
 cp /etc/pipewire/pipewire.conf root/etc/pipewire/pipewire.conf
 
+git restore -- '*amg-pc*'
