@@ -1,0 +1,53 @@
+FILES
+/etc/portage/make.conf
+/etc/portage/binrepos.conf/
+/etc/portage/repos.conf/
+/etc/portage/package.accept_keywords/
+/etc/portage/package.use/
+/etc/portage/package.mask/
+/etc/portage/postsync.d/
+/etc/localtime
+/etc/locale.gen
+/etc/env.d/02locale
+/etc/env.d/99editor
+/etc/fstab
+/etc/hostname
+/etc/rc.conf
+/etc/conf.d/keymaps
+/etc/conf.d/hwclock
+/etc/conf.d/agetty-autologin
+/etc/dracut.conf.d/
+/etc/sudoers
+/etc/inittab
+/etc/resolv.conf
+/etc/apparmor/parser.conf
+/etc/brave/policies/managed/
+/var/lib/portage/world
+/var/db/repos/local
+/usr/share/fonts/HackNerdFontMono-Regular.ttf
+/etc/kernel/preinst.d/999-remove-old-uki
+/etc/kernel/postinst.d/999-remove-old-uki
+/etc/pipewire/pipewire.conf
+
+INSTALL COMMANDS
+- Connect to internet using nmtui
+- Set up partitions and mount them
+- Download and extract stage3 tarball
+arch-chroot /mnt/gentoo
+locale-gen
+passwd -l root
+useradd -m -G users,wheel,pipewire,plugdev,video -s /bin/bash amg
+passwd amg
+rc-update add bluetooth default
+rc-update add NetworkManager default
+rc-update add apparmor boot
+sbctl create-keys
+sbctl enroll-keys -m
+chattr +i /etc/resolv.conf
+eselect repository create local
+su amg -c "flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+flatpak override --system --no-talk-name=org.freedesktop.ScreenSaver --no-talk-name=org.freedesktop.UDisks2
+... copy ebuilds ...
+
+TODO
+- Install dotfiles scripts

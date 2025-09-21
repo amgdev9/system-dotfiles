@@ -1,3 +1,5 @@
+source /usr/share/git/git-prompt.sh
+
 # Avoids terminal bugs when using containers
 export TERM=tmux-256color
 export COLORTERM=truecolor

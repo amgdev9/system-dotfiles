@@ -1,3 +1,5 @@
+source /usr/share/git/git-prompt.sh
+
 export PATH=$PATH:$HOME/Scripts
 
 # Avoids terminal bugs when using containers
