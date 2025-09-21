@@ -1,1 +1,2 @@
 x11-drivers/nvidia-drivers kernel-open
+*/* VIDEO_CARDS: -* nvidia
