@@ -1,0 +1,2 @@
+HOMEDIR=/home/amg
+
