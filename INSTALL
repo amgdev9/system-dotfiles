@@ -3,21 +3,19 @@ INSTALL COMMANDS
 - Set up partitions and mount them
 - Download and extract stage3 tarball
 arch-chroot /mnt/gentoo
-locale-gen
 passwd -l root
 useradd -m -G users,wheel,pipewire,plugdev,video -s /bin/bash amg
 passwd amg
+sbctl create-keys
+sbctl enroll-keys -m
+eselect repository create local
+... copy dotfiles ...
+... install packages ....
+... copy ssh keys ...
+locale-gen
 rc-update add bluetooth default
 rc-update add NetworkManager default
 rc-update add apparmor boot
-sbctl create-keys
-sbctl enroll-keys -m
 chattr +i /etc/resolv.conf
-eselect repository create local
 su amg -c "flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 flatpak override --system --no-talk-name=org.freedesktop.ScreenSaver --no-talk-name=org.freedesktop.UDisks2
-- Copy ssh keys
-... copy ebuilds ...
-
-TODO
-- Install dotfiles scripts
