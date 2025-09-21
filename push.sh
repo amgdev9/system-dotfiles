@@ -29,7 +29,6 @@ cp -f root/etc/portage/make.conf /etc/portage/make.conf
 rm -rf /etc/portage/binrepos.conf && mkdir -p /etc/portage/binrepos.conf && cp -rf root/etc/portage/binrepos.conf/* /etc/portage/binrepos.conf/
 rm -rf /etc/portage/repos.conf && mkdir -p /etc/portage/repos.conf && cp -rf root/etc/portage/repos.conf/* /etc/portage/repos.conf/
 rm -rf /etc/portage/package.accept_keywords && mkdir -p /etc/portage/package.accept_keywords && cp -rf root/etc/portage/package.accept_keywords/* /etc/portage/package.accept_keywords/
-rm -rf /etc/portage/package.use && mkdir -p /etc/portage/package.use && cp -rf root/etc/portage/package.use/* /etc/portage/package.use/
 rm -rf /etc/portage/postsync.d && mkdir -p /etc/portage/postsync.d && cp -rf root/etc/portage/postsync.d/* /etc/portage/postsync.d/
 cp -f root/etc/localtime /etc/localtime
 cp -f root/etc/locale.gen /etc/locale.gen
@@ -41,11 +40,14 @@ if [ "$host_name" == "amg-laptop" ]; then
   cp -f root/etc/hostname.amg-laptop /etc/hostname
   cp -f root/var/lib/portage/world.amg-laptop /var/lib/portage/world
   rm -rf /etc/dracut.conf.d && mkdir -p /etc/dracut.conf.d && cp -rf root/etc/dracut.conf.d.amg-laptop/* /etc/dracut.conf.d/
+  rm -rf /etc/portage/package.use && mkdir -p /etc/portage/package.use && cp -rf root/etc/portage/package.use/* /etc/portage/package.use/
+  rm /etc/portage/package.use/nvidia
 else
   cp -f root/etc/fstab.amg-pc /etc/fstab
   cp -f root/etc/hostname.amg-pc /etc/hostname
   cp -f root/var/lib/portage/world.amg-pc /var/lib/portage/world
   rm -rf /etc/dracut.conf.d && mkdir -p /etc/dracut.conf.d && cp -rf root/etc/dracut.conf.d.amg-pc/* /etc/dracut.conf.d/
+  rm -rf /etc/portage/package.use && mkdir -p /etc/portage/package.use && cp -rf root/etc/portage/package.use/* /etc/portage/package.use/
 fi
 
 cp -f root/etc/rc.conf /etc/rc.conf
