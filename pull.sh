@@ -20,7 +20,6 @@ cp -r /etc/portage/binrepos.conf/ root/etc/portage/binrepos.conf/
 cp -r /etc/portage/repos.conf/ root/etc/portage/repos.conf/
 cp -r /etc/portage/package.accept_keywords/ root/etc/portage/package.accept_keywords/
 cp -r /etc/portage/package.use/ root/etc/portage/package.use/
-cp -r /etc/portage/package.mask/ root/etc/portage/package.mask/
 cp -r /etc/portage/postsync.d/ root/etc/portage/postsync.d/
 cp /etc/localtime root/etc/localtime
 cp /etc/locale.gen root/etc/locale.gen
