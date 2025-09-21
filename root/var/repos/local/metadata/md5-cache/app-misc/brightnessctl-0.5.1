@@ -1,0 +1,15 @@
+BDEPEND=systemd? ( virtual/pkgconfig )
+DEFINED_PHASES=compile install
+DEPEND=systemd? ( sys-apps/systemd ) udev? ( virtual/udev )
+DESCRIPTION=A program to read and control device brightness
+EAPI=7
+HOMEPAGE=https://github.com/Hummer12007/brightnessctl
+INHERIT=toolchain-funcs
+IUSE=systemd udev
+KEYWORDS=~amd64 ~arm64
+LICENSE=MIT
+RDEPEND=systemd? ( sys-apps/systemd ) udev? ( virtual/udev )
+SLOT=0
+SRC_URI=https://github.com/Hummer12007/brightnessctl/archive/0.5.1.tar.gz -> brightnessctl-0.5.1.tar.gz
+_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0
+_md5_=5f7e155572a73f9355efa135fba1e7e7

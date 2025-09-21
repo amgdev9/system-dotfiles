@@ -1,4 +1,4 @@
-command -v uwsm >/dev/null && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && exec uwsm start hyprland-uwsm.desktop
+command -v Hyprland >/dev/null && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && exec dbus-run-session Hyprland
 
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc

@@ -1,0 +1,6 @@
+app-misc/brightnessctl
+gui-apps/hyprlock
+gui-apps/hypridle
+gui-libs/xdg-desktop-portal-hyprland
+dev-cpp/sdbus-c++
+dev-libs/libpthread-stubs **

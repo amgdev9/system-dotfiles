@@ -1,0 +1,5 @@
+gui-apps/waybar network pipewire pulseaudio
+gui-apps/swaybg gdk-pixbuf
+app-crypt/pinentry -gtk
+sys-devel/gcc lto pgo
+net-misc/networkmanager -bluetooth
