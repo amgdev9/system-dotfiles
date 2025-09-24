@@ -1,9 +1,10 @@
-INSTALL COMMANDS
-- Connect to internet using nmtui
+- Connect to internet using nmtui or connect phone through ethernet
 - Set up partitions and mount them
-- Download and extract stage3 tarball
-- Create /mnt/gentoo/etc/resolv.conf 
+- Download, verify and extract stage3 tarball
+- Run these commands:
+
 arch-chroot /mnt/gentoo
+echo "nameserver 1.1.1.1" >> /etc/resolv.conf
 passwd -l root
 useradd -m -G users,wheel,video -s /bin/bash amg
 passwd amg
@@ -12,15 +13,15 @@ getuto
 emerge -a dev-vcs/git
 git clone https://github.com/amgdev9/terminal-config
 git submodule update --init --recursive
+mkdir -p /efi/EFI/Linux
 ./push.sh
-
-usermod -aG pipewire,plugdev amg
+locale-gen
+emerge -a app-crypt/sbctl
 sbctl create-keys
 sbctl enroll-keys -m
-eselect repository create local
-... install packages ....
-... copy ssh keys ...
-locale-gen
+emerge --ask --deep --newuse --update @world
+emerge --depclean
+usermod -aG pipewire,plugdev amg
 rc-update add bluetooth default
 rc-update add NetworkManager default
 rc-update add apparmor boot
