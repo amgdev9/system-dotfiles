@@ -10,6 +10,7 @@ if [ "$host_name" != "amg-laptop" ] && [ "$host_name" != "amg-pc" ]; then
 fi
 
 HOMEDIR=/home/amg
+mkdir -p $HOMEDIR/.config
 rm -rf $HOMEDIR/.config/alacritty && cp -rf alacritty $HOMEDIR/.config/alacritty
 rm -rf $HOMEDIR/.config/hypr && cp -rf hypr $HOMEDIR/.config/hypr
 rm -rf $HOMEDIR/.config/nvim && cp -rf nvim $HOMEDIR/.config/nvim
@@ -56,13 +57,13 @@ cp -f root/etc/conf.d/hwclock /etc/conf.d/hwclock
 cp -f root/etc/sudoers /etc/sudoers
 cp -f root/etc/inittab /etc/inittab
 cp -f root/etc/resolv.conf /etc/resolv.conf
-cp -f root/etc/apparmor/parser.conf /etc/apparmor/parser.conf
+rm -rf /etc/apparmor && mkdir -p /etc/apparmor && cp -f root/etc/apparmor/parser.conf /etc/apparmor/parser.conf
 rm -rf /etc/brave/policies/managed && mkdir -p /etc/brave/policies/managed && cp -rf root/etc/brave/policies/managed/* /etc/brave/policies/managed/
 rm -rf /var/db/repos/local && mkdir -p /var/db/repos/local && cp -rf root/var/repos/local/* /var/db/repos/local/
 cp -f root/usr/share/fonts/HackNerdFontMono-Regular.ttf /usr/share/fonts/HackNerdFontMono-Regular.ttf
 rm -rf /etc/kernel/preinst.d && mkdir -p /etc/kernel/preinst.d && cp -f root/etc/kernel/preinst.d/999-remove-old-uki /etc/kernel/preinst.d/999-remove-old-uki
 rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki /etc/kernel/postinst.d/999-remove-old-uki
-cp -f root/etc/pipewire/pipewire.conf /etc/pipewire/pipewire.conf
+rm -rf /etc/pipewire && mkdir -p /etc/pipewire && cp -f root/etc/pipewire/pipewire.conf /etc/pipewire/pipewire.conf
 
 chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc $HOMEDIR/Scripts
 
