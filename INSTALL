@@ -2,14 +2,22 @@ INSTALL COMMANDS
 - Connect to internet using nmtui
 - Set up partitions and mount them
 - Download and extract stage3 tarball
+- Create /mnt/gentoo/etc/resolv.conf 
 arch-chroot /mnt/gentoo
 passwd -l root
-useradd -m -G users,wheel,pipewire,plugdev,video -s /bin/bash amg
+useradd -m -G users,wheel,video -s /bin/bash amg
 passwd amg
+emerge-webrsync
+getuto
+emerge -a dev-vcs/git
+git clone https://github.com/amgdev9/terminal-config
+git submodule update --init --recursive
+./push.sh
+
+usermod -aG pipewire,plugdev amg
 sbctl create-keys
 sbctl enroll-keys -m
 eselect repository create local
-... copy dotfiles ...
 ... install packages ....
 ... copy ssh keys ...
 locale-gen

@@ -1,6 +1,6 @@
 host_name=$(hostname)
 
-if [ -z "$host_name" ]; then
+if [ -z "$host_name" ] || [ "$host_name" == "livecd" ]; then
   read -p "Enter hostname: " host_name
 fi
 
