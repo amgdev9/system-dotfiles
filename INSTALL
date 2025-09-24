@@ -28,3 +28,5 @@ rc-update add apparmor boot
 chattr +i /etc/resolv.conf
 su amg -c "flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 flatpak override --system --no-talk-name=org.freedesktop.ScreenSaver --no-talk-name=org.freedesktop.UDisks2
+
+- Check efibootmgr and EFI partition if all is correct
