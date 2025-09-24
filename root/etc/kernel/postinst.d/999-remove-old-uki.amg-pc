@@ -1,9 +1,9 @@
 echo "Removing old UKI from ESP..."
 rm -f /efi/EFI/Linux/*-old.efi
 echo "Updating EFI boot entry"
-efibootmgr -b $(efibootmgr | grep Gentoo | awk '{print substr($1,5,4)}') -B
+efibootmgr -b $(efibootmgr | grep Gentoo | awk '{print substr($1,5,4)}') -B &> /dev/null
 EFI_FILE=$(find /efi/EFI/Linux -type f -name "*.efi" | head -n1 | xargs basename)
 EFI_PATH="\\EFI\\Linux\\${EFI_FILE}"
 echo $EFI_PATH
-efibootmgr -c -d /dev/sda -p 1 -L "Gentoo" -l $EFI_PATH
+efibootmgr -c -d /dev/nvme0n1p1 -p 1 -L "Gentoo" -l $EFI_PATH
 echo "Done!"

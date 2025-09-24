@@ -62,7 +62,12 @@ rm -rf /etc/brave/policies/managed && mkdir -p /etc/brave/policies/managed && cp
 rm -rf /var/db/repos/local && mkdir -p /var/db/repos/local && cp -rf root/var/repos/local/* /var/db/repos/local/
 cp -f root/usr/share/fonts/HackNerdFontMono-Regular.ttf /usr/share/fonts/HackNerdFontMono-Regular.ttf
 rm -rf /etc/kernel/preinst.d && mkdir -p /etc/kernel/preinst.d && cp -f root/etc/kernel/preinst.d/999-remove-old-uki /etc/kernel/preinst.d/999-remove-old-uki
-rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki /etc/kernel/postinst.d/999-remove-old-uki
+if [ "$host_name" == "amg-laptop" ]; then
+  rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki.amg-laptop /etc/kernel/postinst.d/999-remove-old-uki
+else
+  rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki.amg-pc /etc/kernel/postinst.d/999-remove-old-uki
+fi
+
 rm -rf /etc/pipewire && mkdir -p /etc/pipewire && cp -f root/etc/pipewire/pipewire.conf /etc/pipewire/pipewire.conf
 
 chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc $HOMEDIR/Scripts

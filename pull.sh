@@ -87,9 +87,17 @@ mkdir -p root/etc/kernel/preinst.d
 cp /etc/kernel/preinst.d/999-remove-old-uki root/etc/kernel/preinst.d/999-remove-old-uki
 
 mkdir -p root/etc/kernel/postinst.d
-cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remove-old-uki
+if [ "$host_name" == "amg-laptop" ]; then
+  cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remove-old-uki.amg-laptop
+else
+  cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remove-old-uki.amg-pc
+fi
 
 mkdir -p root/etc/pipewire
 cp /etc/pipewire/pipewire.conf root/etc/pipewire/pipewire.conf
 
-git restore -- '*amg-pc*'
+if [ "$host_name" == "amg-laptop" ]; then
+  git restore -- '*amg-pc*'
+else
+  git restore -- '*amg-laptop*'
+fi
