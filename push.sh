@@ -64,5 +64,5 @@ rm -rf /etc/kernel/preinst.d && mkdir -p /etc/kernel/preinst.d && cp -f root/etc
 rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki /etc/kernel/postinst.d/999-remove-old-uki
 cp -f root/etc/pipewire/pipewire.conf /etc/pipewire/pipewire.conf
 
-chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc
+chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc $HOMEDIR/Scripts
 
