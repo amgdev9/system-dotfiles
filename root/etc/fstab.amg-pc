@@ -15,5 +15,5 @@
 
 # <fs>			<mountpoint>	<type>		<opts>			<dump> <pass>
 
-UUID=32EB-E25F		/efi		vfat		umask=0077,tz=UTC	0	2
-UUID=65a69f52-b192-4791-a54f-328dae1b7780	/		ext4		defaults		0	1
+UUID=AFED-9009		/efi		vfat		umask=0077,tz=UTC	0	2
+UUID=f9801997-158b-4ff6-a70b-31c0cf54ca2e	/		ext4		defaults		0	1

@@ -36,11 +36,11 @@ sys-auth/rtkit
 sys-boot/efibootmgr
 sys-firmware/sof-firmware
 sys-fs/cryptsetup
-sys-kernel/gentoo-kernel-bin
+sys-kernel/gentoo-kernel
 sys-kernel/installkernel
 sys-kernel/linux-firmware
 sys-process/htop
 www-client/brave-bin
+x11-drivers/nvidia-drivers
 x11-terms/alacritty
 x11-themes/xcursor-themes
-x11-drivers/nvidia-drivers
