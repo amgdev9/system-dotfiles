@@ -8,6 +8,7 @@ app-misc/brightnessctl
 app-misc/tmux
 app-portage/gentoolkit
 app-shells/bash-completion
+dev-util/android-tools
 dev-util/pkgdev
 dev-vcs/git
 gui-apps/grim
@@ -26,6 +27,7 @@ media-video/pipewire
 media-video/wireplumber
 net-dns/bind-tools
 net-misc/networkmanager
+net-misc/rclone
 sys-apps/apparmor
 sys-apps/apparmor-utils
 sys-apps/flatpak
