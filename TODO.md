@@ -1,3 +1,0 @@
-- Leader + c: copy to clipboard current file path
-- Leader + a: if telescope is opened, add results to harpoon
-- Leader + a: if oil is opened, add selected file to harpoon
