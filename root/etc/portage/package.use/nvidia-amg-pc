@@ -1,4 +1,0 @@
-x11-drivers/nvidia-drivers kernel-open
-x11-libs/libdrm video_cards_radeon 
-*/* VIDEO_CARDS: -* nvidia amdgpu radeonsi
-*/* modules-sign
