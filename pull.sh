@@ -35,7 +35,7 @@ mkdir -p root/etc/conf.d
 cp /etc/conf.d/keymaps root/etc/conf.d/keymaps
 cp /etc/conf.d/hwclock root/etc/conf.d/hwclock
 
-mkdir -p root/etc/dracut.conf.d.amg-laptop
+mkdir -p root/etc/dracut.conf.d
 cp -r /etc/dracut.conf.d/* root/etc/dracut.conf.d
 cp /etc/sudoers root/etc/sudoers
 cp /etc/inittab root/etc/inittab
