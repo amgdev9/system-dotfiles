@@ -1,10 +1,3 @@
-host_name=$(hostname)
-
-if [ "$host_name" != "amg-laptop" ] && [ "$host_name" != "amg-pc" ]; then
-  echo "Hostname $host_name is not valid"
-  exit 1
-fi
-
 HOMEDIR=/home/amg
 rm -rf alacritty && cp -rf $HOMEDIR/.config/alacritty .
 rm -rf hypr && cp -rf $HOMEDIR/.config/hypr .
@@ -34,32 +27,16 @@ cp /etc/locale.gen root/etc/locale.gen
 mkdir -p root/etc/env.d
 cp /etc/env.d/02locale root/etc/env.d/02locale
 cp /etc/env.d/99editor root/etc/env.d/99editor
-if [ "$host_name" == "amg-laptop" ]; then
-  cp /etc/fstab root/etc/fstab.amg-laptop
-else
-  cp /etc/fstab root/etc/fstab.amg-pc
-fi
-
-if [ "$host_name" == "amg-laptop" ]; then
-  cp /etc/hostname root/etc/hostname.amg-laptop
-else
-  cp /etc/hostname root/etc/hostname.amg-pc
-fi
-
+cp /etc/fstab root/etc/fstab
+cp /etc/hostname root/etc/hostname
 cp /etc/rc.conf root/etc/rc.conf
 
 mkdir -p root/etc/conf.d
 cp /etc/conf.d/keymaps root/etc/conf.d/keymaps
 cp /etc/conf.d/hwclock root/etc/conf.d/hwclock
 
-if [ "$host_name" == "amg-laptop" ]; then
-  mkdir -p root/etc/dracut.conf.d.amg-laptop
-  cp -r /etc/dracut.conf.d/* root/etc/dracut.conf.d.amg-laptop
-else
-  mkdir -p root/etc/dracut.conf.d.amg-pc
-  cp -r /etc/dracut.conf.d/* root/etc/dracut.conf.d.amg-pc
-fi
-
+mkdir -p root/etc/dracut.conf.d.amg-laptop
+cp -r /etc/dracut.conf.d/* root/etc/dracut.conf.d
 cp /etc/sudoers root/etc/sudoers
 cp /etc/inittab root/etc/inittab
 cp /etc/resolv.conf root/etc/resolv.conf
@@ -71,11 +48,7 @@ mkdir -p root/etc/brave/policies/managed
 cp -r /etc/brave/policies/managed/* root/etc/brave/policies/managed
 
 mkdir -p root/var/lib/portage
-if [ "$host_name" == "amg-laptop" ]; then
-  cp /var/lib/portage/world root/var/lib/portage/world.amg-laptop
-else
-  cp /var/lib/portage/world root/var/lib/portage/world.amg-pc
-fi
+cp /var/lib/portage/world root/var/lib/portage/world
 
 mkdir -p root/var/repos/local
 cp -r /var/db/repos/local/* root/var/repos/local
@@ -87,17 +60,7 @@ mkdir -p root/etc/kernel/preinst.d
 cp /etc/kernel/preinst.d/999-remove-old-uki root/etc/kernel/preinst.d/999-remove-old-uki
 
 mkdir -p root/etc/kernel/postinst.d
-if [ "$host_name" == "amg-laptop" ]; then
-  cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remove-old-uki.amg-laptop
-else
-  cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remove-old-uki.amg-pc
-fi
+cp /etc/kernel/postinst.d/999-remove-old-uki root/etc/kernel/postinst.d/999-remove-old-uki
 
 mkdir -p root/etc/pipewire
 cp /etc/pipewire/pipewire.conf root/etc/pipewire/pipewire.conf
-
-if [ "$host_name" == "amg-laptop" ]; then
-  git restore -- '*amg-pc*'
-else
-  git restore -- '*amg-laptop*'
-fi
