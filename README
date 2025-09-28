@@ -1,0 +1,5 @@
+- Connect to internet using nmtui or connect phone through ethernet
+- Set up partitions and mount them
+- Download, verify and extract stage3 tarball
+- Run `./install.sh` script
+- Check efibootmgr and EFI partition if all is correct
