@@ -25,7 +25,6 @@ usermod -aG pipewire,plugdev amg
 rc-update add bluetooth default
 rc-update add NetworkManager default
 rc-update add apparmor boot
-chattr +i /etc/resolv.conf
 su amg -c "flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 flatpak override --system --no-talk-name=org.freedesktop.ScreenSaver --no-talk-name=org.freedesktop.UDisks2
 

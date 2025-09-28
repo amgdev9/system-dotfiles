@@ -39,7 +39,7 @@ cp -f root/etc/conf.d/keymaps /etc/conf.d/keymaps
 cp -f root/etc/conf.d/hwclock /etc/conf.d/hwclock
 cp -f root/etc/sudoers /etc/sudoers
 cp -f root/etc/inittab /etc/inittab
-cp -f root/etc/resolv.conf /etc/resolv.conf
+chattr -i /etc/resolv.conf && cp -f root/etc/resolv.conf /etc/resolv.conf && chattr +i /etc/resolv.conf
 rm -rf /etc/apparmor && mkdir -p /etc/apparmor && cp -f root/etc/apparmor/parser.conf /etc/apparmor/parser.conf
 rm -rf /etc/brave/policies/managed && mkdir -p /etc/brave/policies/managed && cp -rf root/etc/brave/policies/managed/* /etc/brave/policies/managed/
 rm -rf /var/db/repos/local && mkdir -p /var/db/repos/local && cp -rf root/var/repos/local/* /var/db/repos/local/
