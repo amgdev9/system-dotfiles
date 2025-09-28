@@ -1,8 +1,10 @@
 HOMEDIR=/home/amg
 mkdir -p $HOMEDIR/.config
+mkdir -p /root/.config
 rm -rf $HOMEDIR/.config/alacritty && cp -rf alacritty $HOMEDIR/.config/alacritty
 rm -rf $HOMEDIR/.config/hypr && cp -rf hypr $HOMEDIR/.config/hypr
 rm -rf $HOMEDIR/.config/nvim && cp -rf nvim $HOMEDIR/.config/nvim
+rm -rf /root/.config/nvim && cp -rf nvim /root/.config/nvim
 rm -rf $HOMEDIR/.config/waybar && cp -rf waybar $HOMEDIR/.config/waybar
 rm -rf $HOMEDIR/.config/tmux && cp -rf tmux $HOMEDIR/.config/tmux
 rm -rf $HOMEDIR/.config/wofi && cp -rf wofi $HOMEDIR/.config/wofi
@@ -46,3 +48,5 @@ rm -rf /etc/kernel/preinst.d && mkdir -p /etc/kernel/preinst.d && cp -f root/etc
 rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki /etc/kernel/postinst.d/999-remove-old-uki
 
 rm -rf /etc/pipewire && mkdir -p /etc/pipewire && cp -f root/etc/pipewire/pipewire.conf /etc/pipewire/pipewire.conf
+
+reboot
