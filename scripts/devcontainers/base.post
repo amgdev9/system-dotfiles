@@ -1,0 +1,3 @@
+USER amgdev 
+WORKDIR /home/amgdev/workspace
+CMD ["bash"]
