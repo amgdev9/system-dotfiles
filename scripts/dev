@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
-CONTAINER_USER=ubuntu
+CONTAINER_USER=amgdev
 FOLDER_NAME=workspace
 NAME=$(basename "$PWD")
 
 xhost +local:
-
-# Build base development image if needed
-podman image exists localhost/base
-EXISTS=$?
-if [ "$EXISTS" != "0" ]; then
-    podman build -f $HOME/.config/terminal-config/devcontainers/Containerfile.base -t base .
-fi
 
 podman container exists "$NAME"
 EXISTS=$?
