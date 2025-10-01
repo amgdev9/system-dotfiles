@@ -1,0 +1,19 @@
+# Base system
+FROM debian:latest
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && mkdir -p /home/amgdev/.config
+
+# Personal dev setup for all projects
+RUN apt-get install -y git curl gcc wget ripgrep \
+    && wget https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.tar.gz \
+    && tar xzvf nvim-linux-x86_64.tar.gz \
+    && cp -rf ./nvim-linux-x86_64/* /usr/local/ \
+    && rm nvim-linux-x86_64.tar.gz \ 
+    && rm -rf ./nvim-linux-x86_64 \
+    && git clone https://github.com/amgdev9/devenv /home/amgdev/devenv \
+    && cp -r /home/amg/devenv/nvim-code /home/amgdev/.config \
+    && cp -r /home/amg/devenv/nvim-debugger /home/amgdev/.config \
+    && cp /home/amg/devenv/.bashrc /home/amg/devenv/.bashrc \
+    && chown -R amgdev:amgdev /home/amgdev
+

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $(basename "$0") file1 [file2 ...]"
+    exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+DEVCONTAINERS_DIR="$SCRIPT_DIR/devcontainers"
+
+OUTFILE="Containerfile"
+
+cat "$DEVCONTAINERS_DIR/base.pre" > "$OUTFILE"
+
+for f in "$@"; do
+    cat "$DEVCONTAINERS_DIR/$f" >> "$OUTFILE"
+done
+
+cat "$DEVCONTAINERS_DIR/base.post" >> "$OUTFILE"
+
+echo "Created $OUTFILE"
