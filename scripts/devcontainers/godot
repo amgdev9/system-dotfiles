@@ -19,10 +19,17 @@ RUN apt-get install -y \
     && mv /usr/local/bin/Godot_v4.4.1-stable_linux.x86_64 /usr/local/bin/godot \
     && chmod +x /usr/local/bin/godot
 
-RUN cat << 'EOF' > /home/ubuntu/.config/nvim-code/lua/custom.lua
-return {
-   lsp = { "gdscript" },
-   formatters_by_ft = {}
-}
+RUN cat << 'EOF' > /home/ubuntu/.config/nvim-code/lua/custom/godot.lua
+local M = {}
+
+function M.setup_lsp(lspconfig, capabilities)
+  lspconfig.gdscript.setup({ capabilities = capabilities })
+end
+
+function M.get_formatters_by_ft()
+  return {} 
+end
+
+return M
 EOF
 

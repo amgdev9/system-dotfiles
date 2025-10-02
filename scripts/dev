@@ -3,7 +3,8 @@ CONTAINER_USER=amgdev
 FOLDER_NAME=workspace
 NAME=$(basename "$PWD")
 
-xhost +local:
+# TODO See a better way
+#xhost +local:
 
 podman container exists "$NAME"
 EXISTS=$?
@@ -26,7 +27,7 @@ if [ "$EXISTS" != "0" ]; then
     done
 
     # Mount X11 socket
-    VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix:rw"
+    #VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix:rw"
 
     # Add --device /dev/kvm only when absolutely needed 
     podman run -it \
