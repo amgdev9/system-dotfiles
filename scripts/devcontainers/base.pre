@@ -2,6 +2,7 @@
 FROM debian:latest
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
+    && useradd -m -s /bin/bash amgdev \
     && mkdir -p /home/amgdev/.config
 
 # Personal dev setup for all projects
@@ -12,8 +13,9 @@ RUN apt-get install -y git curl gcc wget ripgrep \
     && rm nvim-linux-x86_64.tar.gz \ 
     && rm -rf ./nvim-linux-x86_64 \
     && git clone https://github.com/amgdev9/devenv /home/amgdev/devenv \
-    && cp -r /home/amg/devenv/nvim-code /home/amgdev/.config \
-    && cp -r /home/amg/devenv/nvim-debugger /home/amgdev/.config \
-    && cp /home/amg/devenv/.bashrc /home/amg/devenv/.bashrc \
+    && cp -r /home/amgdev/devenv/nvim-code /home/amgdev/.config \
+    && cp -r /home/amgdev/devenv/nvim-debugger /home/amgdev/.config \
+    && cp -f /home/amgdev/devenv/.bashrc /home/amgdev/.bashrc \
+    && cp -f /home/amgdev/devenv/.inputrc /home/amgdev/.inputrc \
     && chown -R amgdev:amgdev /home/amgdev
 
