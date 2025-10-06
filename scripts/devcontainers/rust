@@ -1,0 +1,17 @@
+# Rust 
+RUN su - amgdev -c "curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y" \
+ && su - amgdev -c "rustup component add rust-analyzer" \ 
+ && echo '\
+local M = {}\n\
+\
+function M.setup_lsp(lspconfig, capabilities)\n\
+  lspconfig.rust_analyzer.setup({ capabilities = capabilities })\n\
+end\n\
+\
+function M.get_formatters_by_ft()\n\
+  return {}\n\
+end\n\
+\
+return M\
+' >> /home/amgdev/.config/nvim-code/lua/custom/rust.lua
+
