@@ -1,3 +1,0 @@
-echo "Removing EFI files from ESP..."
-rm -rf /efi/EFI/Linux/*.efi
-echo "Done!"

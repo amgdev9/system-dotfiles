@@ -1,0 +1,9 @@
+- Apparmor enable in kernel cmdline
+- Set EDITOR=nvim
+- Save root packages list to file, read it for pacstrap
+- Brave browser and update script (pacman hook)
+- Pacman hook to setup apparmor profiles
+- postsync.d folder for pacman hooks
+- Save .gitconfig instead of setup commands
+- amg-laptop: "systemctl mask dev-tpmrm0.device"
+- amg-pc: install nvidia-open and nvidia-utils

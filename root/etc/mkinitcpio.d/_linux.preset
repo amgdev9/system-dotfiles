@@ -1,0 +1,5 @@
+sed -i 's|^#default_uki=.*|default_uki="/efi/EFI/Linux/arch-linux.efi"|' /mnt/etc/mkinitcpio.d/linux.preset
+    1 sed -i 's|^#fallback_uki=.*|fallback_uki="/efi/EFI/Linux/arch-linux-fallback.efi"|' /mnt/etc/mkinitcpio.d/linux.preset
+    2 sed -i '/^default_image=/d' /mnt/etc/mkinitcpio.d/linux.preset
+    3 sed -i '/^fallback_image=/d' /mnt/etc/mkinitcpio.d/linux.preset
+
