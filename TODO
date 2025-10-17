@@ -5,5 +5,5 @@
 - Pacman hook to setup apparmor profiles
 - postsync.d folder for pacman hooks
 - Save .gitconfig instead of setup commands
-- amg-laptop: "systemctl mask dev-tpmrm0.device"
+- amg-laptop: "systemctl mask dev-tpmrm0.device" "systemctl mask dev-tpm0.device"
 - amg-pc: install nvidia-open and nvidia-utils
