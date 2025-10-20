@@ -1,0 +1,7 @@
+[user]
+	email = andresmargar98@proton.me
+	name = AMG
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
