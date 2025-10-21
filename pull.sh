@@ -17,12 +17,13 @@ cp $HOMEDIR/.gitconfig home/.gitconfig
 cp $HOMEDIR/.bash_profile home/.bash_profile
 
 mkdir -p root/usr/share/libalpm/hooks
-cp -r /usr/share/libalpm/hooks/* root/usr/share/libalpm/hooks
+cp -r /usr/share/libalpm/hooks/zz-amg-apparmor.hook root/usr/share/libalpm/hooks
 
 mkdir -p root/opt
 cp -r /opt/apparmor.d root/opt
 cp -r /opt/aur root/aur
 
+mkdir -p root/etc
 cp /etc/sudoers root/etc
 cp /etc/locale.gen root/etc
 cp /etc/mkinitcpio.conf root/etc
