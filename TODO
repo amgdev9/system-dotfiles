@@ -1,3 +1,2 @@
-- Brave browser and update script
 - amg-laptop: "systemctl mask dev-tpmrm0.device" "systemctl mask dev-tpm0.device"
 - amg-pc: install nvidia-open and nvidia-utils
