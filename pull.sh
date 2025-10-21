@@ -21,7 +21,7 @@ cp -r /usr/share/libalpm/hooks/zz-amg-apparmor.hook root/usr/share/libalpm/hooks
 
 mkdir -p root/opt
 cp -r /opt/apparmor.d root/opt
-cp -r /opt/aur root/aur
+cp -r /opt/aur root/opt
 
 mkdir -p root/etc
 cp /etc/sudoers root/etc
