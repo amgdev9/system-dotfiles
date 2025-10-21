@@ -3,9 +3,6 @@ CONTAINER_USER=amgdev
 FOLDER_NAME=workspace
 NAME=$(basename "$PWD")
 
-# TODO See a better way
-#xhost +local:
-
 podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
@@ -26,14 +23,14 @@ if [ "$EXISTS" != "0" ]; then
         fi
     done
 
-    # Mount X11 socket
-    #VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix:rw"
+    # TODO Mount wayland unprivileged socket
+    #VOLUMES="$VOLUMES -v /run/user/$UID/wayland-podman:/run/user/$UID/wayland-podman"
 
     # Add --device /dev/kvm only when absolutely needed 
     podman run -it \
         $VOLUMES \
         -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native \
-        -e DISPLAY=$DISPLAY \
+        -e WAYLAND_DISPLAY=wayland-podman \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         --device /dev/dri \
         --device /dev/snd \
