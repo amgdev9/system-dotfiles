@@ -1,1 +1,3 @@
-sudo emerge --ask --update --newuse --deep @world
+sudo pacman -Syu
+flatpak update -y
+/opt/aur/sync.py
