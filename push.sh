@@ -9,7 +9,6 @@ rm -rf $HOMEDIR/.config/waybar && cp -rf waybar $HOMEDIR/.config/waybar
 rm -rf $HOMEDIR/.config/tmux && cp -rf tmux $HOMEDIR/.config/tmux
 rm -rf $HOMEDIR/.config/wofi && cp -rf wofi $HOMEDIR/.config/wofi
 rm -rf $HOMEDIR/Scripts && mkdir -p $HOMEDIR/Scripts && cp -rf scripts/* $HOMEDIR/Scripts/
-chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc $HOMEDIR/Scripts
 
 cp -f home/.bashrc $HOMEDIR/.bashrc
 cp -f home/.bashrc_root /root/.bashrc
@@ -17,36 +16,33 @@ cp -f home/.inputrc $HOMEDIR/.inputrc
 cp -f home/.inputrc /root/.inputrc
 cp -f home/.bash_profile $HOMEDIR/.bash_profile
 cp -f home/.bash_profile /root/.bash_profile
+cp -f home/.gitconfig $HOMEDIR/.gitconfig
+cp -f home/.gitconfig_root /root/.gitconfig
+chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc $HOMEDIR/Scripts $HOMEDIR/.gitconfig
 
-cp -f root/etc/portage/make.conf /etc/portage/make.conf
-rm -rf /etc/portage/binrepos.conf && mkdir -p /etc/portage/binrepos.conf && cp -rf root/etc/portage/binrepos.conf/* /etc/portage/binrepos.conf/
-rm -rf /etc/portage/repos.conf && mkdir -p /etc/portage/repos.conf && cp -rf root/etc/portage/repos.conf/* /etc/portage/repos.conf/
-rm -rf /etc/portage/package.accept_keywords && mkdir -p /etc/portage/package.accept_keywords && cp -rf root/etc/portage/package.accept_keywords/* /etc/portage/package.accept_keywords/
-rm -rf /etc/portage/postsync.d && mkdir -p /etc/portage/postsync.d && cp -rf root/etc/portage/postsync.d/* /etc/portage/postsync.d/
-cp -f root/etc/localtime /etc/localtime
-cp -f root/etc/locale.gen /etc/locale.gen
+cp -f root/usr/share/libalpm/hooks/zz-amg-apparmor.hook /usr/share/libalpm/hooks
+rm -rf /opt/apparmor.d && cp -rf /root/opt/apparmor.d /opt
+rm -rf /opt/aur && cp -rf /root/opt/aur /opt
+chown -R amg:amg /opt/aur
 
-cp -f root/etc/env.d/02locale /etc/env.d/02locale
-cp -f root/etc/env.d/99editor /etc/env.d/99editor
-cp -f root/etc/fstab /etc/fstab
-cp -f root/etc/hostname /etc/hostname
-cp -f root/var/lib/portage/world /var/lib/portage/world
-rm -rf /etc/dracut.conf.d && mkdir -p /etc/dracut.conf.d && cp -rf root/etc/dracut.conf.d/* /etc/dracut.conf.d/
-rm -rf /etc/portage/package.use && mkdir -p /etc/portage/package.use && cp -rf root/etc/portage/package.use/* /etc/portage/package.use/
+cp -f root/etc/locale.gen /etc
+cp -f root/etc/sudoers /etc
+cp -f root/etc/mkinitcpio.conf /etc
+chattr -i /etc/resolv.conf && cp -f root/etc/resolv.conf /etc && chattr +i /etc/resolv.conf
+cp -f root/etc/hostname /etc
+cp -f root/etc/vconsole.conf /etc
+cp -f root/etc/apparmor/parser.conf /etc/apparmor
 
-cp -f root/etc/rc.conf /etc/rc.conf
-cp -f root/etc/conf.d/keymaps /etc/conf.d/keymaps
-cp -f root/etc/conf.d/hwclock /etc/conf.d/hwclock
-cp -f root/etc/sudoers /etc/sudoers
-cp -f root/etc/inittab /etc/inittab
-chattr -i /etc/resolv.conf && cp -f root/etc/resolv.conf /etc/resolv.conf && chattr +i /etc/resolv.conf
-rm -rf /etc/apparmor && mkdir -p /etc/apparmor && cp -f root/etc/apparmor/parser.conf /etc/apparmor/parser.conf
-rm -rf /etc/brave/policies/managed && mkdir -p /etc/brave/policies/managed && cp -rf root/etc/brave/policies/managed/* /etc/brave/policies/managed/
-rm -rf /var/db/repos/local && mkdir -p /var/db/repos/local && cp -rf root/var/repos/local/* /var/db/repos/local/
-cp -f root/usr/share/fonts/HackNerdFontMono-Regular.ttf /usr/share/fonts/HackNerdFontMono-Regular.ttf
-rm -rf /etc/kernel/preinst.d && mkdir -p /etc/kernel/preinst.d && cp -f root/etc/kernel/preinst.d/999-remove-old-uki /etc/kernel/preinst.d/999-remove-old-uki
-rm -rf /etc/kernel/postinst.d && mkdir -p /etc/kernel/postinst.d && cp -f root/etc/kernel/postinst.d/999-remove-old-uki /etc/kernel/postinst.d/999-remove-old-uki
+rm -rf /etc/brave/policies/managed && cp -rf root/etc/brave/policies/managed /etc/brave/policies
 
-rm -rf /etc/pipewire && mkdir -p /etc/pipewire && cp -f root/etc/pipewire/pipewire.conf /etc/pipewire/pipewire.conf
+rm -rf /etc/NetworkManager/conf.d && cp -rf root/etc/NetworkManager/conf.d /etc/NetworkManager
 
-reboot
+rm -rf /etc/cmdline.d && cp -rf root/etc/cmdline.d /etc
+
+rm -rf /etc/mkinitcpio.d && cp -rf root/etc/mkinitcpio.d /etc
+
+cp -f root/etc/profile.d/99-editor.sh /etc/profile.d
+
+rm -rf /etc/systemd/system/getty@tty1.service.d && cp -rf root/etc/systemd/system/getty@tty1.service.d /etc/systemd/system
+
+echo "Done, reboot is recommended"
