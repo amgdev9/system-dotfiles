@@ -25,6 +25,8 @@ hwclock --systohc
 systemctl enable NetworkManager
 systemctl enable bluetooth
 systemctl enable apparmor
+systemctl mask dev-tpmrm0.device
+systemctl mask dev-tpm0.device
 
 sbctl create-keys
 sbctl enroll-keys -m
