@@ -34,7 +34,7 @@ if [ "$EXISTS" != "0" ]; then
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         --device /dev/dri \
         --device /dev/snd \
-        --user $(id -u):$(id -g) \
+        --userns=keep-id \
         --name "$NAME" "$NAME" bash
     exit
 fi
