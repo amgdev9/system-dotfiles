@@ -49,5 +49,5 @@ cp -r /etc/mkinitcpio.d/* root/etc/mkinitcpio.d
 mkdir -p root/etc/profile.d
 cp /etc/profile.d/99-editor.sh root/etc/profile.d
 
-mkdir -p root/systemd/system/getty@tty1.service.d
-cp /etc/systemd/system/getty@tty1.service.d/override.conf root/systemd/system/getty@tty1.service.d
+mkdir -p root/etc/systemd/system/getty@tty1.service.d
+cp /etc/systemd/system/getty@tty1.service.d/override.conf root/etc/systemd/system/getty@tty1.service.d
