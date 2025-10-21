@@ -21,8 +21,8 @@ cp -f home/.gitconfig_root /root/.gitconfig
 chown -R amg:amg $HOMEDIR/.config $HOMEDIR/.bashrc $HOMEDIR/.bash_profile $HOMEDIR/.inputrc $HOMEDIR/Scripts $HOMEDIR/.gitconfig
 
 cp -f root/usr/share/libalpm/hooks/zz-amg-apparmor.hook /usr/share/libalpm/hooks
-rm -rf /opt/apparmor.d && cp -rf /root/opt/apparmor.d /opt
-rm -rf /opt/aur && cp -rf /root/opt/aur /opt
+rm -rf /opt/apparmor.d && cp -rf root/opt/apparmor.d /opt
+rm -rf /opt/aur && cp -rf root/opt/aur /opt
 chown -R amg:amg /opt/aur
 
 cp -f root/etc/locale.gen /etc
