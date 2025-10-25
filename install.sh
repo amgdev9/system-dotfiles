@@ -40,4 +40,4 @@ flatpak override --system --no-talk-name=org.freedesktop.ScreenSaver --no-talk-n
 locale-gen
 mkinitcpio -P
 
-echo "Done!"
+echo "Done, review /etc/cmdline.d/root.conf"
