@@ -31,6 +31,7 @@ cp -f root/etc/mkinitcpio.conf /etc
 chattr -i /etc/resolv.conf && cp -f root/etc/resolv.conf /etc && chattr +i /etc/resolv.conf
 cp -f root/etc/hostname /etc
 cp -f root/etc/vconsole.conf /etc
+cp -f root/etc/locale.conf /etc
 cp -f root/etc/apparmor/parser.conf /etc/apparmor
 
 rm -rf /etc/brave/policies/managed && cp -rf root/etc/brave/policies/managed /etc/brave/policies

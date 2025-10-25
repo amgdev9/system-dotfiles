@@ -30,6 +30,7 @@ cp /etc/mkinitcpio.conf root/etc
 cp /etc/resolv.conf root/etc
 cp /etc/hostname root/etc
 cp /etc/vconsole.conf root/etc
+cp /etc/locale.conf root/etc
 
 mkdir -p root/etc/apparmor
 cp /etc/apparmor/parser.conf root/etc/apparmor
