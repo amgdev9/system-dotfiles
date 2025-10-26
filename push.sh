@@ -34,6 +34,7 @@ cp -f root/etc/vconsole.conf /etc
 cp -f root/etc/locale.conf /etc
 cp -f root/etc/apparmor/parser.conf /etc/apparmor
 
+mkdir -p /etc/brave/policies
 rm -rf /etc/brave/policies/managed && cp -rf root/etc/brave/policies/managed /etc/brave/policies
 
 rm -rf /etc/NetworkManager/conf.d && cp -rf root/etc/NetworkManager/conf.d /etc/NetworkManager
