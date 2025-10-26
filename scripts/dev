@@ -9,7 +9,7 @@ RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
-    podman build -t "$NAME" -f Containerfile .
+    podman build -t "$NAME" -f Containerfile $HOME/.podman
 
     # Mount workspace folder as read only
     VOLUMES="-v $PWD:/home/$CONTAINER_USER/$FOLDER_NAME:ro"

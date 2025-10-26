@@ -4,8 +4,9 @@ RUN su - amgdev -c "curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | 
  && echo '\
 local M = {}\n\
 \
-function M.setup_lsp(lspconfig, capabilities)\n\
-  lspconfig.rust_analyzer.setup({ capabilities = capabilities })\n\
+function M.setup_lsp(capabilities)\n\
+  vim.lsp.config("rust_analyzer", { capabilities = capabilities })\n\
+  vim.lsp.enable("rust_analyzer")\n\
 end\n\
 \
 function M.get_formatters_by_ft()\n\
