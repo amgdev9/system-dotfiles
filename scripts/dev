@@ -9,7 +9,7 @@ RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
-    podman build -t "$NAME" -f Containerfile .
+    podman build -t "$NAME" -f Containerfile $HOME/.podman
 
     # Mount workspace folder as read only
     VOLUMES="-v $PWD:/home/$CONTAINER_USER/$FOLDER_NAME:ro"
@@ -26,9 +26,17 @@ if [ "$EXISTS" != "0" ]; then
     # TODO Mount wayland unprivileged socket
     #VOLUMES="$VOLUMES -v /run/user/$UID/wayland-podman:/run/user/$UID/wayland-podman"
 
+    # Check nvidia gpu presence
+    ARGS=""
+    if command -v nvidia-smi &> /dev/null; then
+        echo "Using nvidia gpu"
+        ARGS="$ARGS --gpus all"
+    fi
+
     # Add --device /dev/kvm only when absolutely needed 
     podman run -it \
         $VOLUMES \
+        $ARGS \
         -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native \
         -e WAYLAND_DISPLAY=wayland-podman \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
