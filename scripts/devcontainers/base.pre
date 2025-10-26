@@ -17,5 +17,7 @@ RUN apt-get install -y git curl gcc wget ripgrep \
     && cp -r /home/amgdev/devenv/nvim-debugger /home/amgdev/.config \
     && cp -f /home/amgdev/devenv/.bashrc /home/amgdev/.bashrc \
     && cp -f /home/amgdev/devenv/.inputrc /home/amgdev/.inputrc \
+    && mkdir -p /home/amgdev/.cache/nvim-code/codeium \
     && chown -R amgdev:amgdev /home/amgdev
 
+COPY windsurf.json /home/amgdev/.cache/nvim-code/codeium/config.json
