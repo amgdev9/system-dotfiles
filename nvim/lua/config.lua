@@ -29,3 +29,7 @@ vim.o.fillchars = 'eob: '
 
 -- Disable swap files
 vim.opt.swapfile = false
+
+-- Dont continue comment lines
+vim.cmd('autocmd BufEnter * set formatoptions-=cro')
+vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
