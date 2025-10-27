@@ -23,8 +23,9 @@ if [ "$EXISTS" != "0" ]; then
         fi
     done
 
-    # TODO Mount wayland unprivileged socket
-    #VOLUMES="$VOLUMES -v /run/user/$UID/wayland-podman:/run/user/$UID/wayland-podman"
+    # Mount x11 socket 
+    xhost +local:amg
+    VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
 
     # Check nvidia gpu presence
     ARGS=""
@@ -33,12 +34,11 @@ if [ "$EXISTS" != "0" ]; then
         ARGS="$ARGS --gpus all"
     fi
 
-    # Add --device /dev/kvm only when absolutely needed 
     podman run -it \
         $VOLUMES \
         $ARGS \
         -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native \
-        -e WAYLAND_DISPLAY=wayland-podman \
+        -e DISPLAY=$DISPLAY \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         --device /dev/dri \
         --device /dev/snd \
