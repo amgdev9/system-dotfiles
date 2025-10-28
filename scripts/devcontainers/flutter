@@ -1,0 +1,20 @@
+RUN apt-get install -y zip unzip xz-utils libglu1-mesa \
+    && wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.35.7-stable.tar.xz \
+    && tar -xf flutter_linux_3.35.7-stable.tar.xz -C /opt \
+    && rm flutter_linux_3.35.7-stable.tar.xz \
+    && echo "export PATH=\"/opt/flutter/bin:\$PATH\"" >> /home/amgdev/.bashrc \
+    && apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev libstdc++-12-dev \
+    && echo '\
+local M = {}\n\
+\
+function M.setup_lsp(capabilities)\n\
+  vim.lsp.config("dartls", { capabilities = capabilities })\n\
+  vim.lsp.enable("dartls")\n\
+end\n\
+\
+function M.get_formatters_by_ft()\n\
+  return { dart = { "dart_format" } }\n\
+end\n\
+\
+return M\
+' >> /home/amgdev/.config/nvim-code/lua/custom/flutter.lua
