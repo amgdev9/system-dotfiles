@@ -37,6 +37,7 @@ if [ "$EXISTS" != "0" ]; then
     podman run -it \
         $VOLUMES \
         $ARGS \
+        -P \
         -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native \
         -e DISPLAY=$DISPLAY \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \

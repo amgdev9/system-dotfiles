@@ -1,7 +1,6 @@
-RUN su - amgdev -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash" \
- && su - amgdev -c "nvm install 25" \ 
- && su - amgdev -c "npm i -g typescript typescript-language-server" \
- && su - amgdev -c "curl -fsSL https://get.pnpm.io/install.sh | sh -" \
+RUN apt-get install -y unzip \
+ && su - amgdev -c "curl -fsSL https://bun.com/install | bash" \
+ && su - amgdev -c "bun add -g typescript typescript-language-server" \
  && echo '\
 local M = {}\n\
 \
