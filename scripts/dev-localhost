@@ -1,0 +1,5 @@
+folder_name=$(basename "$PWD")
+container_id=$(podman ps --filter "name=$folder_name" --format "{{.ID}}")
+host_port=$(podman port "$container_id" | awk -F '[: ]+' '{print $4}')
+
+brave "http://localhost:$host_port"
