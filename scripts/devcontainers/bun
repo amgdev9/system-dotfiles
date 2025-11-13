@@ -1,17 +1,2 @@
 RUN apt-get install -y unzip \
- && su - amgdev -c "curl -fsSL https://bun.com/install | bash" \
- && su - amgdev -c "bun add -g typescript typescript-language-server" \
- && echo '\
-local M = {}\n\
-\
-function M.setup_lsp(capabilities)\n\
-  vim.lsp.config("ts_ls", { capabilities = capabilities })\n\
-  vim.lsp.enable("ts_ls")\n\
-end\n\
-\
-function M.get_formatters_by_ft()\n\
-  return {}\n\
-end\n\
-\
-return M\
-' >> /home/amgdev/.config/nvim-code/lua/custom/typescript.lua
+ && su - amgdev -c "curl -fsSL https://bun.com/install | bash" 
