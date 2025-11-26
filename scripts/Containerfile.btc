@@ -1,5 +1,10 @@
 FROM debian:latest
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update
+RUN apt-get update && \
+    apt-get install -y wget && \
+    wget https://bitcoin.org/bin/bitcoin-core-28.1/bitcoin-28.1-x86_64-linux-gnu.tar.gz -O bitcoin.tar.gz && \
+    tar -xzf bitcoin.tar.gz -C /root && \
+    rm bitcoin.tar.gz
 
+WORKDIR /root/bitcoin-28.1/bin
 CMD ["bash"]
