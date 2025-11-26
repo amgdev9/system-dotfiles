@@ -1,0 +1,2 @@
+RUN apt-get install -y unzip \
+ && su - amgdev -c "curl -fsSL https://bun.com/install | bash" 

@@ -1,0 +1,18 @@
+RUN su - amgdev -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash" \
+ && su - amgdev -c "nvm install 25" \ 
+ && su - amgdev -c "npm i -g typescript typescript-language-server" \
+ && su - amgdev -c "curl -fsSL https://get.pnpm.io/install.sh | sh -" \
+ && echo '\
+local M = {}\n\
+\
+function M.setup_lsp(capabilities)\n\
+  vim.lsp.config("ts_ls", { capabilities = capabilities })\n\
+  vim.lsp.enable("ts_ls")\n\
+end\n\
+\
+function M.get_formatters_by_ft()\n\
+  return {}\n\
+end\n\
+\
+return M\
+' >> /home/amgdev/.config/nvim-code/lua/custom/typescript.lua
