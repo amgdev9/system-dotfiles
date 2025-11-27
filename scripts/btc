@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo Building container image... 
+podman build -t "btc" -f Containerfile.btc $HOME/.podman
+podman run --rm -it --network=none "btc"
