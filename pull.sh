@@ -16,11 +16,7 @@ cp $HOMEDIR/.inputrc home/.inputrc
 cp $HOMEDIR/.gitconfig home/.gitconfig
 cp $HOMEDIR/.bash_profile home/.bash_profile
 
-mkdir -p root/usr/share/libalpm/hooks
-cp -r /usr/share/libalpm/hooks/zz-amg-apparmor.hook root/usr/share/libalpm/hooks
-
 mkdir -p root/opt
-cp -r /opt/apparmor.d root/opt
 cp -r /opt/aur root/opt
 
 mkdir -p root/etc
@@ -31,9 +27,6 @@ cp /etc/resolv.conf root/etc
 cp /etc/hostname root/etc
 cp /etc/vconsole.conf root/etc
 cp /etc/locale.conf root/etc
-
-mkdir -p root/etc/apparmor
-cp /etc/apparmor/parser.conf root/etc/apparmor
 
 mkdir -p root/etc/brave/policies/managed
 cp -r /etc/brave/policies/managed/* root/etc/brave/policies/managed
