@@ -33,8 +33,6 @@ if [ "$EXISTS" != "0" ]; then
         --device /dev/snd \
         --name "$NAME" "$NAME" bash
 
-    podman cp . "$NAME":/home/$CONTAINER_USER/workspace
-
     podman start -ai "$NAME"
     exit
 fi
