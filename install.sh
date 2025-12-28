@@ -38,6 +38,7 @@ flatpak override --user --nofilesystem=xdg-download
 flatpak override --user --no-talk-name=org.gtk.vfs
 flatpak override --user --no-talk-name=org.gtk.vfs.*
 flatpak override --user --nofilesystem=host --nofilesystem=xdg-config/fontconfig --nofilesystem=xdg-config/gtk-3.0 --nofilesystem=xdg-run/gvfsd
+flatpak override --user --filesystem=/home/amg/Workspace
 
 ./push.sh
 
