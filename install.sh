@@ -35,6 +35,9 @@ passwd amg
 su amg -c "flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 flatpak override --system --no-talk-name=org.freedesktop.ScreenSaver --no-talk-name=org.freedesktop.UDisks2
 flatpak override --user --nofilesystem=xdg-download
+flatpak override --user --no-talk-name=org.gtk.vfs
+flatpak override --user --no-talk-name=org.gtk.vfs.*
+flatpak override --user --nofilesystem=host --nofilesystem=xdg-config/fontconfig --nofilesystem=xdg-config/gtk-3.0 --nofilesystem=xdg-run/gvfsd
 
 ./push.sh
 
