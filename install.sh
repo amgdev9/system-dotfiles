@@ -4,7 +4,7 @@ EFI_PART_NUMBER=1
 
 timedatectl
 
-pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode neovim tmux alacritty networkmanager man-db man-pages texinfo sudo sbctl podman hyprland hyprlock swaybg wofi brightnessctl waybar pipewire pipewire-audio pipewire-pulse pipewire-alsa pipewire-jack bluez bluez-utils git git-lfs htop rclone wl-clipboard grim bind ttf-hack-nerd ttf-liberation noto-fonts-emoji xdg-desktop-portal-hyprland bash-completion flatpak android-tools efibootmgr openssh xorg-xhost bc
+pacstrap -K /mnt base base-devel linux linux-firmware amd-ucode neovim tmux alacritty networkmanager man-db man-pages texinfo sudo sbctl podman hyprland hyprlock swaybg wofi brightnessctl waybar pipewire pipewire-audio pipewire-pulse pipewire-alsa pipewire-jack bluez bluez-utils git git-lfs htop rclone wl-clipboard grim bind ttf-hack-nerd ttf-liberation noto-fonts-emoji xdg-desktop-portal-hyprland bash-completion flatpak android-tools efibootmgr openssh xorg-xhost
 genfstab -U /mnt >> /mnt/etc/fstab
 
 rm -rf /mnt/efi/EFI/Linux
