@@ -7,12 +7,13 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
+xhost +local:amg
+
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
     podman build -t "$NAME" -f Containerfile $HOME/.podman
 
     # Mount x11 socket 
-    xhost +local:amg
     VOLUMES="-v /tmp/.X11-unix:/tmp/.X11-unix"
 
     # Check nvidia gpu presence
