@@ -6,7 +6,7 @@ RUN apt-get update \
     && mkdir -p /home/amgdev/.config
 
 # Personal dev setup for all projects
-RUN apt-get install -y git curl gcc wget ripgrep \
+RUN apt-get install -y git curl gcc wget ripgrep xclip \
     && wget https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.tar.gz \
     && tar xzvf nvim-linux-x86_64.tar.gz \
     && cp -rf ./nvim-linux-x86_64/* /usr/local/ \
