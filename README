@@ -1,5 +1,1 @@
-- Ensure secure boot is in setup mode
-- Remove unneeded boot entries with efibootmgr
-- Connect to internet using iwd
-- Format partitions and mount them in /mnt and /mnt/efi
 - Run `./install.sh` script

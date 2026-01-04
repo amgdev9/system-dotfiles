@@ -1,47 +1,17 @@
-HOMEDIR=/home/amg
-rm -rf alacritty && cp -rf $HOMEDIR/.config/alacritty .
-rm -rf hypr && cp -rf $HOMEDIR/.config/hypr .
-rm -rf nvim && cp -rf $HOMEDIR/.config/nvim .
-rm -rf waybar && cp -rf $HOMEDIR/.config/waybar .
-rm -rf tmux && cp -rf $HOMEDIR/.config/tmux .
-rm -rf wofi && cp -rf $HOMEDIR/.config/wofi .
-rm -rf scripts && cp -rf $HOMEDIR/Scripts ./scripts
+rm -rf alacritty && cp -rf $HOME/.config/alacritty .
+rm -rf nvim && cp -rf $HOME/.config/nvim .
+rm -rf tmux && cp -rf $HOME/.config/tmux .
+rm -rf scripts && cp -rf $HOME/Scripts ./scripts
 rm -rf root && mkdir root 
 rm -rf home && mkdir home
 
-cp $HOMEDIR/.bashrc home/.bashrc
-cp /root/.bashrc home/.bashrc_root
-cp /root/.gitconfig home/.gitconfig_root
-cp $HOMEDIR/.inputrc home/.inputrc
-cp $HOMEDIR/.gitconfig home/.gitconfig
-cp $HOMEDIR/.bash_profile home/.bash_profile
+cp $HOME/.bashrc home/.bashrc
+sudo cp /root/.bashrc home/.bashrc_root
+sudo cp /root/.gitconfig home/.gitconfig_root
+cp $HOME/.inputrc home/.inputrc
+cp $HOME/.gitconfig home/.gitconfig
+cp $HOME/.bash_profile home/.bash_profile
 
-mkdir -p root/opt
-cp -r /opt/aur root/opt
+sudo mkdir -p root/etc/brave/policies/managed
+sudo cp -r /etc/brave/policies/managed/* root/etc/brave/policies/managed
 
-mkdir -p root/etc
-cp /etc/sudoers root/etc
-cp /etc/locale.gen root/etc
-cp /etc/mkinitcpio.conf root/etc
-cp /etc/resolv.conf root/etc
-cp /etc/hostname root/etc
-cp /etc/vconsole.conf root/etc
-cp /etc/locale.conf root/etc
-
-mkdir -p root/etc/brave/policies/managed
-cp -r /etc/brave/policies/managed/* root/etc/brave/policies/managed
-
-mkdir -p root/etc/NetworkManager/conf.d
-cp -r /etc/NetworkManager/conf.d/* root/etc/NetworkManager/conf.d
-
-mkdir -p root/etc/cmdline.d
-cp -r /etc/cmdline.d/* root/etc/cmdline.d
-
-mkdir -p root/etc/mkinitcpio.d
-cp -r /etc/mkinitcpio.d/* root/etc/mkinitcpio.d
-
-mkdir -p root/etc/profile.d
-cp /etc/profile.d/99-editor.sh root/etc/profile.d
-
-mkdir -p root/etc/systemd/system/getty@tty1.service.d
-cp /etc/systemd/system/getty@tty1.service.d/override.conf root/etc/systemd/system/getty@tty1.service.d

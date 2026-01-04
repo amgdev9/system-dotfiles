@@ -1,4 +1,5 @@
-command -v start-hyprland >/dev/null && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && exec start-hyprland 
+. /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+. /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.bash
 
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
