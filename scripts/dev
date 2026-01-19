@@ -7,7 +7,7 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
-xhost +local:amg
+xhost +si:localuser:amg
 
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
