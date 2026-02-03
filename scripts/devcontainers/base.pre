@@ -19,5 +19,9 @@ RUN apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
     && cp -f /home/amgdev/devenv/.inputrc /home/amgdev/.inputrc \
     && mkdir -p /home/amgdev/.cache/nvim-code/codeium \
     && chown -R amgdev:amgdev /home/amgdev
+    && su - amgdev -c "git config --global user.name \"AMG\" \
+    && su - amgdev -c "git config --global user.email \"andresmargar98@proton.me\"" \
+    && su - amgdev -c "git config --global init.defaultBranch main" \
+    && su - amgdev -c "git config --global credential.helper store"
 
 COPY windsurf.json /home/amgdev/.cache/nvim-code/codeium/config.json
