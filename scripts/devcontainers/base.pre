@@ -25,4 +25,4 @@ RUN apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
     && su - amgdev -c "git config --global credential.helper store"
 
 COPY windsurf.json /home/amgdev/.cache/nvim-code/codeium/config.json
-COPY .git-crendentials /home/amgdev/.git-credentials
+COPY .git-credentials /home/amgdev/.git-credentials
