@@ -1,0 +1,23 @@
+# Zig 
+RUN su - amgdev -c "curl https://ziglang.org/download/0.15.2/zig-x86_64-linux-0.15.2.tar.xz -o zig.tar.xz" \
+ && su - amgdev -c "tar -xf zig.tar.xz" \ 
+ && su - amgdev -c "rm zig.tar.xz" \
+ && su - amgdev -c "echo 'export PATH=\$PATH:~/zig-x86_64-linux-0.15.2' >> ~/.bashrc" \
+ && su - amgdev -c "curl https://builds.zigtools.org/zls-x86_64-linux-0.15.1.tar.xz -o zls.tar.xz" \
+ && su - amgdev -c "tar -xf zls.tar.xz" \ 
+ && su - amgdev -c "rm zls.tar.xz" \
+ && su - amgdev -c "mv ~/zls ~/zig-x86_64-linux-0.15.2" \
+ && echo '\
+local M = {}\n\
+\
+function M.setup_lsp(capabilities)\n\
+  vim.lsp.config("zls", { capabilities = capabilities })\n\
+  vim.lsp.enable("zls")\n\
+end\n\
+\
+function M.get_formatters_by_ft()\n\
+  return {}\n\
+end\n\
+\
+return M\
+' >> /home/amgdev/.config/nvim-code/lua/custom/zig.lua
