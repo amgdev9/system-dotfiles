@@ -11,7 +11,7 @@ if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
     podman build -t "$NAME" -f Containerfile $HOME/.podman
 
-    VOLUMES = ""
+    VOLUMES=""
     ARGS=""
 
     # Mount x11 socket 
