@@ -15,6 +15,7 @@ if [ "$EXISTS" != "0" ]; then
     ARGS=""
 
     # Mount x11 socket 
+    # TODO Mount wayland socket instead using security context v1
     if grep -q '# USE x11' Containerfile; then
         echo "Using X11"
         VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
@@ -28,6 +29,7 @@ if [ "$EXISTS" != "0" ]; then
     fi
 
     # Mount pulseaudio socket
+    # TODO Mount it always but only allow playback using pipewire policies
     if grep -q '# USE pulseaudio' Containerfile; then
         echo "Using pulseaudio"
         VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
