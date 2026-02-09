@@ -7,17 +7,25 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
-xhost +si:localuser:amg
-
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
     podman build -t "$NAME" -f Containerfile $HOME/.podman
 
+    VOLUMES = ""
+    ARGS=""
+
     # Mount x11 socket 
-    VOLUMES="-v /tmp/.X11-unix:/tmp/.X11-unix"
+    if grep -q '# USE x11' Containerfile; then
+        VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
+        xhost +si:localuser:amg
+    fi
+
+    # Allow KVM
+    if grep -q '# USE kvm' Containerfile; then
+        ARGS ="$ARGS -device /dev/kvm"
+    fi
 
     # Check nvidia gpu presence
-    ARGS=""
     if command -v nvidia-smi &> /dev/null; then
         echo "Using nvidia gpu"
         ARGS="$ARGS --gpus all"
