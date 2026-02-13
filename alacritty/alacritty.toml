@@ -11,3 +11,7 @@ size = 12
 
 [keyboard]
 bindings = [{ key = "V", mods = "Control", action = "Paste" }]
+
+[bell.command]
+program = "paplay"
+args = ["/home/amg/.config/alacritty/bell.wav"]
