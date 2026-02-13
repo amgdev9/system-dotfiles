@@ -18,11 +18,27 @@ RUN apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
     && cp -f /home/amgdev/devenv/.bashrc /home/amgdev/.bashrc \
     && cp -f /home/amgdev/devenv/.inputrc /home/amgdev/.inputrc \
     && mkdir -p /home/amgdev/.cache/nvim-code/codeium \
+    && mkdir -p /home/amgdev/.local/share/opencode \
+    && mkdir -p /home/amgdev/.config/opencode \
     && chown -R amgdev:amgdev /home/amgdev \
+    && su - amgdev -c "curl -fsSL https://opencode.ai/install | bash" \
     && su - amgdev -c "git config --global user.name 'AMG'" \
     && su - amgdev -c "git config --global user.email 'andresmargar98@proton.me'" \
     && su - amgdev -c "git config --global init.defaultBranch main" \
-    && su - amgdev -c "git config --global credential.helper store"
-
+    && su - amgdev -c "git config --global credential.helper store" \
+    && echo '\
+{\n\
+  "$schema": "https://opencode.ai/config.json",\n\
+  "provider": {\n\
+    "openrouter": {\n\
+      "models": {\n\
+        "openrouter/free": {}\n\
+      }\n\
+    }\n\
+  }\n\
+}\
+' >> /home/amgdev/.config/opencode/opencode.json \
+    
 COPY windsurf.json /home/amgdev/.cache/nvim-code/codeium/config.json
-COPY .git-crendentials /home/amgdev/.git-credentials
+COPY .git-credentials /home/amgdev/.git-credentials
+COPY opencode-auth.json /home/amgdev/.local/share/opencode/auth.json

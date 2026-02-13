@@ -7,17 +7,35 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
-xhost +si:localuser:amg
-
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
     podman build -t "$NAME" -f Containerfile $HOME/.podman
 
+    VOLUMES=""
+    ARGS=""
+
     # Mount x11 socket 
-    VOLUMES="-v /tmp/.X11-unix:/tmp/.X11-unix"
+    # TODO Mount wayland socket instead using security context v1
+    if grep -q '# USE x11' Containerfile; then
+        echo "Using X11"
+        VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
+        xhost +si:localuser:amg
+    fi
+
+    # Allow KVM
+    if grep -q '# USE kvm' Containerfile; then
+        echo "Using KVM"
+        ARGS ="$ARGS -device /dev/kvm"
+    fi
+
+    # Mount pulseaudio socket
+    # TODO Mount it always but only allow playback using pipewire policies
+    if grep -q '# USE pulseaudio' Containerfile; then
+        echo "Using pulseaudio"
+        VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
+    fi
 
     # Check nvidia gpu presence
-    ARGS=""
     if command -v nvidia-smi &> /dev/null; then
         echo "Using nvidia gpu"
         ARGS="$ARGS --gpus all"
@@ -27,11 +45,9 @@ if [ "$EXISTS" != "0" ]; then
         $VOLUMES \
         $ARGS \
         -P \
-        -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native \
         -e DISPLAY=$DISPLAY \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         --device /dev/dri \
-        --device /dev/snd \
         --name "$NAME" "$NAME" bash
 
     podman start -ai "$NAME"
