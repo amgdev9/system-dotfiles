@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+NAME=$(basename "$PWD")
+podman exec -it --user root $NAME /bin/bash
+
