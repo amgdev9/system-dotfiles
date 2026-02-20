@@ -2,4 +2,4 @@
 echo Building container image... 
 xhost +local:amg
 podman build -t "testenv" -f $HOME/Scripts/Containerfile.testenvgui $HOME/.podman
-podman run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --device /dev/dri --rm -it "testenv"
+podman run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --device /dev/dri -it --rm "testenv"
