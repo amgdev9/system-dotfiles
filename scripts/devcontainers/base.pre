@@ -37,7 +37,7 @@ RUN apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
     }\n\
   }\n\
 }\
-' >> /home/amgdev/.config/opencode/opencode.json \
+' >> /home/amgdev/.config/opencode/opencode.json
     
 COPY windsurf.json /home/amgdev/.cache/nvim-code/codeium/config.json
 COPY .git-credentials /home/amgdev/.git-credentials
