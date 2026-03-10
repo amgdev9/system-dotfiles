@@ -7,6 +7,11 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
+if grep -q '# USE x11' Containerfile; then
+    echo "Using X11"
+    xhost +local:amg
+fi
+
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
     podman build -t "$NAME" -f Containerfile $HOME/.podman
@@ -17,9 +22,7 @@ if [ "$EXISTS" != "0" ]; then
     # Mount x11 socket 
     # TODO Mount wayland socket instead using security context v1
     if grep -q '# USE x11' Containerfile; then
-        echo "Using X11"
         VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
-        xhost +si:localuser:amg
     fi
 
     # Allow KVM
