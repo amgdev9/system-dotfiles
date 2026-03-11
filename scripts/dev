@@ -25,14 +25,7 @@ if [ "$EXISTS" != "0" ]; then
         VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
     fi
 
-    # Allow KVM
-    if grep -q '# USE kvm' Containerfile; then
-        echo "Using KVM"
-        ARGS ="$ARGS -device /dev/kvm"
-    fi
-
     # Mount pulseaudio socket
-    # TODO Mount it always but only allow playback using pipewire policies
     if grep -q '# USE pulseaudio' Containerfile; then
         echo "Using pulseaudio"
         VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
