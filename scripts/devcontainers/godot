@@ -33,3 +33,4 @@ return M\
 ' >> /home/amgdev/.config/nvim-code/lua/custom/godot.lua
 
 # USE x11
+# USE pulseaudio
