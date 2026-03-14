@@ -1,5 +1,16 @@
-folder_name=$(basename "$PWD")
-container_id=$(podman ps --filter "name=$folder_name" --format "{{.ID}}")
+mapfile -t NAMES < <(podman ps --format "{{.Names}}")
+COUNT=${#NAMES[@]}
+
+if [ "$COUNT" -eq 0 ]; then
+    echo "Error: No running containers found."
+    exit 1
+elif [ "$COUNT" -gt 1 ]; then
+    echo "Error: $COUNT containers running. Expected only 1."
+    exit 1
+fi
+
+NAME="${NAMES[0]}"
+container_id=$(podman ps --filter "name=$NAME" --format "{{.ID}}")
 host_port=$(podman port "$container_id" | awk -F '[: ]+' '{print $4}')
 
 brave "http://localhost:$host_port"
