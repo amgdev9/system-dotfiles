@@ -1,32 +1,40 @@
 #!/usr/bin/env bash
+if [ -z "$1" ]; then
+    echo "Usage: $0 <name> [permissions]"
+    echo "Error: No argument provided."
+    exit 1
+fi
 CONTAINER_USER=amgdev
 FOLDER_NAME=workspace
-NAME=$(basename "$PWD")
+NAME=$1
 
 podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
-if grep -q '# USE x11' Containerfile; then
-    echo "Using X11"
-    xhost +local:amg
-fi
+xhost +local:amg
 
 if [ "$EXISTS" != "0" ]; then
     echo Building container image... 
-    podman build -t "$NAME" -f Containerfile $HOME/.podman
+    if [ -z "$2" ]; then
+        echo "You need to specify permissions comma separated: x11,pulseaudio,none"
+        exit 1
+    fi
+
+    podman build -t "$NAME" -f $HOME/Scripts/Containerfile.dev $HOME/.podman
 
     VOLUMES=""
     ARGS=""
 
     # Mount x11 socket 
     # TODO Mount wayland socket instead using security context v1
-    if grep -q '# USE x11' Containerfile; then
+    if [[ ",$2," == *",x11,"* ]]; then
+        echo "Using X11"
         VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
     fi
 
     # Mount pulseaudio socket
-    if grep -q '# USE pulseaudio' Containerfile; then
+    if [[ ",$2," == *",pulseaudio,"* ]]; then
         echo "Using pulseaudio"
         VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
     fi

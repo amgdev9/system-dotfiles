@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
-NAME=$(basename "$PWD")
+mapfile -t NAMES < <(podman ps --format "{{.Names}}")
+COUNT=${#NAMES[@]}
+
+if [ "$COUNT" -eq 0 ]; then
+    echo "Error: No running containers found."
+    exit 1
+elif [ "$COUNT" -gt 1 ]; then
+    echo "Error: $COUNT containers running. Expected only 1."
+    exit 1
+fi
+
+NAME="${NAMES[0]}"
 podman exec -it --user root $NAME /bin/bash
 
