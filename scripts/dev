@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-if [ -z "$1" ]; then
-    echo "Usage: $0 <name> [permissions]"
-    echo "Error: No argument provided."
-    exit 1
+mapfile -t NAMES < <(podman ps --format "{{.Names}}")
+NAME="${NAMES[0]}"
+if [ -z "$NAME" ]; then
+    NAME=$1
+    if [ -z "$NAME" ]; then
+        echo "Usage: $0 <name> [permissions]"
+        echo "Error: No argument provided."
+        exit 1
+    fi
 fi
-CONTAINER_USER=amgdev
-FOLDER_NAME=workspace
-NAME=$1
 
 podman container exists "$NAME"
 EXISTS=$?
@@ -15,13 +17,15 @@ RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 xhost +local:amg
 
 if [ "$EXISTS" != "0" ]; then
-    echo Building container image... 
+    if [ -z "$(podman images -q devenv)" ]; then
+        echo "Image not found, building now..."
+        podman build -t devenv -f $HOME/Scripts/Containerfile.dev $HOME/.podman
+    fi
+
     if [ -z "$2" ]; then
         echo "You need to specify permissions comma separated: x11,pulseaudio,none"
         exit 1
     fi
-
-    podman build -t "$NAME" -f $HOME/Scripts/Containerfile.dev $HOME/.podman
 
     VOLUMES=""
     ARGS=""
@@ -52,7 +56,7 @@ if [ "$EXISTS" != "0" ]; then
         -e DISPLAY=$DISPLAY \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         --device /dev/dri \
-        --name "$NAME" "$NAME" bash
+        --name "$NAME" devenv bash
 
     podman start -ai "$NAME"
     exit
