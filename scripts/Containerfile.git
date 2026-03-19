@@ -1,0 +1,12 @@
+FROM debian:latest
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && useradd -m -s /bin/bash amgdev \
+    && mkdir -p /home/amgdev/.config \
+    && apt-get install -y git rclone python3 \
+    && git clone https://github.com/amgdev9/rclone-git-server /home/amgdev/rclone-git-server \
+    && chown -R amgdev:amgdev /home/amgdev
+
+USER amgdev 
+WORKDIR /home/amgdev/rclone-git-server
+CMD ["python3", "./git-server.py"]
