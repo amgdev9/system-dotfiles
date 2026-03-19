@@ -10,6 +10,7 @@ if [ -z "$NAME" ]; then
     fi
 fi
 
+podman network exists dev-net || podman network create dev-net 
 podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
@@ -53,6 +54,7 @@ if [ "$EXISTS" != "0" ]; then
         $VOLUMES \
         $ARGS \
         -P \
+        --network dev-net \
         -e DISPLAY=$DISPLAY \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         --device /dev/dri \

@@ -1,0 +1,26 @@
+#!/bin/bash
+podman container exists "gitserver"
+EXISTS=$?
+RUNNING=$(podman ps --filter "name=gitserver" --filter "status=running" -q)
+
+podman network exists dev-net || podman network create dev-net 
+
+if [ "$RUNNING" != "" ]; then
+    echo "Git server already running!"
+    exit 0
+fi
+
+if [ "$EXISTS" != "0" ]; then
+    if [ -z "$(podman images -q gitserver)" ]; then
+        echo "Image not found, building now..."
+        podman build -t gitserver -f $HOME/Scripts/Containerfile.git $HOME/.podman
+    fi
+
+    podman create \
+        -v $HOME/.config/rclone:/home/amgdev/.config/rclone \
+        --userns=keep-id \
+        --network dev-net \
+        --name "gitserver" gitserver
+fi
+
+podman start -ai "gitserver"
