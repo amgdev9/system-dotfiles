@@ -5,7 +5,7 @@ RUN apt-get update \
     && useradd -m -s /bin/bash amgdev \
     && mkdir -p /home/amgdev/.config \
     && apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
-    && wget https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.tar.gz \
+    && wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
     && tar xzvf nvim-linux-x86_64.tar.gz \
     && cp -rf ./nvim-linux-x86_64/* /usr/local/ \
     && rm nvim-linux-x86_64.tar.gz \ 
@@ -28,6 +28,7 @@ RUN apt-get update \
     && echo '\
 {\n\
   "$schema": "https://opencode.ai/config.json",\n\
+  "lsp": false\n\
   "provider": {\n\
     "openrouter": {\n\
       "models": {\n\
