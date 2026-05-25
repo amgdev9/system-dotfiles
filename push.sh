@@ -2,7 +2,7 @@ HOMEDIR=/home/amg
 mkdir -p $HOMEDIR/.config
 mkdir -p /root/.config
 rm -rf $HOMEDIR/.config/alacritty && cp -rf alacritty $HOMEDIR/.config/alacritty
-rm -rf $HOMEDIR/.config/hypr && cp -rf hypr $HOMEDIR/.config/hypr
+rm -rf $HOMEDIR/.config/hypr && cp -rf hypr $HOMEDIR/.config
 rm -rf $HOMEDIR/.config/nvim && cp -rf nvim $HOMEDIR/.config/nvim
 rm -rf /root/.config/nvim && cp -rf nvim /root/.config/nvim
 rm -rf $HOMEDIR/.config/waybar && cp -rf waybar $HOMEDIR/.config/waybar
