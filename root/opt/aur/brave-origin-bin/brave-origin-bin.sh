@@ -2,7 +2,7 @@
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"${HOME}/.config"}"
 
-CONF_FILE="${XDG_CONFIG_HOME}/brave-flags.conf"
+CONF_FILE="${XDG_CONFIG_HOME}/brave-origin-flags.conf"
 
 if
 	test -f "${CONF_FILE}"
@@ -22,4 +22,5 @@ done
 
 export CHROME_VERSION_EXTRA='stable'
 
-exec /opt/brave-bin/brave "${FLAG_LIST[@]}" "${@}"
+exec /opt/brave-origin-bin/brave-origin "${FLAG_LIST[@]}" "${@}"
+
