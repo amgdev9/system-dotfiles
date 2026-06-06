@@ -1,0 +1,8 @@
+#!/bin/bash
+METERED_STATUS=$(nmcli -f METERED general status | tail -n +2 | sed 's/(.*)//' | tr -d '[:space:]')
+
+if [ "$METERED_STATUS" = "no" ]; then
+update
+fi
+
+/usr/bin/poweroff
