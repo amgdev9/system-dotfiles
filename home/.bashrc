@@ -1,6 +1,6 @@
 source /usr/share/git/git-prompt.sh
 
-export PATH=$PATH:$HOME/Scripts
+export PATH=$HOME/Scripts:$PATH
 
 alias ls="ls --color"
 

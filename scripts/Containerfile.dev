@@ -28,7 +28,7 @@ RUN apt-get update \
     && echo '\
 {\n\
   "$schema": "https://opencode.ai/config.json",\n\
-  "lsp": false\n\
+  "lsp": false,\n\
   "provider": {\n\
     "openrouter": {\n\
       "models": {\n\

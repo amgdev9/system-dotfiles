@@ -7,7 +7,7 @@ import glob
 import subprocess
 
 packages = [
-    { "owner": "brave", "name": "brave-browser", "package-name": "brave-bin" },
+    { "owner": "brave", "name": "brave-browser", "package-name": "brave-origin-bin" },
 ]
 
 def get_latest_version(owner, repo):
