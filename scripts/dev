@@ -4,7 +4,7 @@ NAME="${NAMES[0]}"
 if [ -z "$NAME" ]; then
     NAME=$1
     if [ -z "$NAME" ]; then
-        echo "Usage: $0 <name> [permissions]"
+        echo "Usage: $0 <name>"
         echo "Error: No argument provided."
         exit 1
     fi
@@ -23,26 +23,17 @@ if [ "$EXISTS" != "0" ]; then
         podman build -t devenv -f $HOME/Scripts/Containerfile.dev $HOME/.podman
     fi
 
-    if [ -z "$2" ]; then
-        echo "You need to specify permissions comma separated: x11,pulseaudio,none"
-        exit 1
-    fi
-
     VOLUMES=""
     ARGS=""
 
     # Mount x11 socket 
     # TODO Mount wayland socket instead using security context v1
-    if [[ ",$2," == *",x11,"* ]]; then
-        echo "Using X11"
-        VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
-    fi
+    VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
 
     # Mount pulseaudio socket
-    if [[ ",$2," == *",pulseaudio,"* ]]; then
-        echo "Using pulseaudio"
-        VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
-    fi
+    # TODO Mount pipewire instead 
+    # Use pw-container -P '{"pipewire.sec.engine":"podman.devcontainer"}'
+    VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
 
     # Check nvidia gpu presence
     if command -v nvidia-smi &> /dev/null; then
