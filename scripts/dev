@@ -15,7 +15,14 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
-xhost +local:amg
+WAYLAND_PID=""
+if [[ "$EXISTS" != 0 || -z "$RUNNING" ]]; then
+    if [ ! -S "/run/user/$UID/wayland-sandbox" ]; then
+       wl-container /run/user/$UID/wayland-sandbox & 
+       echo "Started wayland sandbox"
+       WAYLAND_PID=$!
+    fi
+fi
 
 if [ "$EXISTS" != "0" ]; then
     if [ -z "$(podman images -q devenv)" ]; then
@@ -26,9 +33,8 @@ if [ "$EXISTS" != "0" ]; then
     VOLUMES=""
     ARGS=""
 
-    # Mount x11 socket 
-    # TODO Mount wayland socket instead using security context v1
-    VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
+    # Mount wayland socket
+    VOLUMES="$VOLUMES -v /run/user/$UID/wayland-sandbox:/run/user/$UID/wayland-sandbox"
 
     # Mount pulseaudio socket
     # TODO Mount pipewire instead 
@@ -46,18 +52,27 @@ if [ "$EXISTS" != "0" ]; then
         $ARGS \
         -P \
         --network dev-net \
-        -e DISPLAY=$DISPLAY \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
+        -e XDG_RUNTIME_DIR=/run/user/$UID \
+        -e WAYLAND_DISPLAY=wayland-sandbox \
         --device /dev/dri \
         --name "$NAME" devenv bash
 
     podman start -ai "$NAME"
+    if [[ -n "$WAYLAND_PID" ]]; then
+        kill -SIGINT $WAYLAND_PID
+        echo "Wayland sandbox shut down"
+    fi
     exit
 fi
 
 if [ -z "$RUNNING" ]; then
     echo Starting existing container...
     podman start -ai "$NAME"
+    if [[ -n "$WAYLAND_PID" ]]; then
+        kill -SIGINT $WAYLAND_PID
+        echo "Wayland sandbox shut down"
+    fi
     exit
 fi
 
