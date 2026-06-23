@@ -8,6 +8,7 @@ rm -rf /root/.config/nvim && cp -rf nvim /root/.config/nvim
 rm -rf $HOMEDIR/.config/waybar && cp -rf waybar $HOMEDIR/.config/waybar
 rm -rf $HOMEDIR/.config/tmux && cp -rf tmux $HOMEDIR/.config/tmux
 rm -rf $HOMEDIR/.config/wofi && cp -rf wofi $HOMEDIR/.config/wofi
+rm -rf $HOMEDIR/.config/wireplumber && cp -rf wireplumber $HOMEDIR/.config/wireplumber
 rm -rf $HOMEDIR/Scripts && mkdir -p $HOMEDIR/Scripts && cp -rf scripts/* $HOMEDIR/Scripts/
 
 cp -f home/.bashrc $HOMEDIR/.bashrc
