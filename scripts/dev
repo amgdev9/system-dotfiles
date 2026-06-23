@@ -15,6 +15,8 @@ podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
+printf "" | wl-copy && printf "" | wl-copy --primary
+
 WAYLAND_PID=""
 if [[ "$EXISTS" != 0 || -z "$RUNNING" ]]; then
     if [ ! -S "/run/user/$UID/wayland-sandbox" ]; then

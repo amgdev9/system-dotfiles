@@ -25,6 +25,7 @@ RUN apt-get update \
     && su - amgdev -c "git config --global user.email 'andresmargar98@proton.me'" \
     && su - amgdev -c "git config --global init.defaultBranch main" \
     && su - amgdev -c "git config --global credential.helper store" \
+    && su - amgdev -c "mkdir workspace" \
     && echo '\
 {\n\
   "$schema": "https://opencode.ai/config.json",\n\
