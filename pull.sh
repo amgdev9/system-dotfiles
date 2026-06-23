@@ -5,6 +5,7 @@ rm -rf nvim && cp -rf $HOMEDIR/.config/nvim .
 rm -rf waybar && cp -rf $HOMEDIR/.config/waybar .
 rm -rf tmux && cp -rf $HOMEDIR/.config/tmux .
 rm -rf wofi && cp -rf $HOMEDIR/.config/wofi .
+rm -rf wireplumber && cp -rf $HOMEDIR/.config/wireplumber .
 rm -rf scripts && cp -rf $HOMEDIR/Scripts ./scripts
 rm -rf root && mkdir root 
 rm -rf home && mkdir home
