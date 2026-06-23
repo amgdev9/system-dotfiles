@@ -34,7 +34,7 @@ if [ "$EXISTS" != "0" ]; then
     ARGS=""
 
     # Mount wayland socket
-    VOLUMES="$VOLUMES -v /run/user/$UID/wayland-sandbox:/run/user/$UID/wayland-sandbox"
+    VOLUMES="$VOLUMES -v /run/user/$UID/wayland-sandbox:/tmp/wayland-sandbox"
 
     # Mount pulseaudio socket
     # TODO Mount pipewire instead 
@@ -53,8 +53,9 @@ if [ "$EXISTS" != "0" ]; then
         -P \
         --network dev-net \
         -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
-        -e XDG_RUNTIME_DIR=/run/user/$UID \
+        -e XDG_RUNTIME_DIR=/tmp \
         -e WAYLAND_DISPLAY=wayland-sandbox \
+        --userns=keep-id \
         --device /dev/dri \
         --name "$NAME" devenv bash
 
