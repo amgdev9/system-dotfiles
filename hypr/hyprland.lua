@@ -109,17 +109,18 @@ hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(clearCmd))
 
 -- Fix file dialogs being too big
 hl.window_rule({
-    name = "maximize-blender",
+    name = "maximize-brave",
     match = {
-        class = "blender",
+        class = "brave-origin|brave|blender",
     },
     maximize = true,
 })
 
+-- Development windows go to workspace 2
 hl.window_rule({
-    name = "maximize-brave",
+    name = "dev-window",
     match = {
-        class = "brave-origin|brave",
+        class = "dev-window"
     },
-    maximize = true,
+    workspace = "2 silent",
 })
