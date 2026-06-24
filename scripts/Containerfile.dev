@@ -10,6 +10,7 @@ RUN apt-get update \
     && git clone https://github.com/amgdev9/devenv /home/amgdev/devenv \
     && cp -r /home/amgdev/devenv/nvim-code /home/amgdev/.config \
     && cp -r /home/amgdev/devenv/nvim-debugger /home/amgdev/.config \
+    && cp -r /home/amgdev/devenv/opencode /home/amgdev/.config \
     && cp -f /home/amgdev/devenv/.bashrc /home/amgdev/.bashrc \
     && cp -f /home/amgdev/devenv/.inputrc /home/amgdev/.inputrc \
     && mv /home/amgdev/devenv/devenvs /root \
@@ -23,21 +24,8 @@ RUN apt-get update \
         git config --global user.email 'andresmargar98@proton.me' && \
         git config --global init.defaultBranch main && \
         git config --global credential.helper store && \
-        mkdir workspace" \
-    && echo '\
-{\n\
-  "$schema": "https://opencode.ai/config.json",\n\
-  "lsp": false,\n\
-  "provider": {\n\
-    "openrouter": {\n\
-      "models": {\n\
-        "openrouter/free": {}\n\
-      }\n\
-    }\n\
-  }\n\
-}\
-' >> /home/amgdev/.config/opencode/opencode.json
-    
+        mkdir workspace"
+
 COPY windsurf.json /home/amgdev/.cache/nvim-code/codeium/config.json
 COPY .git-credentials /home/amgdev/.git-credentials
 COPY opencode-auth.json /home/amgdev/.local/share/opencode/auth.json
