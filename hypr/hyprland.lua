@@ -119,7 +119,7 @@ hl.window_rule({
 hl.window_rule({
     name = "maximize-brave",
     match = {
-        class = "brave-origin",
+        class = "brave-origin|brave",
     },
     maximize = true,
 })
