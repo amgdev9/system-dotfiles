@@ -4,19 +4,22 @@ NAME="${NAMES[0]}"
 if [ -z "$NAME" ]; then
     NAME=$1
     if [ -z "$NAME" ]; then
-        echo "Usage: $0 <name>"
+        echo "Usage: $0 <name> [--offline]"
         echo "Error: No argument provided."
         exit 1
     fi
 fi
+IS_OFFLINE=$2
 
 podman network exists dev-net || podman network create dev-net 
 podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
+# Clear clipboard
 printf "" | wl-copy && printf "" | wl-copy --primary
 
+# Create wayland sandboxed socket
 WAYLAND_PID=""
 if [[ "$EXISTS" != 0 || -z "$RUNNING" ]]; then
     if [ ! -S "/run/user/$UID/wayland-sandbox" ]; then
@@ -32,16 +35,15 @@ if [ "$EXISTS" != "0" ]; then
         podman build -t devenv -f $HOME/Scripts/Containerfile.dev $HOME/.podman
     fi
 
-    VOLUMES=""
     ARGS=""
 
     # Mount wayland socket
-    VOLUMES="$VOLUMES -v /run/user/$UID/wayland-sandbox:/tmp/wayland-sandbox"
+    ARGS="$ARGS -v /run/user/$UID/wayland-sandbox:/tmp/wayland-sandbox -e WAYLAND_DISPLAY=wayland-sandbox"
 
     # Mount pulseaudio socket
     # TODO Mount pipewire instead 
     # Use pw-container -P '{"pipewire.sec.engine":"podman.devcontainer"}'
-    VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
+    ARGS="$ARGS -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native -e PULSE_SERVER=unix:/run/user/$UID/pulse/native"
 
     # Check nvidia gpu presence
     if command -v nvidia-smi &> /dev/null; then
@@ -49,14 +51,16 @@ if [ "$EXISTS" != "0" ]; then
         ARGS="$ARGS --gpus all"
     fi
 
+    # Check internet access 
+    if [ -z "$IS_OFFLINE" ]; then
+        ARGS="$ARGS --network dev-net -P"
+    else
+        ARGS="$ARGS --network=none"
+    fi
+
     podman create -it \
-        $VOLUMES \
         $ARGS \
-        -P \
-        --network dev-net \
-        -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
         -e XDG_RUNTIME_DIR=/tmp \
-        -e WAYLAND_DISPLAY=wayland-sandbox \
         --userns=keep-id \
         --device /dev/dri \
         --name "$NAME" devenv bash

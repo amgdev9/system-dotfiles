@@ -1,4 +1,3 @@
-# Base system
 FROM debian:latest
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
@@ -6,10 +5,8 @@ RUN apt-get update \
     && mkdir -p /home/amgdev/.config \
     && apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
     && wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
-    && tar xzvf nvim-linux-x86_64.tar.gz \
-    && cp -rf ./nvim-linux-x86_64/* /usr/local/ \
-    && rm nvim-linux-x86_64.tar.gz \ 
-    && rm -rf ./nvim-linux-x86_64 \
+    && tar -xzvf nvim-linux-x86_64.tar.gz --strip-components=1 -C /usr/local \
+    && rm nvim-linux-x86_64.tar.gz \
     && git clone https://github.com/amgdev9/devenv /home/amgdev/devenv \
     && cp -r /home/amgdev/devenv/nvim-code /home/amgdev/.config \
     && cp -r /home/amgdev/devenv/nvim-debugger /home/amgdev/.config \
@@ -20,12 +17,13 @@ RUN apt-get update \
     && mkdir -p /home/amgdev/.local/share/opencode \
     && mkdir -p /home/amgdev/.config/opencode \
     && chown -R amgdev:amgdev /home/amgdev \
-    && su - amgdev -c "curl -fsSL https://opencode.ai/install | bash" \
-    && su - amgdev -c "git config --global user.name 'AMG'" \
-    && su - amgdev -c "git config --global user.email 'andresmargar98@proton.me'" \
-    && su - amgdev -c "git config --global init.defaultBranch main" \
-    && su - amgdev -c "git config --global credential.helper store" \
-    && su - amgdev -c "mkdir workspace" \
+    && su - amgdev -c "\
+        curl -fsSL https://opencode.ai/install | bash && \
+        git config --global user.name 'AMG' && \
+        git config --global user.email 'andresmargar98@proton.me' && \
+        git config --global init.defaultBranch main && \
+        git config --global credential.helper store && \
+        mkdir workspace" \
     && echo '\
 {\n\
   "$schema": "https://opencode.ai/config.json",\n\

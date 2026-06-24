@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-echo Building container image... 
-podman build -t "testenv" -f $HOME/Scripts/Containerfile.testenv $HOME/.podman
-podman run --rm -it "testenv"
