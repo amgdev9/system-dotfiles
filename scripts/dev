@@ -4,12 +4,15 @@ NAME="${NAMES[0]}"
 if [ -z "$NAME" ]; then
     NAME=$1
     if [ -z "$NAME" ]; then
-        echo "Usage: $0 <name> [--offline]"
+        echo "Usage: $0 <name> [--offline|--port PORT|--usb DEVICE_PATH]"
         echo "Error: No argument provided."
         exit 1
     fi
 fi
-IS_OFFLINE=$2
+
+[[ "$*" =~ "--offline" ]] && OFFLINE=true || OFFLINE=false
+PORT=$(echo "$*" | grep -oP '(?<=--port )\S+')
+DEVICE_PATH=$(echo "$*" | grep -oP '(?<=--usb )\S+')
 
 podman network exists dev-net || podman network create dev-net 
 podman container exists "$NAME"
@@ -52,10 +55,16 @@ if [ "$EXISTS" != "0" ]; then
     fi
 
     # Check internet access 
-    if [ -z "$IS_OFFLINE" ]; then
-        ARGS="$ARGS --network dev-net -P"
-    else
-        ARGS="$ARGS --network=none"
+    [[ "$OFFLINE" == true ]] && ARGS="$ARGS --network=none" || ARGS="$ARGS --network dev-net"
+    
+    # Check port mapping
+    if [[ -n $PORT ]]; then
+        ARGS="$ARGS -p $PORT:$PORT"
+    fi
+
+    # Check usb device mapping
+    if [[ -n $USB_DEVICE_ID ]]; then
+        ARGS="$ARGS --device $DEVICE_PATH:/dev/ttyUSB0"
     fi
 
     podman create -it \

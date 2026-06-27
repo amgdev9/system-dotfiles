@@ -13,4 +13,4 @@ NAME="${NAMES[0]}"
 container_id=$(podman ps --filter "name=$NAME" --format "{{.ID}}")
 host_port=$(podman port "$container_id" | awk -F '[: ]+' '{print $4}')
 
-brave "http://localhost:$host_port"
+brave-origin "http://localhost:$host_port"

@@ -3,6 +3,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && useradd -m -s /bin/bash amgdev \
     && mkdir -p /home/amgdev/.config \
+    && mkdir -p /home/amgdev/.bin \
     && apt-get install -y git curl gcc wget ripgrep tree-sitter-cli \
     && wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
     && tar -xzvf nvim-linux-x86_64.tar.gz --strip-components=1 -C /usr/local \
