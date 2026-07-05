@@ -4,13 +4,12 @@ NAME="${NAMES[0]}"
 if [ -z "$NAME" ]; then
     NAME=$1
     if [ -z "$NAME" ]; then
-        echo "Usage: $0 <name> [--offline|--port PORT|--usb DEVICE_PATH]"
+        echo "Usage: $0 <name> [--port PORT|--usb DEVICE_PATH]"
         echo "Error: No argument provided."
         exit 1
     fi
 fi
 
-[[ "$*" =~ "--offline" ]] && OFFLINE=true || OFFLINE=false
 PORT=$(echo "$*" | grep -oP '(?<=--port )\S+')
 DEVICE_PATH=$(echo "$*" | grep -oP '(?<=--usb )\S+')
 
@@ -55,7 +54,7 @@ if [ "$EXISTS" != "0" ]; then
     fi
 
     # Check internet access 
-    [[ "$OFFLINE" == true ]] && ARGS="$ARGS --network=none" || ARGS="$ARGS --network dev-net"
+    ARGS="$ARGS --network dev-net"
     
     # Check port mapping
     if [[ -n $PORT ]]; then
