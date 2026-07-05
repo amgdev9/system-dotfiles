@@ -31,7 +31,7 @@ useradd -m -G wheel -s /bin/bash amg
 passwd amg
 
 su amg -c "flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-su amg -c "flatpak remote-delete --system flathub"
+flatpak remote-delete --system flathub
 flatpak override --user --no-talk-name=org.freedesktop.ScreenSaver --no-talk-name=org.freedesktop.UDisks2
 flatpak override --user --nofilesystem=xdg-download
 flatpak override --user --no-talk-name=org.gtk.vfs
