@@ -2,7 +2,16 @@
 METERED_STATUS=$(nmcli -f METERED general status | tail -n +2 | sed 's/(.*)//' | tr -d '[:space:]')
 
 if [ "$METERED_STATUS" = "no" ]; then
-update
+    if [ "$(cat /etc/hostname)" = "amg-laptop" ]; then
+        if [ -d "$HOME/Storage" ]; then
+            echo "Syncing cloud storage to local..."
+            rclone sync dropbox: ~/Storage -P
+        else
+            echo "Syncing local to cloud storage..."
+            rclone sync ~/Storage dropbox: -P
+        fi
+    fi
+    update
 fi
 
 /usr/bin/poweroff
