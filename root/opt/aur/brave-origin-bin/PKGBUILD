@@ -1,7 +1,7 @@
 # Maintainer: brave <aur-release@brave.com>
 
 pkgname=brave-origin-bin
-pkgver=1.91.175
+pkgver=1.92.134
 pkgrel=2
 epoch=1
 pkgdesc='The minimalist browser from the makers of Brave (binary release).'

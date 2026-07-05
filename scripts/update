@@ -1,3 +1,6 @@
 sudo pacman -Syu
 flatpak update -y
 /opt/aur/sync.py
+if ! command -v wl-container &> /dev/null; then
+    (cd /opt/aur/wl-container && makepkg -si -r && rm -rf pkg src *.zst *.tar.gz)
+fi

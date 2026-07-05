@@ -1,9 +1,0 @@
-FROM debian:latest
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    useradd -m -s /bin/bash testenv && \
-    apt-get install -y libgtk-3-0 libgl1 libxxf86vm1 libx11-6 libxext6 libxrender1 libxrandr2 libxinerama1 libxcursor1 libxfixes3 libxi6
-
-# USE x11
-USER testenv
-CMD ["bash"]

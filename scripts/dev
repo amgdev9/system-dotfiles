@@ -4,36 +4,48 @@ NAME="${NAMES[0]}"
 if [ -z "$NAME" ]; then
     NAME=$1
     if [ -z "$NAME" ]; then
-        echo "Usage: $0 <name>"
+        echo "Usage: $0 <name> [--port PORT|--usb DEVICE_PATH]"
         echo "Error: No argument provided."
         exit 1
     fi
 fi
+
+PORT=$(echo "$*" | grep -oP '(?<=--port )\S+')
+DEVICE_PATH=$(echo "$*" | grep -oP '(?<=--usb )\S+')
 
 podman network exists dev-net || podman network create dev-net 
 podman container exists "$NAME"
 EXISTS=$?
 RUNNING=$(podman ps --filter "name=$NAME" --filter "status=running" -q)
 
-xhost +local:amg
+# Create wayland sandboxed socket
+WAYLAND_PID=""
+if [[ "$EXISTS" != 0 || -z "$RUNNING" ]]; then
+    if [ ! -S "/run/user/$UID/wayland-sandbox" ]; then
+       wl-container /run/user/$UID/wayland-sandbox & 
+       echo "Started wayland sandbox"
+       WAYLAND_PID=$!
+    fi
+fi
 
 if [ "$EXISTS" != "0" ]; then
+    # Clear clipboard
+    printf "" | wl-copy && printf "" | wl-copy --primary
+
     if [ -z "$(podman images -q devenv)" ]; then
         echo "Image not found, building now..."
         podman build -t devenv -f $HOME/Scripts/Containerfile.dev $HOME/.podman
     fi
 
-    VOLUMES=""
     ARGS=""
 
-    # Mount x11 socket 
-    # TODO Mount wayland socket instead using security context v1
-    VOLUMES="$VOLUMES -v /tmp/.X11-unix:/tmp/.X11-unix"
+    # Mount wayland socket
+    ARGS="$ARGS -v /run/user/$UID/wayland-sandbox:/tmp/wayland-sandbox -e WAYLAND_DISPLAY=wayland-sandbox"
 
     # Mount pulseaudio socket
     # TODO Mount pipewire instead 
     # Use pw-container -P '{"pipewire.sec.engine":"podman.devcontainer"}'
-    VOLUMES="$VOLUMES -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native"
+    ARGS="$ARGS -v /run/user/$UID/pulse/native:/run/user/$UID/pulse/native -e PULSE_SERVER=unix:/run/user/$UID/pulse/native"
 
     # Check nvidia gpu presence
     if command -v nvidia-smi &> /dev/null; then
@@ -41,23 +53,44 @@ if [ "$EXISTS" != "0" ]; then
         ARGS="$ARGS --gpus all"
     fi
 
+    # Check internet access 
+    ARGS="$ARGS --network dev-net"
+    
+    # Check port mapping
+    if [[ -n $PORT ]]; then
+        ARGS="$ARGS -p $PORT:$PORT"
+    fi
+
+    # Check usb device mapping
+    if [[ -n $USB_DEVICE_ID ]]; then
+        ARGS="$ARGS --device $DEVICE_PATH:/dev/ttyUSB0"
+    fi
+
     podman create -it \
-        $VOLUMES \
         $ARGS \
-        -P \
-        --network dev-net \
-        -e DISPLAY=$DISPLAY \
-        -e PULSE_SERVER=unix:/run/user/$UID/pulse/native \
+        -e XDG_RUNTIME_DIR=/tmp \
+        --userns=keep-id \
         --device /dev/dri \
         --name "$NAME" devenv bash
 
     podman start -ai "$NAME"
+    if [[ -n "$WAYLAND_PID" ]]; then
+        kill -SIGINT $WAYLAND_PID
+        echo "Wayland sandbox shut down"
+    fi
     exit
 fi
 
 if [ -z "$RUNNING" ]; then
+    # Clear clipboard
+    printf "" | wl-copy && printf "" | wl-copy --primary
+
     echo Starting existing container...
     podman start -ai "$NAME"
+    if [[ -n "$WAYLAND_PID" ]]; then
+        kill -SIGINT $WAYLAND_PID
+        echo "Wayland sandbox shut down"
+    fi
     exit
 fi
 
