@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+import sys
+import subprocess
+import datetime
+import os
+
+LOCAL_STORAGE = os.path.expanduser("~/Storage")
+LOCAL_TIMESTAMP_FILE = os.path.expanduser("~/Storage/.last-update")
+REMOTE_TIMESTAMP_PATH = "dropbox:.last-update"
+REMOTE_TARGET = "dropbox:"
+
+def get_local_timestamp():
+    if os.path.exists(LOCAL_TIMESTAMP_FILE):
+        with open(LOCAL_TIMESTAMP_FILE, "r") as f:
+            return f.read().strip()
+    return ""
+
+def get_remote_timestamp():
+    try:
+        result = subprocess.run(
+            ["rclone", "cat", REMOTE_TIMESTAMP_PATH],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        return ""
+
+def update_local_timestamp(timestamp):
+    os.makedirs(LOCAL_STORAGE, exist_ok=True)
+    with open(LOCAL_TIMESTAMP_FILE, "w") as f:
+        f.write(timestamp)
+
+def update_remote_timestamp(timestamp):
+    try:
+        subprocess.run(
+            ["rclone", "rcat", REMOTE_TIMESTAMP_PATH],
+            input=timestamp,
+            text=True,
+            check=True
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"Error updating remote timestamp: {e}")
+        sys.exit(1)
+
+def do_push():
+    print("Checking timestamps before pushing...")
+    local_ts = get_local_timestamp()
+    remote_ts = get_remote_timestamp()
+
+    if remote_ts and local_ts != remote_ts:
+        print("⚠️ Warning: Remote changes detected! Please run 'pull' first.")
+        sys.exit(1)
+
+    current_ts = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+    print("Timestamps match or remote is empty. Proceeding with sync...")
+    
+    try:
+        subprocess.run(["rclone", "sync", LOCAL_STORAGE, REMOTE_TARGET, "-P"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Sync failed: {e}")
+        sys.exit(1)
+
+    print("Updating sync timestamps...")
+    update_local_timestamp(current_ts)
+    update_remote_timestamp(current_ts)
+    print("✨ Push completed successfully.")
+
+def do_pull():
+    print("Pulling changes from cloud safely...")
+    
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_dir = os.path.expanduser(f"~/Storage_backups/backup_{timestamp}")
+    
+    try:
+        subprocess.run([
+            "rclone", "sync", REMOTE_TARGET, LOCAL_STORAGE, 
+            "--backup-dir", backup_dir, "-P"
+        ], check=True)
+        
+        if os.path.exists(backup_dir) and os.listdir(backup_dir):
+            print(f"⚠️ Local changes were protected! Displaced files saved to: {backup_dir}")
+            
+    except subprocess.CalledProcessError as e:
+        print(f"Pull failed: {e}")
+        sys.exit(1)
+
+    remote_ts = get_remote_timestamp()
+    if remote_ts:
+        update_local_timestamp(remote_ts)
+    print("✨ Pull completed successfully.")
+ 
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python cloud.py [push|pull]")
+        sys.exit(1)
+
+    operation = sys.argv[1].lower()
+
+    if operation == "push":
+        do_push()
+    elif operation == "pull":
+        do_pull()
+    else:
+        print(f"Unknown operation: {operation}")
+        print("Usage: python cloud.py [push|pull]")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
