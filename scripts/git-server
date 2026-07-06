@@ -13,11 +13,10 @@ fi
 if [ "$EXISTS" != "0" ]; then
     if [ -z "$(podman images -q gitserver)" ]; then
         echo "Image not found, building now..."
-        podman build -t gitserver -f $HOME/Scripts/Containerfile.git $HOME/.podman
+        curl -s https://raw.githubusercontent.com/amgdev9/personal-git-server/refs/heads/main/Containerfile | podman build -t gitserver -f - $HOME/.podman
     fi
 
     podman create \
-        -v $HOME/.config/rclone:/home/amgdev/.config/rclone \
         --userns=keep-id \
         --network dev-net \
         --name "gitserver" gitserver

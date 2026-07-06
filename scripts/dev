@@ -34,7 +34,7 @@ if [ "$EXISTS" != "0" ]; then
 
     if [ -z "$(podman images -q devenv)" ]; then
         echo "Image not found, building now..."
-        podman build -t devenv -f $HOME/Scripts/Containerfile.dev $HOME/.podman
+        curl -s https://raw.githubusercontent.com/amgdev9/devenv/refs/heads/main/Containerfile | podman build -t devenv -f - $HOME/.podman
     fi
 
     ARGS=""
