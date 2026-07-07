@@ -4,7 +4,7 @@ NAME="${NAMES[0]}"
 if [ -z "$NAME" ]; then
     NAME=$1
     if [ -z "$NAME" ]; then
-        echo "Usage: $0 <name> [--port PORT|--usb DEVICE_PATH]"
+        echo "Usage: $0 <name> [--port PORT|--usb DEVICE_PATH|--lfs REPO_NAME]"
         echo "Error: No argument provided."
         exit 1
     fi
@@ -12,6 +12,7 @@ fi
 
 PORT=$(echo "$*" | grep -oP '(?<=--port )\S+')
 DEVICE_PATH=$(echo "$*" | grep -oP '(?<=--usb )\S+')
+REPO_NAME=$(echo "$*" | grep -oP '(?<=--lfs )\S+')
 
 podman network exists dev-net || podman network create dev-net 
 podman container exists "$NAME"
@@ -64,6 +65,18 @@ if [ "$EXISTS" != "0" ]; then
     # Check usb device mapping
     if [[ -n $USB_DEVICE_ID ]]; then
         ARGS="$ARGS --device $DEVICE_PATH:/dev/ttyUSB0"
+    fi
+
+    # Check git lfs mapping
+    if [[ -n $REPO_NAME ]]; then
+        LFS_PATH="$HOME/Storage/GitRepos/$REPO_NAME/lfs"
+        if [ ! -d "$LFS_PATH" ]; then
+            mkdir -p "$LFS_PATH"
+            git init --bare "$LFS_PATH"
+            rm -rf "$LFS_PATH/hooks"
+            echo "Created git lfs store in $LFS_PATH"
+        fi
+        ARGS="$ARGS -v $LFS_PATH:/home/amgdev/lfs"
     fi
 
     podman create -it \
