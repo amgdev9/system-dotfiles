@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+
+REPO_NAME=${1:?"Error: Repository name is missing"}
+mapfile -t NAMES < <(podman ps --format "{{.Names}}")
+CONTAINER_NAME="${NAMES[0]}"
+if [ -z "$CONTAINER_NAME" ]; then
+    echo "No container running"
+    exit 1
+fi
+
+BUNDLE_PATH="$HOME/Storage/GitRepos/$REPO_NAME/repo.bundle"
+
+if [ ! -f "$BUNDLE_PATH" ]; then
+    echo "Creating new repo $REPO_NAME..."
+    REPO_PATH="$HOME/Storage/GitRepos/$REPO_NAME/repo.git"
+    TMP="/tmp/git_$$"
+
+    git init --bare "$REPO_PATH"
+    
+    mkdir -p "$TMP" && cd "$TMP"
+    git init -b main && touch README.md && git add README.md && git commit -m "init"
+    git push "$REPO_PATH" main
+    cd - && rm -rf "$TMP"
+
+    git -C "$REPO_PATH" bundle create "$BUNDLE_PATH" --all
+    rm -rf "$REPO_PATH"
+fi
+
+podman cp $BUNDLE_PATH $CONTAINER_NAME:/home/amgdev/_repo.bundle
+podman exec -i $CONTAINER_NAME bash << EOF
+    rm -rf /home/amgdev/_repo.git
+    git clone --bare /home/amgdev/_repo.bundle /home/amgdev/_repo.git
+    rm /home/amgdev/_repo.bundle
+    git -C /home/amgdev/workspace/$REPO_NAME remote remove origin
+    git -C /home/amgdev/workspace/$REPO_NAME remote add origin /home/amgdev/_repo.git
+    if [ -d "/home/amgdev/lfs" ]; then
+        git -C /home/amgdev/workspace/$REPO_NAME config lfs.url "file:///home/amgdev/lfs"
+    fi
+    git -C /home/amgdev/workspace/$REPO_NAME pull origin main
+    git -C /home/amgdev/workspace/$REPO_NAME push origin main
+    git -C /home/amgdev/_repo.git bundle create /home/amgdev/_repo.bundle --all
+EOF
+podman cp $CONTAINER_NAME:/home/amgdev/_repo.bundle $BUNDLE_PATH
+podman exec -i $CONTAINER_NAME bash << EOF
+    rm -rf /home/amgdev/_repo.bundle
+    rm /home/amgdev/_repo.bundle
+EOF
+cloud push
