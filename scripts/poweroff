@@ -2,7 +2,7 @@
 METERED_STATUS=$(nmcli -f METERED general status | tail -n +2 | sed 's/(.*)//' | tr -d '[:space:]')
 
 if [ "$METERED_STATUS" = "no" ]; then
-update
+    update
 fi
 
 /usr/bin/poweroff
