@@ -120,7 +120,7 @@ hl.window_rule({
 hl.window_rule({
     name = "dev-window",
     match = {
-        class = "dev-window"
+        class = "dev-window|org.godotengine.*"
     },
     workspace = "2 silent",
 })
