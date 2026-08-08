@@ -1,3 +1,7 @@
+#!/bin/bash
+set -e
+trap 'echo -e "\nScript cancelled by user."; exit 1' INT
+
 sudo pacman -Syu
 flatpak update -y
 /opt/aur/sync.py

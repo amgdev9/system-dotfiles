@@ -56,27 +56,30 @@ def update_pkgbuild_version(path, new_version):
     with open(path, 'w') as f:
         f.writelines(lines)
 
-print("Updating AUR packages...")
+try:
+    print("Updating AUR packages...")
 
-for pkg in packages:
-    owner = pkg["owner"]
-    name = pkg["name"]
-    package_name = pkg["package-name"]
-    max_version = pkg.get("max_version", None)
+    for pkg in packages:
+        owner = pkg["owner"]
+        name = pkg["name"]
+        package_name = pkg["package-name"]
+        max_version = pkg.get("max_version", None)
 
-    latest_version = get_latest_version(owner, name)
-    current_version = get_pkgbuild_version(f"/opt/aur/{package_name}/PKGBUILD")
-    if compare_semver(latest_version, current_version) == 0:
-        print(f"Package {package_name} is up to date, skipping")
-        continue
+        latest_version = get_latest_version(owner, name)
+        current_version = get_pkgbuild_version(f"/opt/aur/{package_name}/PKGBUILD")
+        if compare_semver(latest_version, current_version) == 0:
+            print(f"Package {package_name} is up to date, skipping")
+            continue
 
-    print(f"Updating {package_name}: {current_version} -> {latest_version}")
+        print(f"Updating {package_name}: {current_version} -> {latest_version}")
 
-    update_pkgbuild_version(f"/opt/aur/{package_name}/PKGBUILD", latest_version)
+        update_pkgbuild_version(f"/opt/aur/{package_name}/PKGBUILD", latest_version)
 
-    pkg_dir = f"/opt/aur/{package_name}"
-    os.chdir(pkg_dir)
-    subprocess.run(["makepkg", "-si"]) 
-    subprocess.run(f'rm -rf {pkg_dir}/*.zip {pkg_dir}/*.zst {pkg_dir}/pkg {pkg_dir}/src', shell=True)
+        pkg_dir = f"/opt/aur/{package_name}"
+        os.chdir(pkg_dir)
+        subprocess.run(["makepkg", "-si"]) 
+        subprocess.run(f'rm -rf {pkg_dir}/*.zip {pkg_dir}/*.zst {pkg_dir}/pkg {pkg_dir}/src', shell=True)
 
-print("AUR packages updated!")
+    print("AUR packages updated!")
+except KeyboardInterrupt:
+    sys.exit(130)
