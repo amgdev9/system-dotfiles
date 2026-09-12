@@ -38,7 +38,7 @@ if [ "$EXISTS" != "0" ]; then
         curl -s https://raw.githubusercontent.com/amgdev9/devenv/refs/heads/main/Containerfile | podman build -t devenv -f - $HOME/.podman
     fi
 
-    ARGS=""
+    ARGS="--network dev-net"
 
     # Mount wayland socket
     ARGS="$ARGS -v /run/user/$UID/wayland-sandbox:/tmp/wayland-sandbox -e WAYLAND_DISPLAY=wayland-sandbox"
@@ -54,9 +54,6 @@ if [ "$EXISTS" != "0" ]; then
         ARGS="$ARGS --gpus all"
     fi
 
-    # Check internet access 
-    ARGS="$ARGS --network dev-net"
-    
     # Check port mapping
     if [[ -n $PORT ]]; then
         ARGS="$ARGS -p $PORT:$PORT"

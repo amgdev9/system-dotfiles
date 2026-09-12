@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# === CONFIGURATION ZONE ===
+SERVER_IP="192.168.1.100"
+SERVER_PORT="25565"
+PROTOCOL="tcp"
+VPN_IFACE="ham0"
+# ==========================
+
+enable_ip_forwarding() {
+    sysctl -w net.ipv4.ip_forward=1 > /dev/null
+}
+
+clear_rules() {
+    iptables -t nat -F PREROUTING
+    iptables -t nat -F POSTROUTING
+}
+
+show_status() {
+    echo -e "\n=== Active NAT Forwarding Rules ==="
+    iptables -t nat -L -n -v
+}
+
+case "$1" in
+    1)
+        clear_rules
+        enable_ip_forwarding
+        echo "🌐 Option 1: Local Network -> VPN Server (Server is hosted INSIDE the VPN at $SERVER_IP)"
+        
+        iptables -t nat -A PREROUTING -p $PROTOCOL --dport $SERVER_PORT -j DNAT --to-destination $SERVER_IP:$SERVER_PORT
+        iptables -t nat -A POSTROUTING -p $PROTOCOL -d $SERVER_IP --dport $SERVER_PORT -j MASQUERADE
+        
+        show_status
+        ;;
+    2)
+        clear_rules
+        enable_ip_forwarding
+        echo "🔒 Option 2: VPN ($VPN_IFACE) -> Local PC (Server is hosted on your LOCAL PC at $SERVER_IP)"
+        
+        iptables -t nat -A PREROUTING -i $VPN_IFACE -p $PROTOCOL --dport $SERVER_PORT -j DNAT --to-destination $SERVER_IP:$SERVER_PORT
+        iptables -t nat -A POSTROUTING -p $PROTOCOL -d $SERVER_IP --dport $SERVER_PORT -j MASQUERADE
+        
+        show_status
+        ;;
+    clean)
+        clear_rules
+        echo "✅ Rules cleared."
+        ;;
+    *)
+        echo "Usage: $0 {1|2|clean}"
+        exit 1
+        ;;
+esac
