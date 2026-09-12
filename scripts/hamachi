@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+image="hamachi"
+containerfile="Containerfile"
+
+if ! podman image exists "$image"; then
+    cat > "$containerfile" <<'EOF'
+FROM debian:latest
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates curl tar \
+    && useradd --create-home --shell /bin/bash hamachi \
+    && curl -fsSL https://vpn.net/installers/logmein-hamachi-2.1.0.203-x64.tgz \
+       | tar -xz -C /home/hamachi \
+    && chown -R hamachi:hamachi /home/hamachi \
+    && rm -rf /var/lib/apt/lists/*
+
+USER hamachi 
+WORKDIR /home/hamachi
+
+CMD ["bash"]
+EOF
+
+    podman build -t "$image" .
+    rm -f "$containerfile"
+fi
+
+exec podman run --rm -it --cap-add=NET_ADMIN "$image"
