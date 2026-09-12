@@ -111,16 +111,25 @@ hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(clearCmd))
 hl.window_rule({
     name = "maximize-brave",
     match = {
-        class = "brave-origin|brave|blender",
+        class = "brave-origin|brave|blender"
     },
     maximize = true,
 })
+
+hl.window_rule({
+    name = "float-bw",
+    match = {
+        class = "brave-.*-Default"
+    },
+    float = true,
+})
+
 
 -- Development windows go to workspace 2
 hl.window_rule({
     name = "dev-window",
     match = {
-        class = "dev-window|org.godotengine.*"
+        class = "dev-window"
     },
     workspace = "2 silent",
 })
