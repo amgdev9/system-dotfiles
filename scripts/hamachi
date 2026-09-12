@@ -2,6 +2,7 @@
 set -euo pipefail
 
 image="hamachi"
+container="hamachi"
 containerfile="Containerfile"
 
 if ! podman image exists "$image"; then
@@ -9,21 +10,38 @@ if ! podman image exists "$image"; then
 FROM debian:latest
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates curl tar \
-    && useradd --create-home --shell /bin/bash hamachi \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates curl tar socat iproute2 \
+    && mkdir /etc/init.d \
     && curl -fsSL https://vpn.net/installers/logmein-hamachi-2.1.0.203-x64.tgz \
-       | tar -xz -C /home/hamachi \
-    && chown -R hamachi:hamachi /home/hamachi \
+       | tar -xz -C /root \
     && rm -rf /var/lib/apt/lists/*
-
-USER hamachi 
-WORKDIR /home/hamachi
-
-CMD ["bash"]
 EOF
 
     podman build -t "$image" .
     rm -f "$containerfile"
 fi
 
-exec podman run --rm -it --cap-add=NET_ADMIN "$image"
+if podman container exists "$container"; then
+    exec podman start -ai "$container"
+fi
+
+ports="${1:?Usage: $0 <port>[,<port>...]}"
+port_args=()
+
+IFS=',' read -ra port_list <<< "$ports"
+
+for port in "${port_list[@]}"; do
+    port_args+=("-p" "$port:$port")
+done
+
+echo "**************************"
+echo "Use ./install.sh script to install hamachi, then run hamachi login"
+echo "Use socat command to proxy the game server to the host if needed"
+echo "**************************"
+
+exec podman run -it \
+    --name "$container" \
+    --cap-add=NET_ADMIN \
+    --device=/dev/net/tun \
+    "${port_args[@]}" \
+    "$image"
