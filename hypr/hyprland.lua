@@ -5,20 +5,21 @@ hl.monitor({
     scale    = "auto",
 })
 
-hl.on("hyprland.start", function () 
-   hl.exec_cmd("waybar")
-   hl.exec_cmd("hypridle")
-   hl.exec_cmd("swaybg -i /home/amg/.config/hypr/wallpaper.jpg -m fill")
-end)
-
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XCURSOR_THEME", "Adwaita")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_THEME", "Adwaita")
-hl.env("HYPRCURSOR_SIZEb", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GTK_THEME", "Adwaita:dark")
+
+hl.on("hyprland.start", function () 
+   hl.exec_cmd("waybar")
+   hl.exec_cmd("hypridle")
+   hl.exec_cmd("swaybg -i /home/amg/.config/hypr/wallpaper.jpg -m fill")
+   hl.exec_cmd("systemctl --user import-environment GTK_THEME")
+end)
 
 hl.config({
     general = {
